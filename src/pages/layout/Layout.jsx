@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../components/header/Header'
 import Feed from '../feed/Feed'
 import Footer from '../../components/footer/Footer'
+import "./layout.scss"
 
 const Layout = () => {
 
@@ -21,14 +22,14 @@ const Layout = () => {
   const handleDesktopMenu = () => {
     const windowWidth = window.innerWidth;
 
-    if (windowWidth > 600) {
+    if (windowWidth > 650) {
       setDesktopMenu(true)
     } else {
       setDesktopMenu(false)
     }
   }
   return (
-    <main>
+    <main className='layout'>
       {
         desktopMenu && (
           <Header />
