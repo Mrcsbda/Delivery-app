@@ -1,0 +1,37 @@
+@import "../../assets/styles/variables.scss";
+
+.restaurant {
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+
+    &__image-container {
+        width: 134px;
+        display: flex;
+    }
+
+    &__image {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    &__info-container {
+        padding: 0.5rem 1rem;
+        position: relative;
+        padding-top: 0;
+    }
+
+
+
+    &__title {
+        font-size: 14px;
+        color: $dark-color;
+        font-weight: 400;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 1rem;
+    }
+}

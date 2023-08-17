@@ -6,6 +6,7 @@ export class Restaurant {
     description;
     logo;
     rating;
+    deliveryPrice;
     schedule;
     createdAt;
     updatedAt;
