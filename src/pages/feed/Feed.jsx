@@ -1,6 +1,8 @@
 import React from 'react'
 import "./feed.scss"
 import BannerCarrousel from '../../components/bannerCarrousel/BannerCarrousel'
+import CategoriesCarrousel from '../../components/categoriesCarrousel/CategoriesCarrousel'
+
 
 const Feed = () => {
   return (
@@ -16,6 +18,8 @@ const Feed = () => {
         </div>
       </section>
       <BannerCarrousel/>
+      <p className='feed__subtitle'>Restaurants and cafes</p>
+      <CategoriesCarrousel/>
     </article>
   )
 }

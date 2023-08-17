@@ -1,0 +1,27 @@
+@import "../../assets/styles/variables.scss";
+
+.category {
+    &__container {
+        background-color: $light-gray;
+        border-radius: 5px;
+        width: 100%;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    &__name {
+        color: $font-buttons-category-color;
+        font-size: 13px;
+    }
+
+    &__icon {
+        width: 1rem;
+    }
+
+    &__selected {
+        background-color: $main-color;
+    }
+}

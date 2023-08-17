@@ -26,7 +26,7 @@
         display: flex;
     }
 
-    &__address-text {
+    &__address-text,  &__subtitle {
         font-size: 14px;
         color: $dark-color;
     }
@@ -34,5 +34,9 @@
     &__arrow-icon {
         width: 1rem;
         filter: invert(26%) sepia(20%) saturate(13%) hue-rotate(47deg) brightness(87%) contrast(91%);
+    }
+
+    &__subtitle {
+        font-weight: 300;
     }
 }
