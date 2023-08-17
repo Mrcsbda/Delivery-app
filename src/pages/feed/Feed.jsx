@@ -1,5 +1,6 @@
 import React from 'react'
 import "./feed.scss"
+import BannerCarrousel from '../../components/bannerCarrousel/BannerCarrousel'
 
 const Feed = () => {
   return (
@@ -14,6 +15,7 @@ const Feed = () => {
           </div>
         </div>
       </section>
+      <BannerCarrousel/>
     </article>
   )
 }
