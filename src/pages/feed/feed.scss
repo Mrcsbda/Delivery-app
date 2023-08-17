@@ -1,0 +1,38 @@
+@import "../../assets/styles/variables.scss";
+
+.feed {
+    padding: 1rem;
+
+    &__location-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    &__location-icon {
+        width: 2rem;
+        height: 2rem;
+        filter: invert(85%) sepia(93%) saturate(2510%) hue-rotate(327deg) brightness(103%) contrast(103%);
+    }
+
+    &__address-title {
+        font-size: 11px;
+        color: $main-color;
+        margin-bottom: 2px;
+    }
+
+    &__address {
+        display: flex;
+    }
+
+    &__address-text {
+        font-size: 14px;
+        color: $dark-color;
+    }
+
+    &__arrow-icon {
+        width: 1rem;
+        filter: invert(26%) sepia(20%) saturate(13%) hue-rotate(47deg) brightness(87%) contrast(91%);
+    }
+}
