@@ -3,25 +3,38 @@
 .restaurant {
     display: flex;
     border-radius: 10px;
+    gap: 0.6rem;
     overflow: hidden;
+    background-color: white;
+    width: 100%;
 
     &__image-container {
-        width: 134px;
+        width: 130px;
         display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
     }
 
     &__image {
-        width: 100%;
-        border-radius: 10px;
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 10px 10px 10px 10px;
+    }
+
+    &__rectangle {
+        position: absolute;
+        height: 100%;
+        right: -1px;
+        bottom: -1px;
     }
 
     &__info-container {
-        padding: 0.5rem 1rem;
-        position: relative;
+        padding: 0.5rem;
         padding-top: 0;
     }
-
-
 
     &__title {
         font-size: 14px;
@@ -34,4 +47,40 @@
         text-overflow: ellipsis;
         margin-top: 1rem;
     }
+
+    &__rate {
+        margin-bottom: 10px;
+        margin-right: 0.3px;
+    }
+    &__rate-icon {
+        height: 12px;
+    }
+
+    &__star-full {
+        filter: invert(97%) sepia(56%) saturate(3404%) hue-rotate(326deg) brightness(105%) contrast(103%);
+    }
+
+    &__star-empty {
+        filter: invert(73%) sepia(13%) saturate(10%) hue-rotate(24deg) brightness(90%) contrast(91%);
+    }
+
+    &__schedule {
+        font-weight: 300;
+        font-size: 14px;
+        letter-spacing: -0.3px;
+        color: $dark-color;
+        margin-bottom: 4px;
+    }
+
+    &__delivery-price {
+        font-weight: 300;
+        font-size: 11px;
+        color: $gray-color;
+        letter-spacing: -0.3px;
+        span {
+            color: $dark-color;
+        }
+    }
 }
+
+
