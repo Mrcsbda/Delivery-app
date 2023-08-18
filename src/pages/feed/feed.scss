@@ -60,6 +60,7 @@
 
 @media screen and (min-width: 1100px) {
     .feed {
+        padding: 0.5rem 2rem 2rem;
         &__restaurants-container {
             grid-template-columns: repeat(3, 350px);
             justify-content: center;

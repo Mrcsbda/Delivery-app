@@ -1,11 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./feed.scss"
 import BannerCarrousel from '../../components/bannerCarrousel/BannerCarrousel'
 import CategoriesCarrousel from '../../components/categoriesCarrousel/CategoriesCarrousel'
 import RestaurantCard from '../../components/restaurantCard/RestaurantCard'
+import AddressComponent from '../../components/addressComponent/addressComponent'
 
 
 const Feed = () => {
+
+  const [desktopMenu, setDesktopMenu] = useState(false)
+
+  useEffect(() => {
+    handleDesktopMenu()
+
+    window.addEventListener('resize', handleDesktopMenu);
+
+    return () => {
+      window.removeEventListener('resize', handleDesktopMenu);
+    };
+
+  }, [])
+
+  const handleDesktopMenu = () => {
+    const windowWidth = window.innerWidth;
+
+    if (windowWidth > 650) {
+      setDesktopMenu(true)
+    } else {
+      setDesktopMenu(false)
+    }
+  }
+
   const restaurants = [
     {
       image: "https://images.rappi.com/products/55f74661-37c4-4455-bd23-5a725b055d48-1682190461465.png",
@@ -52,16 +77,12 @@ const Feed = () => {
   ]
   return (
     <article className='feed'>
-      <section className='feed__location-container'>
-        <img src="/images/location.svg" alt="location icon" className='feed__location-icon' />
-        <div className='feed__address-container'>
-          <p className='feed__address-title'>DELIVER TO</p>
-          <div className='feed__address'>
-            <p className='feed__address-text'>882 Well St, New-York</p>
-            <img src="/images/arrow-down.svg" alt="arrow icon" className='feed__arrow-icon' />
-          </div>
-        </div>
-      </section>
+      {
+        !desktopMenu && (
+          <AddressComponent/>
+        )
+      }
+
       <BannerCarrousel />
       <p className='feed__subtitle'>Restaurants and cafes</p>
       <CategoriesCarrousel />
