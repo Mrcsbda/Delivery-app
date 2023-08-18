@@ -10,6 +10,7 @@
         justify-content: center;
         align-items: center;
         gap: 0.4rem;
+        cursor: pointer;
     }
 
     &__name {
@@ -23,5 +24,13 @@
 
     &__selected {
         background-color: $main-color;
+    }
+}
+
+@media screen and (min-width: 1100px) {
+    .category {
+        &__container:hover {
+            background-color: $main-color;
+        }
     }
 }

@@ -52,6 +52,14 @@ const CategoriesCarrousel = () => {
                         slidesPerView: 6,
                         spaceBetween: 10,
                     },
+                    1440: {
+                        slidesPerView: 8,
+                        spaceBetween: 20,
+                    },
+                    2000: {
+                        slidesPerView: 10,
+                        spaceBetween: 20,
+                    },
                 }}
                 modules={[Pagination]}
                 className="mySwiper"

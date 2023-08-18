@@ -60,11 +60,10 @@
 
 @media screen and (min-width: 1100px) {
     .feed {
-
         &__restaurants-container {
             grid-template-columns: repeat(3, 350px);
             justify-content: center;
-            gap: 1rem;
+            gap: 1.4rem;
         }
     }
 }
@@ -74,8 +73,6 @@
 
         &__restaurants-container {
             grid-template-columns: repeat(4, 350px);
-            justify-content: center;
-            gap: 1rem;
         }
     }
 }

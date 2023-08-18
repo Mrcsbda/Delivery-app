@@ -41,6 +41,10 @@
 @media screen and (min-width: 1100px) {
     .slide-container {
         height: 120px;
-
+        cursor: pointer;
+        img:hover {
+            transform: scale(1.05);
+        }
     }
+
 }
