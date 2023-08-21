@@ -3,6 +3,7 @@ import Header from '../../components/header/Header'
 import Feed from '../feed/Feed'
 import Footer from '../../components/footer/Footer'
 import "./layout.scss"
+import Profile from '../profile/Profile'
 
 const Layout = () => {
 
@@ -35,7 +36,8 @@ const Layout = () => {
           <Header />
         )
       }
-      <Feed />
+      {/* <Feed /> */}
+      <Profile/>
       {
         !desktopMenu && (
           <Footer />
