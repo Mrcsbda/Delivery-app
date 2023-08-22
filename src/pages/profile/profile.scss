@@ -110,3 +110,11 @@
     }
   }
 }
+
+@media screen and (min-width: 1440px) {
+  .profile {
+    &__settings-container {
+      width: 500px;
+    }
+  }
+}
