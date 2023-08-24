@@ -4,11 +4,11 @@ import BannerCarrousel from '../../components/bannerCarrousel/BannerCarrousel'
 import CategoriesCarrousel from '../../components/categoriesCarrousel/CategoriesCarrousel'
 import RestaurantCard from '../../components/restaurantCard/RestaurantCard'
 import AddressComponent from '../../components/addressComponent/AddressComponent'
+import { firebaseDB } from '../../firebaseConfig'
 
 
 
 const Feed = () => {
-
   const [desktopMenu, setDesktopMenu] = useState(false)
 
   useEffect(() => {
