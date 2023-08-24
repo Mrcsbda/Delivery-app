@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import "./feed.scss"
 import BannerCarrousel from '../../components/bannerCarrousel/BannerCarrousel'
 import CategoriesCarrousel from '../../components/categoriesCarrousel/CategoriesCarrousel'
 import RestaurantCard from '../../components/restaurantCard/RestaurantCard'
-import AddressComponent from '../../components/addressComponent/addressComponent'
+import AddressComponent from '../../components/addressComponent/AddressComponent'
+
 
 
 const Feed = () => {

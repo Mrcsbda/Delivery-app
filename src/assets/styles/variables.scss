@@ -7,3 +7,15 @@ $light-gray: #F2F2F2;
 $complementary-color: #CCCCCC;
 $font-buttons-category-color: #6C6C6C;
 $font-roboto: 'Roboto', sans-serif;
+
+
+@mixin tablet {
+    @media (min-width: 725px) {
+      @content;
+    }
+  }
+  @mixin desktop {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }

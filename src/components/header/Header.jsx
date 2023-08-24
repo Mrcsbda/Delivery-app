@@ -1,6 +1,7 @@
 import React from 'react'
 import "./header.scss";
-import AddressComponent from '../addressComponent/addressComponent';
+import AddressComponent from '../addressComponent/AddressComponent';
+
 
 const Header = () => {
   return (
