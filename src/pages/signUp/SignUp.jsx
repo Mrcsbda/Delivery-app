@@ -1,7 +1,7 @@
 import "./main.scss"
 
 
-const SignIn = () => {
+const SignUp = () => {
   return (
     <form className="signin">
         <h1 className="signin__title">Create account</h1>
@@ -11,9 +11,9 @@ const SignIn = () => {
         <input type="text" placeholder="example@gmail.com" className="signin__input"/>
         <span className="signin__label">password</span>
         <input type="password"  className="signin__input" placeholder="*****"/>
-        <button type="submit" className="signin__submit">Sign In</button>
+        <button type="submit" className="signin__submit">Sign Up</button>
     </form>
   )
 }
 
-export default SignIn
+export default SignUp

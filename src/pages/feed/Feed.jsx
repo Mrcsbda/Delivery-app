@@ -10,13 +10,9 @@ import { useGetRestaurantsQuery } from '../../store/api/firebaseApi'
 
 const Feed = () => {
 
-const {data, isLoading} = useGetRestaurantsQuery()
+  // const { data, isLoading } = useGetRestaurantsQuery()
 
-console.log(data);
-if(isLoading){
-  console.log("Cargando ....");
-}
-
+  // console.log( useGetRestaurantsQuery());
 
   const [desktopMenu, setDesktopMenu] = useState(false)
 
@@ -89,7 +85,7 @@ if(isLoading){
     <article className='feed'>
       {
         !desktopMenu && (
-          <AddressComponent/>
+          <AddressComponent />
         )
       }
 

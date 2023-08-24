@@ -9,13 +9,13 @@ import Feed from '../pages/feed/Feed'
 import Restaurant from '../pages/Restaurant/restaurant'
 import Profile from '../pages/profile/Profile'
 import Layout from '../pages/layout/Layout'
-import SignIn from '../pages/signIn/SignIn'
 import AddNewCard from '../pages/addNewCard/AddNewCard'
 import EditProfile from '../pages/editProfile/EditProfile'
 import Food from '../pages/food/Food'
 import PaymentMethod from '../pages/paymentMethod/PaymentMethod'
 import { useSelector } from 'react-redux'
 import { SearchView } from '../pages/searchViews/searchView'
+import SignUp from '../pages/signUp/SignUp'
 
 const Router = () => {
     const {userRole} = useSelector(state => state.user)
@@ -25,7 +25,7 @@ const Router = () => {
             <Routes>
                 <Route element={<PublicRoute userRole={userRole}/>}>
                     <Route path="/login" element={<Login />} />
-                    <Route path="/signIn" element={<SignIn />} />
+                    <Route path="/signIn" element={<SignUp />} />
                 </Route>
                 <Route path='/' element={<ClientRoutes userRole={userRole}/>}>
                     <Route path='/' element={<Layout />}>
