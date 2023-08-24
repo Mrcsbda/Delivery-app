@@ -17,19 +17,19 @@ const RestaurantCard = ({restaurant}) => {
   }
 
   return (
-    <section className='restaurant'>
-        <figure className='restaurant__image-container'>
-            <img className='restaurant__image' src={restaurant.image} alt={`${restaurant.name} icon`} />
-            <img className='restaurant__rectangle' src="/images/rectangle.svg" alt="" />
+    <section className='restaurant-card'>
+        <figure className='restaurant-card__image-container'>
+            <img className='restaurant-card__image' src={restaurant.image} alt={`${restaurant.name} icon`} />
+            <img className='restaurant-card__rectangle' src="/images/rectangle.svg" alt="" />
         </figure>
-        <div className='restaurant__info-container'>
-            <h2 className='restaurant__title'>{restaurant.name}</h2>
-            <figure className='restaurant__rate'>
+        <div className='restaurant-card__info-container'>
+            <h2 className='restaurant-card__title'>{restaurant.name}</h2>
+            <figure className='restaurant-card__rate'>
               {
                 rateStars.length && (
                   rateStars.map((rate, i) =>(
                     <img
-                    className={`restaurant__rate-icon ${rate === "full" ? "restaurant__star-full" : "restaurant__star-empty"}`}
+                    className={`restaurant-card__rate-icon ${rate === "full" ? "restaurant-card__star-full" : "restaurant-card__star-empty"}`}
                     key={i}
                     src="/images/star-full.svg"
                     alt='star icon'/>
@@ -37,8 +37,8 @@ const RestaurantCard = ({restaurant}) => {
                 )
               }
             </figure>
-            <p className='restaurant__schedule'>Work time {restaurant.schedule}</p>
-            <p className='restaurant__delivery-price'>Delivery price <span>{restaurant.deliveryPrice}</span></p>
+            <p className='restaurant-card__schedule'>Work time {restaurant.schedule}</p>
+            <p className='restaurant-card__delivery-price'>Delivery price <span>{restaurant.deliveryPrice}</span></p>
         </div>
     </section>
   )

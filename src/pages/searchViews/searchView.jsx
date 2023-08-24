@@ -2,7 +2,7 @@ import "./main.scss"
 import  restaurantInf from "../../data/arrayData"
 import { useState } from "react"
 
-export const SerchView = () => {
+export const SearchView = () => {
     const [image, setImage] = useState(false)
     const hanleImage = ()=>{
         setImage(!image)
@@ -32,12 +32,12 @@ export const SerchView = () => {
                 </div>
             </article>
             ))
-               
+
             }
 
         </section>
 
     </body>
-   
+
   )
 }

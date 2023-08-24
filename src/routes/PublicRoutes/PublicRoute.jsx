@@ -1,8 +1,11 @@
 import React from 'react'
+import { Navigate, Outlet } from 'react-router-dom'
 
-const PublicRoute = () => {
+const PublicRoute = ({ userRole }) => {
   return (
-    <div>publicRoute</div>
+    <div>
+      {userRole ? <Navigate to="/" /> : <Outlet />}
+    </div>
   )
 }
 

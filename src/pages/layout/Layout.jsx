@@ -4,6 +4,7 @@ import Feed from '../feed/Feed'
 import Footer from '../../components/footer/Footer'
 import "./layout.scss"
 import Profile from '../profile/Profile'
+import { Outlet } from 'react-router-dom'
 
 const Layout = () => {
 
@@ -29,7 +30,7 @@ const Layout = () => {
       setDesktopMenu(false)
     }
   }
-  
+
   return (
     <main className='layout'>
       {
@@ -37,8 +38,7 @@ const Layout = () => {
           <Header />
         )
       }
-      {/* <Feed /> */}
-      <Profile/>
+      <Outlet/>
       {
         !desktopMenu && (
           <Footer />
