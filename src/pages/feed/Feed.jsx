@@ -4,11 +4,20 @@ import BannerCarrousel from '../../components/bannerCarrousel/BannerCarrousel'
 import CategoriesCarrousel from '../../components/categoriesCarrousel/CategoriesCarrousel'
 import RestaurantCard from '../../components/restaurantCard/RestaurantCard'
 import AddressComponent from '../../components/addressComponent/AddressComponent'
-import { firebaseDB } from '../../firebaseConfig'
+import { useGetRestaurantsQuery } from '../../store/api/firebaseApi'
 
 
 
 const Feed = () => {
+
+const {data, isLoading} = useGetRestaurantsQuery()
+
+console.log(data);
+if(isLoading){
+  console.log("Cargando ....");
+}
+
+
   const [desktopMenu, setDesktopMenu] = useState(false)
 
   useEffect(() => {
