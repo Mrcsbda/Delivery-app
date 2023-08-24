@@ -29,9 +29,9 @@ const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<PublicRoute userRole={userRole} />}>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signIn" element={<SignUp />} />
+                <Route path='/' element={<PublicRoute userRole={userRole} />}>
+                    <Route path="login" element={<Login />} />
+                    <Route path="signIn" element={<SignUp />} />
                 </Route>
                 <Route path='/' element={<ClientRoutes userRole={userRole} />}>
                     <Route path='/' element={<Layout />}>
