@@ -1,0 +1,185 @@
+@import "../../assets/styles/reset.scss";
+@import "../../assets/styles/variables.scss";
+
+.NewOrder__container {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 5vh 2vw;
+  gap: 20px;
+  font-family: $font-roboto;
+  color: $dark-color;
+
+  & .NewOrder__deliver {
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+
+    &__text {
+      height: 5vh;
+    }
+
+    &__box {
+      display: flex;
+      align-items: center;
+      height: 5vh;
+
+      & .NewOrder__deliver__location {
+        height: 100%;
+        display: flex;
+      }
+
+      & p {
+        width: 100%;
+        padding-left: 5vw;
+      }
+
+      & .NewOrder__deliver__next {
+        height: 100%;
+        display: flex;
+      }
+    }
+  }
+
+  & .NewOrder__payment {
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+
+    &__text {
+      height: 5vh;
+    }
+
+    &__box {
+      height: 5vh;
+      display: flex;
+      justify-content: space-between;
+
+      & .NewOrder__payment__cash {
+        border-radius: 5px;
+        padding: 5px 20px;
+        background-color: $complementary-color;
+        width: 30vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      & .NewOrder__payment__card {
+        border-radius: 5px;
+        padding: 5px;
+        background-color: $complementary-color;
+        width: 30vw;
+        display: flex;
+        justify-content: space-evenly;
+
+        & figure {
+          height: 100%;
+
+          & img {
+            height: 100%;
+          }
+        }
+      }
+
+      & .selected {
+        background-color: $main-color;
+      }
+    }
+  }
+
+  & .NewOrder__order {
+    display: flex;
+    flex-direction: column;
+    width: 96vw;
+
+    &__ind {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & figure {
+        width: 10%;
+
+        & img {
+          width: 100%;
+          border-radius: 10px;
+        }
+      }
+
+      & .NewOrder__order__console {
+        display: flex;
+
+        & span {
+          padding: 5px;
+          background-color: $complementary-color;
+        }
+
+        & .NewOrder__order__minus {
+          border-radius: 20px 0px 0px 20px;
+          padding-left: 10px;
+          cursor: pointer;
+        }
+
+        & .NewOrder__order__plus {
+          border-radius: 0px 20px 20px 0px;
+          padding-right: 10px;
+          cursor: pointer;
+        }
+      }
+
+      & .NewOrder__order__name {
+        width: 50%;
+
+      }
+
+      & .NewOrder__order__cost {
+        width: 20%;
+        text-align: end;
+      }
+    }
+  }
+
+  & .NewOrder__extraInfo {
+    display: flex;
+    flex-direction: column;
+
+    & p {
+      height: 5vh;
+    }
+
+    & textarea {
+      width: 100%;
+      height: 100%;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      border: none;
+      border: 2px solid $complementary-color;
+      border-radius: 10px;
+      resize: none;
+    }
+  }
+
+  & .NewOrder__summary {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &__ind {
+      display: flex;
+      justify-content: space-between;
+
+      & .total {
+        font-weight: bold;
+      }
+    }
+  }
+
+  & .NewOrder__final {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    border-radius: 10px;
+    background-color: $main-color;
+  }
+}

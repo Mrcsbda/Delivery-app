@@ -1,0 +1,47 @@
+@import "../../assets/styles/reset.scss";
+@import "../../assets/styles/variables.scss";
+
+.OrderSet__container {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 5vh 2vw;
+  gap: 30px;
+  font-family: $font-roboto;
+  color: $dark-color;
+
+  & .OrderSet__orders {
+    display: flex;
+    flex-direction: column;
+    color: $gray-color;
+    gap: 10px;
+
+    &__ind {
+      display: flex;
+      justify-content: space-between;
+
+      & .orders__info {
+        display: flex;
+        gap: 10px;
+      }
+    }
+  }
+
+  & .OrderSet__summary {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &__ind {
+      display: flex;
+      justify-content: space-between;
+
+      & .total {
+        font-weight: bold;
+      }
+
+      & .ind__cost {
+        color: $gray-color
+      }
+    }
+  }
+}

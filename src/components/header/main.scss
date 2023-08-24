@@ -1,0 +1,30 @@
+@import "../../assets/styles/reset.scss";
+@import "../../assets/styles/variables.scss";
+
+.DefaultHeader__container {
+  display: flex;
+  align-items: center;
+  padding: 5vh 2vw;
+  font-family: $font-roboto;
+  color: $dark-color;
+  align-items: center;
+
+  &__figure {
+    width: 10vw;
+    display: flex;
+
+    & img {
+      object-fit: cover;
+      height: 100%;
+      align-self: center;
+    }
+  }
+
+  &__text {
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+    text-align: center;
+  }
+
+}
