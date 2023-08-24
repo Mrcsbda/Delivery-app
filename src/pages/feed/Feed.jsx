@@ -10,7 +10,7 @@ import { useGetRestaurantsQuery } from '../../store/api/firebaseApi'
 
 const Feed = () => {
 
-  // const { data, isLoading } = useGetRestaurantsQuery()
+  // const { data:resturants , isLoading } = useGetRestaurantsQuery()
 
   // console.log( useGetRestaurantsQuery());
 

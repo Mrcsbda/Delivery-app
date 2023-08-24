@@ -1,7 +1,6 @@
 import { createApi, fakeBaseQuery} from '@reduxjs/toolkit/query/react';
 import {getDocs, addDoc, doc, collection, serverTimestamp} from "firebase/firestore"
-import { firebaseDB } from '../../firebaseConfig';
-
+import { firebaseDB } from '../../firebase/firebaseConfig';
 
 export const firebaseApi = createApi({
    reducerPath: 'firebaseAPI',
@@ -86,6 +85,6 @@ export const firebaseApi = createApi({
         invalidatesTags: ['restaurants']
     })
    })
-       
+
  })
 export const {useGetRestaurantsQuery, useAddRestaurantMutation, useGetUsersQuery, useGetOrdersQuery} = firebaseApi
