@@ -1,0 +1,77 @@
+@import "../../assets/styles/reset.scss";
+@import "../../assets/styles/variables.scss";
+
+.AllOrders__container {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 5vh 2vw;
+  gap: 20px;
+  font-family: $font-roboto;
+  color: $dark-color;
+
+  & .AllOrders__orders {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__ind {
+      display: flex;
+      justify-content: space-between;
+      height: 10vh;
+
+      & .orders__info {
+        display: flex;
+        gap: 20px;
+        cursor: pointer;
+
+        & figure {
+          height: 100%;
+
+          & img {
+            height: 100%;
+            border-radius: 100%;
+          }
+        }
+
+        & div {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          & span {
+            color: $gray-color;
+          }
+        }
+      }
+
+      & .orders__status {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        cursor: pointer;
+
+        & figure {
+          display: flex;
+
+          & img {
+            object-fit: cover;
+            height: 100%;
+            align-self: center;
+          }
+        }
+
+        &__delivered {
+          color: $green-color;
+        }
+
+        &__cancelled {
+          color: $red-color
+        }
+
+        &__ongoing {
+          color: $main-color
+        }
+      }
+    }
+  }
+}

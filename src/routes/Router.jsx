@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Route, Routes } from 'react-router-dom'
 import PublicRoute from './PublicRoutes/PublicRoute'
 import ClientRoutes from './PrivateRoutes/ClientRoutes'
 import AdminRoutes from './PrivateRoutes/AdminRoutes'
@@ -16,38 +16,43 @@ import PaymentMethod from '../pages/paymentMethod/PaymentMethod'
 import { useSelector } from 'react-redux'
 import { SearchView } from '../pages/searchViews/searchView'
 import SignUp from '../pages/signUp/SignUp'
+import NewOrder from '../pages/newOrder/main'
+import AllOrders from '../pages/allOrders/main'
+import OrderSet from '../pages/orderSet/main'
+import OrderAccepted from '../pages/orderAccepted/main'
+import CurrentOrder from '../pages/currentOrder/main'
 
 const Router = () => {
-    const {userRole} = useSelector(state => state.user)
+  const { userRole } = useSelector(state => state.user)
 
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route element={<PublicRoute userRole={userRole}/>}>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signIn" element={<SignUp />} />
-                </Route>
-                <Route path='/' element={<ClientRoutes userRole={userRole}/>}>
-                    <Route path='/' element={<Layout />}>
-                        <Route index element={<Feed />} />
-                        <Route path=":idClient" element={<Profile />} />
-                        <Route  path="search-views" element={<SearchView />}/>
-                    </Route>
-                    <Route path='addNewCard' element={<AddNewCard/>}/>
-                    <Route path='editProfile' element={<EditProfile/>}/>
-                    <Route path='restaurant/:idRestaurant/:idDish' element={<Food/>}/>
-                    <Route path="restaurant/:idRestaurant" element={<Restaurant />} />
-                    <Route path="payment-methods" element={<PaymentMethod />} />
-                </Route>
-                <Route element={<AdminRoutes userRole={userRole}/>}>
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<PublicRoute userRole={userRole} />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signIn" element={<SignUp />} />
+        </Route>
+        <Route path='/' element={<ClientRoutes userRole={userRole} />}>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<Feed />} />
+            <Route path=":idClient" element={<Profile />} />
+            <Route path="search-views" element={<SearchView />} />
+          </Route>
+          <Route path='addNewCard' element={<AddNewCard />} />
+          <Route path='editProfile' element={<EditProfile />} />
+          <Route path='restaurant/:idRestaurant/:idDish' element={<Food />} />
+          <Route path="restaurant/:idRestaurant" element={<Restaurant />} />
+          <Route path="payment-methods" element={<PaymentMethod />} />
+        </Route>
+        <Route element={<AdminRoutes userRole={userRole} />}>
 
-                </Route>
-                <Route element={<SuperAdminRoutes userRole={userRole}/>}>
+        </Route>
+        <Route element={<SuperAdminRoutes userRole={userRole} />}>
 
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    )
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default Router

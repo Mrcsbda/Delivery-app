@@ -8,10 +8,10 @@ import { firebaseApi } from './store/api/firebaseApi'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
-    <ApiProvider api={firebaseApi}>
-        <Provider store={store}>
-            <Router />
-        </Provider>
-    </ApiProvider>
+  <ApiProvider api={firebaseApi}>
+    <Provider store={store}>
+      <Router />
+    </Provider>
+  </ApiProvider>
 
 )
