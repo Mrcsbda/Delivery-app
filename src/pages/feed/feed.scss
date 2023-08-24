@@ -1,0 +1,80 @@
+@import "../../assets/styles/variables.scss";
+
+.feed {
+    padding: 1rem 1.5rem;
+    padding-bottom: 6rem;
+
+    &__location-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    &__location-icon {
+        width: 2rem;
+        height: 2rem;
+        filter: invert(85%) sepia(93%) saturate(2510%) hue-rotate(327deg) brightness(103%) contrast(103%);
+    }
+
+    &__address-title {
+        font-size: 11px;
+        color: $main-color;
+        margin-bottom: 2px;
+    }
+
+    &__address {
+        display: flex;
+        cursor: pointer;
+    }
+
+    &__address-text,  &__subtitle {
+        font-size: 14px;
+        color: $dark-color;
+    }
+
+    &__arrow-icon {
+        width: 1rem;
+        filter: invert(26%) sepia(20%) saturate(13%) hue-rotate(47deg) brightness(87%) contrast(91%);
+    }
+
+    &__subtitle {
+        font-weight: 300;
+    }
+
+    &__restaurants-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.3rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .feed {
+
+        &__restaurants-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr ;
+        }
+    }
+}
+
+@media screen and (min-width: 1160px) {
+    .feed {
+        padding: 0.5rem 2rem 2rem;
+        &__restaurants-container {
+            grid-template-columns: repeat(3, 350px);
+            justify-content: center;
+            gap: 1.4rem;
+        }
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .feed {
+
+        &__restaurants-container {
+            grid-template-columns: repeat(4, 350px);
+        }
+    }
+}

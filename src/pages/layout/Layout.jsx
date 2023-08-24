@@ -1,8 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Header from '../../components/header/Header'
+import Feed from '../feed/Feed'
+import Footer from '../../components/footer/Footer'
+import "./layout.scss"
+import Profile from '../profile/Profile'
+import { Outlet } from 'react-router-dom'
 
 const Layout = () => {
+
+  const [desktopMenu, setDesktopMenu] = useState(false)
+
+  useEffect(() => {
+    handleDesktopMenu()
+
+    window.addEventListener('resize', handleDesktopMenu);
+
+    return () => {
+      window.removeEventListener('resize', handleDesktopMenu);
+    };
+
+  }, [])
+
+  const handleDesktopMenu = () => {
+    const windowWidth = window.innerWidth;
+
+    if (windowWidth > 650) {
+      setDesktopMenu(true)
+    } else {
+      setDesktopMenu(false)
+    }
+  }
+
   return (
-    <div>Layout</div>
+    <main className='layout'>
+      {
+        desktopMenu && (
+          <Header />
+        )
+      }
+      <Outlet/>
+      {
+        !desktopMenu && (
+          <Footer />
+        )
+      }
+    </main>
   )
 }
 

@@ -1,0 +1,120 @@
+@import "../../assets/styles/variables.scss";
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 2rem 3rem 2rem;
+
+  &__picture-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 10px;
+  }
+
+  &__picture {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  &__user-name {
+    font-size: 15px;
+    color: $dark-color;
+    font-weight: 400;
+  }
+
+  &__settings-container {
+    width: 100%;
+  }
+
+  &__settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    width: 100%;
+    list-style: none;
+    font-size: 14px;
+  }
+
+  &__list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $light-gray;
+    padding: 1rem;
+    border-radius: 10px;
+    color: $dark-color;
+    cursor: pointer;
+  }
+
+  &__settings-option-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__settings-icon {
+    width: 1.2rem;
+  }
+
+  &__language {
+    color: $gray-color;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  .profile {
+    padding: 0.5rem 0;
+    &__picture-container {
+      margin-bottom: 15px;
+    }
+
+    &__settings-container {
+      width: 60%;
+    }
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .profile {
+    &__picture-container {
+      margin-bottom: 20px;
+    }
+
+    &__picture {
+      width: 100px;
+      height: 100px;
+    }
+
+    &__user-name {
+      font-size: 17px;
+    }
+
+    &__settings-container {
+      width: 40%;
+    }
+
+    &__settings-list {
+      font-size: 16px;
+    }
+
+    &__list-item {
+      &:hover {
+        background-color: $main-color;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .profile {
+    &__settings-container {
+      width: 500px;
+    }
+  }
+}

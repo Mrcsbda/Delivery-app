@@ -1,0 +1,176 @@
+@import "../../assets/styles/variables.scss";
+
+.restaurant {
+  background-color: #fefdf9;
+  font-family: $font-roboto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  @include tablet {
+    padding: 50px;
+  }
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include tablet {
+      gap: 40px;
+    }
+    @include desktop {
+      gap: 70px;
+    }
+    &__nav {
+      padding: 20px 20px 0 20px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    &__back {
+      width: calc(16px + 1vw);
+      & img {
+        width: 100%;
+        height: 100%;
+      }
+      @include desktop{
+        display: none;
+      }
+    }
+    &__logo {
+      margin: 0;
+      width: 40vw;
+      margin-left: auto;
+      margin-right: auto;
+      & img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    &__middle {
+      display: flex;
+      gap: 20px;
+      height: calc(100px + 1vw);
+      @include tablet {
+        height: auto;
+      }
+      @include desktop {
+        padding: 0 250px;
+       gap: 100px;
+      }
+    }
+    &__location {
+      width: 40%;
+      @include tablet {
+        height: auto;
+      }
+      & img {
+        height: 100%;
+        width: 100%;
+        clip-path: polygon(20% 0%, 80% 0%, 100% 0, 100% 10%, 62% 100%, 0 100%, 0% 80%, 0 0);
+        border-radius: 20px;
+        position: relative;
+        object-fit: cover;
+      }
+    }
+    &__textBox {
+      padding-left: 15px;
+      width: 60%;
+      display: flex;
+      overflow: auto;
+      flex-direction: column;
+      gap: 5px;
+      & > h3 {
+        font-weight: 500;
+        font-size: calc(16px + 0.5vw);
+      }
+      & > p {
+        font-size: calc(11px + 0.5vw);
+      }
+    }
+    &__stats {
+      display: flex;
+      justify-content: space-between;
+      & > h3 {
+        font-size: calc(16px + 0.5vw);
+        font-weight: 500;
+      }
+      & > span {
+        background-color: #f2f2f2;
+        color: $font-buttons-category-color;
+        border-radius: 5px;
+        padding: 2px;
+        font-size: calc(11px + 0.5vw);
+      }
+    }
+    &__bottom {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      overflow: auto;
+      @include tablet {
+        justify-content: center;
+      }
+    }
+    &__categories {
+      background-color: #f2f2f2;
+      padding: 10px 40px;
+      cursor: pointer;
+      border-radius: 5px;
+      color: $font-buttons-category-color;
+      font-size: calc(10px + 0.5vw);
+      @include desktop{
+         padding: 15px 60px;
+      }
+      &__active {
+        background-color: $main-color;
+      }
+      &:hover {
+        background-color: $gray-color;
+      }
+    }
+  }
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    @include tablet {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    @include desktop {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      padding: 0 250px;
+    }
+    &__food {
+      padding: 5px;
+      border: 1px #fafafa solid;
+      border-radius: 5px;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+     
+    }
+    &__media {
+      overflow: hidden;
+      border-radius: 10px;
+      & img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        transition: transform 0.3s ease; 
+        &:hover{
+          transform: scale(1.1);
+      }
+      }
+    }
+    &__title {
+      font-size: calc(14px + 0.5vw);
+    }
+    &__price {
+      color: $font-buttons-category-color;
+      font-size: calc(13px + 0.5vw);
+    }
+  }
+}

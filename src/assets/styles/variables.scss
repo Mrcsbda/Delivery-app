@@ -8,5 +8,18 @@ $red-color: #DF5252;
 $skin-color: #FFEE8D;
 $complementary-color: #CCCCCC;
 $font-buttons-category-color: #6C6C6C;
+$background_inputs: #e0e0e0;
 $font-roboto: 'Roboto', sans-serif;
 $complementary-color-light: #F2F2F2; //botones seleccionables
+
+@mixin tablet {
+  @media (min-width: 725px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
