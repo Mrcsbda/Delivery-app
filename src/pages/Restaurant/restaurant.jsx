@@ -16,6 +16,15 @@ const Restaurant = () => {
     }
 
   }, [isSuccess])
+  useEffect(() => {
+    if (isSuccess) {
+      const filteredDishes = dishes.find(dish => dish.categories.some(dcategory == category));
+      setFilteredDishes(filteredDishes)
+    }
+
+  }, [category])
+
+
 
   const {data: dishes, isSuccess: isSuccesDishes  }= useGetRestaurantDishesQuery(idRestaurant)
 //console.log(dishesCategories);
