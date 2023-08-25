@@ -39,12 +39,15 @@
     }
     &__logo {
       margin: 0;
-      width: 40vw;
       margin-left: auto;
       margin-right: auto;
-      & img {
+      height: 10vh;
+      max-height: 150px;
+      & > img {
+        object-fit: cover;
         width: 100%;
         height: 100%;
+      
       }
     }
     &__middle {
@@ -60,9 +63,13 @@
       }
     }
     &__location {
+      max-height: 300px;
       width: 40%;
-      @include tablet {
-        height: auto;
+      @include tablet{
+        width: 32%;
+      }
+      @include desktop{
+        width: 30%;
       }
       & img {
         height: 100%;
@@ -119,6 +126,9 @@
       border-radius: 5px;
       color: $font-buttons-category-color;
       font-size: calc(10px + 0.5vw);
+      text-transform: capitalize;
+      display: flex;
+      align-items: center;
       @include desktop{
          padding: 15px 60px;
       }
@@ -138,7 +148,7 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
     @include desktop {
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       padding: 0 250px;
     }
     &__food {
@@ -155,8 +165,12 @@
     &__media {
       overflow: hidden;
       border-radius: 10px;
+      height: 150px;
+      @include tablet{
+      height: 200px;}
       & img {
         width: 100%;
+        object-fit: cover;
         height: 100%;
         border-radius: 10px;
         transition: transform 0.3s ease; 

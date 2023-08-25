@@ -11,12 +11,11 @@
     gap: 5px;
  
     @include tablet{
-        padding: 100px calc(150px + 2vw);
+        padding: 100px 35vw;
         gap: 15px;
     }
     @include desktop{
-        padding: 100px calc(400px + 3vw);
-        gap: 15px;
+        padding: 100px 35vw;
     }
     &__title{
         padding-bottom: 50px;

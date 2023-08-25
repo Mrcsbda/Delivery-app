@@ -1,54 +1,86 @@
 import "./main.scss"
 import restaurantInf from "../../data/arrayData"
-import { useNavigate } from "react-router"
+import { useNavigate, useParams } from "react-router"
+import { useGetRestaurantDishesQuery, useGetRestaurantsQuery } from "../../store/api/firebaseApi"
+import { useEffect, useState } from "react"
 
 const Restaurant = () => {
-  // const navigate = useNavigate()
-  // const handleFood = (food)=> {
-  //    const state = {food};
-  //   navigate(`${food.id}`,  { state } )
-  // }
+  const navigate = useNavigate()
+  const { idRestaurant } = useParams()
+  const [restaurantInfo, setRestaurantInfo] = useState(false)
+  const { data, isSuccess } = useGetRestaurantsQuery()
+  useEffect(() => {
+    if (isSuccess) {
+      const restaurantInfo = data.find(restaurant => restaurant.id === idRestaurant);
+      setRestaurantInfo(restaurantInfo)
+    }
+
+  }, [isSuccess])
+
+  const {data: dishes, isSuccess: isSuccesDishes  }= useGetRestaurantDishesQuery(idRestaurant)
+//console.log(dishesCategories);
+  const handleBack = () => {
+    navigate(`/`)
+  }
+  const handleFood = (food)=> {
+     const state = {food};
+    navigate(`${food.id}`,  { state } )
+  }
 
 
   return (
-    <section className="restaurant">
+
+
+    <>
+      {
+       restaurantInfo ?
+        <section className="restaurant">
         <header className="restaurant__header">
-            <nav className="restaurant__header__nav">
-                <figure className="restaurant__header__back"> <img src="/images/arrow-left.svg" alt="arrow-left" /></figure>
-                <figure className="restaurant__header__logo"> <img src="/images/C&Wlogo.svg" alt="arrow-left" /></figure>
-            </nav>
-            <section className="restaurant__header__middle">
-              <figure className="restaurant__header__location">
-                <img src="https://www.america-retail.com/static//2020/09/291429_1-1-scaled.jpg" alt="C&WLocation" />
-              </figure>
-              <div className="restaurant__header__textBox">
-                <h3>Pardes Restaurant </h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio quo, excepturi assumenda dolorum, beatae aliquid officia corporis vel sit ipsum dolores autem quod blanditiis voluptate quaerat aspernatur repudiandae quam illo!</p>
-                <div className="restaurant__header__stats">
-                  <h3>Stars</h3>
-                  <span>15-20 min</span>
-                </div>
+          <nav className="restaurant__header__nav">
+            <figure onClick={handleBack} className="restaurant__header__back"> <img src="/images/arrow-left.svg" alt="arrow-left" /></figure>
+            <figure className="restaurant__header__logo"> <img src={restaurantInfo.logo} alt="arrow-left" /></figure>
+          </nav>
+          <section className="restaurant__header__middle">
+            <figure className="restaurant__header__location">
+              <img src={restaurantInfo.image} alt="RestaurantImage" />
+            </figure>
+            <div className="restaurant__header__textBox">
+              <h3>{restaurantInfo.name}</h3>
+              <p>{restaurantInfo.description}</p>
+              <div className="restaurant__header__stats">
+                <h3>Stars</h3>
+                <span>15-20 min</span>
               </div>
-            </section>
-            <section className="restaurant__header__bottom" >
-              <span className=" restaurant__header__categories">All</span>
-              <span className="restaurant__header__categories__active restaurant__header__categories">Salates</span>
-              <span className="restaurant__header__categories">Pizza</span>
-              <span className="restaurant__header__categories">Lasana</span>
-            </section>
+            </div>
+          </section>
+          <section className="restaurant__header__bottom" >
+            <span className=" restaurant__header__categories restaurant__header__categories__active">All</span>
+            {
+              restaurantInfo.dishesCategories.map((category)=>(
+              <span className="restaurant__header__categories" key={category}>{category}</span>
+              ))
+            }
+          </section>
         </header>
         <main className="restaurant__body">
-        {restaurantInf.map((food)=>(
-          <article key={food.id} className="restaurant__body__food" onClick={()=> handleFood(food)}>
-            <figure className="restaurant__body__media"><img src={food.media} alt="food" /></figure>
-            <span className="restaurant__body__title">{food.title}</span>
-            <div className="restaurant__body__price">$ {food.price}</div>
-          </article>
-        ))
-        }
+          {
+          isSuccesDishes &&
+          dishes.map((food) => (
+            <article key={food.id} className="restaurant__body__food" onClick={() => handleFood(food)}>
+              <figure className="restaurant__body__media"><img src={food.image} alt="food" /></figure>
+              <span className="restaurant__body__title">{food.name}</span>
+              <div className="restaurant__body__price">$ {food.price}</div>
+            </article>
+          ))
+          }
         </main>
-    </section>
-    
+      </section>
+      : <div>Is Loading ...</div>
+      }
+    </>
+
+
+
   )
 }
 

@@ -1,32 +1,11 @@
 import { createApi, fakeBaseQuery} from '@reduxjs/toolkit/query/react';
-import {getDocs, addDoc, doc, collection, serverTimestamp} from "firebase/firestore"
+import {getDocs, getDoc, addDoc, doc, collection, serverTimestamp} from "firebase/firestore"
 import { firebaseDB } from '../../firebase/firebaseConfig';
 
 export const firebaseApi = createApi({
    reducerPath: 'firebaseAPI',
    baseQuery: fakeBaseQuery(),
    endpoints: (builder) => ({
-    getUsers: builder.query({
-        providesTags: ['users', 'defaultCache'],
-        async queryFn() {
-                const deliveryRef = collection(firebaseDB, "users");
-         try{
-               const querySnapshot = await getDocs(deliveryRef);
-                let delivery = [];
-
-                querySnapshot?.forEach((doc)=>{
-                    delivery.push({
-                        id: doc.id,
-                        ...doc.data()
-                    });
-                })
-            return { data: delivery}
-            }catch(error){
-                console.log(error);
-                return error
-            }
-        }
-    }),
     getRestaurants: builder.query({
         providesTags: ['restaurants', 'defaultCache'],
         async queryFn() {
@@ -48,21 +27,17 @@ export const firebaseApi = createApi({
             }
         }
     }),
-    getOrders: builder.query({
-        providesTags: ['orders', 'defaultCache'],
-        async queryFn() {
-                const deliveryRef = collection(firebaseDB, "orders");
+    getRestaurantDishes: builder.query({
+        providesTags: ['restaurants', 'defaultCache'],
+        async queryFn(idRestaurant) {
+                const deliveryRef = collection(firebaseDB, `restaurants/${idRestaurant}/dishes`);
          try{
                const querySnapshot = await getDocs(deliveryRef);
-                let delivery = [];
-
-                querySnapshot?.forEach((doc)=>{
-                    delivery.push({
-                        id: doc.id,
-                        ...doc.data()
-                    });
-                })
-            return { data: delivery}
+                const dishes = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+            return { data: dishes }
             }catch(error){
                 console.log(error);
                 return error
@@ -87,4 +62,4 @@ export const firebaseApi = createApi({
    })
 
  })
-export const {useGetRestaurantsQuery, useAddRestaurantMutation, useGetUsersQuery, useGetOrdersQuery} = firebaseApi
+export const {useGetRestaurantsQuery, useAddRestaurantMutation,useGetRestaurantDishesQuery} = firebaseApi

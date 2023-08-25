@@ -3,14 +3,17 @@ import { useLocation } from "react-router"
 import "./main.scss"
 import { useState } from "react"
 import useScreenSize from "../../assets/hooks/useScreenSize"
-
+import { useNavigate, useParams } from "react-router"
 const Food = () => {
     const {width} = useScreenSize()
     const location = useLocation()
     const { food } = location.state
-    console.log(food);
     const [numberState, setNumberState] = useState(0)
-
+    const {idRestaurant, idDish} = useParams()
+    const navigate = useNavigate()
+    const handleBack = ()=>{
+        navigate(`/restaurant/${idRestaurant}`)
+    }
     const handleAdd = () => {
         setNumberState(numberState + 1)
     }
@@ -18,19 +21,18 @@ const Food = () => {
         if (numberState == 0) { return }
         setNumberState(numberState - 1)
     }
-    console.log(width);
     return (
         <section className="food">
             
-              {  width < 725 ? 
+              {  width < 600 ? 
               <>
               <header className="food__header">
-              <figure className="food__header__back"> <img src="/images/arrow-left.svg" alt="arrow-left" /></figure>
-              <figure className="food__header__media"><img src={food.media} alt="food" /></figure>
+              <figure className="food__header__back" onClick={handleBack}> <img src="/images/arrow-left.svg" alt="arrow-left" /></figure>
+              <figure className="food__header__media"><img src={food.image} alt="food" /></figure>
           </header>
           <main className="food__body">
               <section  className="food__body__title">
-                  <h3 >{food.title}</h3>
+                  <h3 >{food.name}</h3>
                   <div className="food__body__title__timer">
                       <figure><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <path d="M12 17V12L13.5 9.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#A7A7A7"></path> </g></svg></figure>
                       <span>15-20 min</span>
@@ -40,7 +42,7 @@ const Food = () => {
               <span className="food__body__additional" >Additional Ingredients</span>
               <section className="food__body__ingredients" >
                   {
-                      food.ingredients.map((ingredient) => (
+                      food.adittions.map((ingredient) => (
                           <section key={ingredient} className="food__body__ingredients__box">
                           <div  className="food__body__ingredients__ingredient">
                               <input type="checkbox" name="checker" id="checker_ingredient" className="food__body__ingredients__checker" />
@@ -56,11 +58,11 @@ const Food = () => {
           :
           <>
           <header className="food__header">
-          <figure className="food__header__back"> <img src="/images/arrow-left.svg" alt="arrow-left" /></figure>
-          <figure className="food__header__media"><img src={food.media} alt="food" /></figure>
+          <figure className="food__header__back" onClick={handleBack}> <img src="/images/arrow-left.svg" alt="arrow-left" /></figure>
+          <figure className="food__header__media"><img src={food.image} alt="food" /></figure>
           <section  className="food__header__textbox">
               <section  className="food__header__title">
-                <h3 >{food.title}</h3>
+                <h3 >{food.name}</h3>
                 <div className="food__body__title__timer">
                   <figure><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <path d="M12 17V12L13.5 9.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#A7A7A7"></path> </g></svg></figure>
                   <span>15-20 min</span>
@@ -75,7 +77,7 @@ const Food = () => {
           <span className="food__body__additional" >Additional Ingredients</span>
           <section className="food__body__ingredients" >
               {
-                  food.ingredients.map((ingredient) => (
+                  food.adittions.map((ingredient) => (
                       <section key={ingredient} className="food__body__ingredients__box">
                       <div  className="food__body__ingredients__ingredient">
                           <input type="checkbox" name="checker" id="checker_ingredient" className="food__body__ingredients__checker" />
@@ -89,9 +91,6 @@ const Food = () => {
       </main>
       </>
             }
-                
-            
-            
             <footer className="food__footer">
                 <div className="food__footer__counter">
                     <figure onClick={handleSubstract}>
