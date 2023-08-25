@@ -1,14 +1,26 @@
 import React from 'react'
-import "./login.scss"
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { loginWithEmailAndPassword } from '../../firebase/providers'
+import { setIsChecking } from '../../store/slides/user/user/user'
+import "./login.scss"
+import { getUser } from '../../store/slides/user/user/thunk'
 
 const Login = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const dispatch = useDispatch()
 
-  const onSubmit = (data) => {
-
+  const onSubmit = async (data) => {
+    dispatch(setIsChecking())
+    const resp = await loginWithEmailAndPassword(data.email, data.password)
+    if (resp.ok) {
+      dispatch(getUser(resp.uid))
+    } else {
+      dispatch(setIsChecking())
+    }
   }
+
   return (
     <main className='login'>
       <img src="/logo.svg" alt="" />
