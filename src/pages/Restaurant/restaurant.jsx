@@ -16,17 +16,20 @@ const Restaurant = () => {
     }
 
   }, [isSuccess])
-  useEffect(() => {
-    if (isSuccess) {
-      const filteredDishes = dishes.find(dish => dish.categories.some(dcategory == category));
-      setFilteredDishes(filteredDishes)
-    }
-
-  }, [category])
-
-
-
   const {data: dishes, isSuccess: isSuccesDishes  }= useGetRestaurantDishesQuery(idRestaurant)
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     const filteredDishes = dishes.find(dish => dish.categories.some(dcategory == category));
+  //     setFilteredDishes(filteredDishes)
+  //   }
+
+  // }, [category])
+  if(isSuccesDishes){
+    console.log(dishes[1]);
+  }
+
+
+  
 //console.log(dishesCategories);
   const handleBack = () => {
     navigate(`/`)
