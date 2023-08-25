@@ -15,9 +15,14 @@ const RestaurantCard = ({restaurant}) => {
   const  createRating = () => {
     let rating = []
     for(let i = 1; i <= 5; i++) {
-      i <= restaurant.rate ? rating.push("full") :  rating.push("empty")
+      i <= restaurant.rating ? rating.push("full") :  rating.push("empty")
     }
     setRateStars(rating)
+  }
+
+  const getTime = (date) => {
+    const time = new Date(date)
+    return `${time.getHours()}:${time.getMinutes()}0`
   }
 
   return (
@@ -41,7 +46,7 @@ const RestaurantCard = ({restaurant}) => {
                 )
               }
             </figure>
-            <p className='restaurant-card__schedule'>Work time {restaurant.schedule}</p>
+            <p className='restaurant-card__schedule'>Work time {getTime(restaurant.startTime)} - {getTime(restaurant.endTime)}</p>
             <p className='restaurant-card__delivery-price'>Delivery price <span>{restaurant.deliveryPrice}</span></p>
         </div>
     </section>
