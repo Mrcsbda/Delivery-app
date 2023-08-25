@@ -47,7 +47,7 @@ const RestaurantCard = ({restaurant}) => {
               }
             </figure>
             <p className='restaurant-card__schedule'>Work time {getTime(restaurant.startTime)} - {getTime(restaurant.endTime)}</p>
-            <p className='restaurant-card__delivery-price'>Delivery price <span>{restaurant.deliveryPrice}</span></p>
+            <p className='restaurant-card__delivery-price'>Delivery price <span>{restaurant.deliveryPrice} $</span></p>
         </div>
     </section>
   )
