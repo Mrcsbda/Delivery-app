@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import "./restaurantCard.scss"
+import { useNavigate } from 'react-router-dom'
 
 const RestaurantCard = ({restaurant}) => {
   const [rateStars, setRateStars] = useState([])
-
+  const navigate = useNavigate()
+ const navigateToRestaurant = ()=>{
+    navigate(`restaurant/${restaurant.id}`)
+ }
   useEffect(()=> {
     createRating()
   },[])
@@ -17,7 +21,7 @@ const RestaurantCard = ({restaurant}) => {
   }
 
   return (
-    <section className='restaurant-card'>
+    <section className='restaurant-card' id={restaurant.id} onClick={navigateToRestaurant}>
         <figure className='restaurant-card__image-container'>
             <img className='restaurant-card__image' src={restaurant.image} alt={`${restaurant.name} icon`} />
             <img className='restaurant-card__rectangle' src="/images/rectangle.svg" alt="" />

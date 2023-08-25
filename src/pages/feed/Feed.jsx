@@ -10,9 +10,8 @@ import { useGetRestaurantsQuery } from '../../store/api/firebaseApi'
 
 const Feed = () => {
 
-  // const { data:resturants , isLoading } = useGetRestaurantsQuery()
+   const { data: restaurants  , isLoading, isSuccess } = useGetRestaurantsQuery()
 
-  // console.log( useGetRestaurantsQuery());
 
   const [desktopMenu, setDesktopMenu] = useState(false)
 
@@ -37,50 +36,50 @@ const Feed = () => {
     }
   }
 
-  const restaurants = [
-    {
-      image: "https://images.rappi.com/products/55f74661-37c4-4455-bd23-5a725b055d48-1682190461465.png",
-      name: "The Grill Station Burguer",
-      rate: 3,
-      schedule: "09:00 - 21:00",
-      deliveryPrice: "13$"
-    },
-    {
-      image: "https://images.rappi.com/products/tmp2665513210233268625501871341.png",
-      name: "Percimon",
-      rate: 4,
-      schedule: "09:00 - 21:00",
-      deliveryPrice: "13$"
-    },
-    {
-      image: "https://images.rappi.com/products/2092027792-1617735043780.png",
-      name: "Trapani",
-      rate: 4,
-      schedule: "09:00 - 21:00",
-      deliveryPrice: "13$"
-    },
-    {
-      image: "https://images.rappi.com/products/2701738c-1b40-4826-85db-2fc3d2976036-1671512292568.png",
-      name: "Chicks son Alitas",
-      rate: 3,
-      schedule: "09:00 - 21:00",
-      deliveryPrice: "13$"
-    },
-    {
-      image: "https://images.rappi.com/products/tmp314325013396576376839747298.png",
-      name: "KFC Alitas",
-      rate: 3,
-      schedule: "09:00 - 21:00",
-      deliveryPrice: "13$"
-    },
-    {
-      image: "https://images.rappi.com/products/55f74661-37c4-4455-bd23-5a725b055d48-1682190461465.png",
-      name: "The Grill Station Burguer",
-      rate: 3,
-      schedule: "09:00 - 21:00",
-      deliveryPrice: "13$"
-    }
-  ]
+  // const restaurants = [
+  //   {
+  //     image: "https://images.rappi.com/products/55f74661-37c4-4455-bd23-5a725b055d48-1682190461465.png",
+  //     name: "The Grill Station Burguer",
+  //     rate: 3,
+  //     schedule: "09:00 - 21:00",
+  //     deliveryPrice: "13$"
+  //   },
+  //   {
+  //     image: "https://images.rappi.com/products/tmp2665513210233268625501871341.png",
+  //     name: "Percimon",
+  //     rate: 4,
+  //     schedule: "09:00 - 21:00",
+  //     deliveryPrice: "13$"
+  //   },
+  //   {
+  //     image: "https://images.rappi.com/products/2092027792-1617735043780.png",
+  //     name: "Trapani",
+  //     rate: 4,
+  //     schedule: "09:00 - 21:00",
+  //     deliveryPrice: "13$"
+  //   },
+  //   {
+  //     image: "https://images.rappi.com/products/2701738c-1b40-4826-85db-2fc3d2976036-1671512292568.png",
+  //     name: "Chicks son Alitas",
+  //     rate: 3,
+  //     schedule: "09:00 - 21:00",
+  //     deliveryPrice: "13$"
+  //   },
+  //   {
+  //     image: "https://images.rappi.com/products/tmp314325013396576376839747298.png",
+  //     name: "KFC Alitas",
+  //     rate: 3,
+  //     schedule: "09:00 - 21:00",
+  //     deliveryPrice: "13$"
+  //   },
+  //   {
+  //     image: "https://images.rappi.com/products/55f74661-37c4-4455-bd23-5a725b055d48-1682190461465.png",
+  //     name: "The Grill Station Burguer",
+  //     rate: 3,
+  //     schedule: "09:00 - 21:00",
+  //     deliveryPrice: "13$"
+  //   }
+  // ]
   return (
     <article className='feed'>
       {
@@ -93,7 +92,7 @@ const Feed = () => {
       <p className='feed__subtitle'>Restaurants and cafes</p>
       <CategoriesCarrousel />
       <div className='feed__restaurants-container'>
-        {
+        {isSuccess &&
           restaurants.map((restaurant, index) => (
             <RestaurantCard key={index} restaurant={restaurant} />
           ))

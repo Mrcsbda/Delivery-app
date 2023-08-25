@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
   <ApiProvider api={firebaseApi}>
     <Provider store={store}>
-      <Router />
+      <Router/>
     </Provider>
   </ApiProvider>
 
