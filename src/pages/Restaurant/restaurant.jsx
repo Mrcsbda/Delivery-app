@@ -9,24 +9,27 @@ const Restaurant = () => {
   const [restaurantInfo, setRestaurantInfo] = useState(false)
   const { data, isSuccess } = useGetRestaurantsQuery()
   const [rateStars, setRateStars] = useState([])
-  const [ filteredDishes,  setFilteredDishes] = useState(false)
+  const [ filteredDishes,  setFilteredDishes] = useState([])
   const [categoryState, setCategoryState] = useState(false)
- 
+  const {data: dishes, isSuccess: isSuccesDishes  }= useGetRestaurantDishesQuery(idRestaurant)
   useEffect(() => {
     if (isSuccess) {
       const restaurantInfo = data.find(restaurant => restaurant.id === idRestaurant);
       setRestaurantInfo(restaurantInfo)
     }
   }, [isSuccess])
-  const {data: dishes, isSuccess: isSuccesDishes  }= useGetRestaurantDishesQuery(idRestaurant)
+
   
   useEffect(() => {
-    if (isSuccesDishes) {
+   
       if(categoryState){
         const filteredDishes = dishes.filter(dish => dish.categories.some(dcategory => dcategory == categoryState));
       setFilteredDishes(filteredDishes)}
+    
+    else{
+      return
     }
-    console.log(filteredDishes);
+  
   }, [isSuccesDishes, categoryState])
 
   const handleCategory = (calledCategory)=>{
@@ -34,13 +37,13 @@ const Restaurant = () => {
       setCategoryState(calledCategory)
     }else{
       setCategoryState(false)
-      setFilteredDishes(false)
+      setFilteredDishes([])
     }
   }
   const handleAllCategory = () =>{
   if(categoryState){
     setCategoryState(false)
-    setFilteredDishes(false)
+    setFilteredDishes([])
   }
   }
 
@@ -125,7 +128,7 @@ const Restaurant = () => {
         <main className="restaurant__body">
           {
           isSuccesDishes &&
-          !filteredDishes ?
+          !filteredDishes.length ?
           dishes.map((food) => (
             <article key={food.id} className="restaurant__body__food" onClick={() => handleFood(food)}>
               <figure className="restaurant__body__media"><img src={food.image} alt="food" /></figure>

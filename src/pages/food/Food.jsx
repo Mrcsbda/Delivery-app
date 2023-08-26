@@ -4,6 +4,9 @@ import "./main.scss"
 import { useState } from "react"
 import useScreenSize from "../../assets/hooks/useScreenSize"
 import { useNavigate, useParams } from "react-router"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { addOrder } from "../../store/slides/cart"
 const Food = () => {
     const {width} = useScreenSize()
     const location = useLocation()
@@ -11,6 +14,44 @@ const Food = () => {
     const [numberState, setNumberState] = useState(0)
     const {idRestaurant, idDish} = useParams()
     const navigate = useNavigate()
+    const [orderPrice, setOrderPrice] = useState(0)
+    const [addChecker, setAddChecker] = useState({})
+    const [ingredientOrder, setIngredientOrder] = useState([])
+    const dispatch = useDispatch()
+    const handleCheckboxChange = (addition, event) => {
+        setAddChecker((prevAddChecker)=>
+           ({
+            ...prevAddChecker,
+            [addition]: event.target.checked,
+        }))
+      };
+
+      useEffect(() => {
+        let updatedOrder = [...ingredientOrder];
+        for (const key in addChecker) {
+          if (addChecker.hasOwnProperty(key)) {
+            if (addChecker[key] === true && !updatedOrder.includes(key)) {
+              updatedOrder.push(key);
+            } else if (!addChecker[key] && updatedOrder.includes(key)) {
+              updatedOrder = updatedOrder.filter(item => item !== key);
+            }
+          }
+        }
+        setIngredientOrder(updatedOrder);
+      }, [addChecker]);
+
+     useEffect(() => {
+        if(!ingredientOrder.length || numberState == 0){
+        setOrderPrice(numberState * food.price)}
+        else
+        {setOrderPrice((numberState * food.price) + (ingredientOrder.length * 2))}
+     }, [numberState, ingredientOrder])
+     
+
+
+
+
+
     const handleBack = ()=>{
         navigate(`/restaurant/${idRestaurant}`)
     }
@@ -21,6 +62,26 @@ const Food = () => {
         if (numberState == 0) { return }
         setNumberState(numberState - 1)
     }
+   
+  const createOrder = ()=>{
+    if(orderPrice != 0){
+     
+        const order ={
+            additions: ingredientOrder,
+            dish: food.name,
+            price: orderPrice,
+            quantity: numberState,
+           // timestamp: new Date().getTime()
+        }
+        dispatch(addOrder(order))
+        navigate(`/`)
+    }else{
+        alert(`Cannot make orders without any product`)
+    }
+  }
+
+
+
     return (
         <section className="food">
             
@@ -80,7 +141,7 @@ const Food = () => {
                   food.adittions.map((ingredient) => (
                       <section key={ingredient} className="food__body__ingredients__box">
                       <div  className="food__body__ingredients__ingredient">
-                          <input type="checkbox" name="checker" id="checker_ingredient" className="food__body__ingredients__checker" />
+                          <input onChange={(event) => handleCheckboxChange(ingredient, event)} type="checkbox" name="checker" id="checker_ingredient" className="food__body__ingredients__checker" />
                           <span> {ingredient} </span>
                       </div>
                       <span className="food__body__ingredients__price" >+2$</span>
@@ -101,9 +162,9 @@ const Food = () => {
                         <svg stroke="currentColor" fill="currentColor"  viewBox="0 0 1024 1024" version="1.1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><defs></defs><path d="M474 152m8 0l60 0q8 0 8 8l0 704q0 8-8 8l-60 0q-8 0-8-8l0-704q0-8 8-8Z" ></path><path d="M168 474m8 0l672 0q8 0 8 8l0 60q0 8-8 8l-672 0q-8 0-8-8l0-60q0-8 8-8Z"></path></svg>
                     </figure>
                 </div>
-                <div className="food__footer__cart">
+                <div className="food__footer__cart" onClick={createOrder}>
                     <span>Add</span>
-                    <span className="food__footer__cart__price">$ {food.price}</span>
+                    <span className="food__footer__cart__price">$ {orderPrice}</span>
                 </div>
             </footer>
         </section>

@@ -1,9 +1,14 @@
 import React from 'react'
 import "./header.scss";
 import AddressComponent from '../addressComponent/AddressComponent';
+import { useNavigate } from 'react-router-dom';
 
 
 const Header = () => {
+  const navigate = useNavigate()
+  const navigateHome = () =>{
+    navigate(`/`)
+  }
   return (
     <header className='header'>
       <figure className='header__logo-container'>
@@ -13,7 +18,7 @@ const Header = () => {
       <section className='header__nav-container'>
         <nav className='header__nav'>
           <ul className='header__nav-list'>
-            <li>Home</li>
+            <li onClick={navigateHome}>Home</li>
             <li>Search</li>
             <li>Orders</li>
             <li>Profile</li>

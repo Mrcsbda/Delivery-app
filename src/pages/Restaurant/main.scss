@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-
+    
     @include tablet {
       gap: 40px;
     }
@@ -46,29 +46,33 @@
       height: 10vh;
       max-height: 150px;
       & > img {
-        object-fit: cover;
+        object-fit: contain;
+        max-width: 90vw;
         width: 100%;
         height: 100%;
-      
       }
     }
     &__middle {
       display: flex;
       gap: 20px;
       height: calc(100px + 1vw);
+      max-height: 200px;
       @include tablet {
         height: auto;
+        padding: 0 7vw;
       }
       @include desktop {
-        padding: 0 250px;
+        padding: 0 22vw;
        gap: 100px;
       }
     }
     &__location {
       max-height: 300px;
       width: 40%;
+      max-width: 160px;
       @include tablet{
         width: 32%;
+        max-width: none;
       }
       @include desktop{
         width: 30%;
@@ -148,10 +152,11 @@
     gap: 15px;
     @include tablet {
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      padding: 0 5vw;;
     }
     @include desktop {
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      padding: 0 250px;
+      padding: 0 7.2vw;
     }
     &__food {
       padding: 5px;
