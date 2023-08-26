@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
+  padding-bottom: 80px;
   @include tablet {
     padding: 50px;
   }
@@ -132,12 +133,12 @@
       align-items: center;
       @include desktop{
          padding: 15px 60px;
-      }
+         &:hover {
+          background-color: $gray-color;
+          color: #fff;
+      }}
       &__active {
         background-color: $main-color;
-      }
-      &:hover {
-        background-color: $gray-color;
       }
     }
   }
@@ -161,14 +162,24 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
-     
+      max-width: 150px;
+      @include tablet{
+        max-width: 250px;  
+      }
+      @include desktop{
+        max-width: 300px;  
+      }
     }
     &__media {
       overflow: hidden;
       border-radius: 10px;
       height: 150px;
+     // max-width: 150px;
+
       @include tablet{
-      height: 200px;}
+      height: 200px;
+     // max-width: 300px;  
+    }
       & img {
         width: 100%;
         object-fit: cover;
@@ -187,5 +198,12 @@
       color: $font-buttons-category-color;
       font-size: calc(13px + 0.5vw);
     }
+  }
+  &__schedule{
+    font-weight: 300;
+        font-size: calc(10px + 0.3vw);
+        letter-spacing: -0.3px;
+        color: $dark-color;
+        margin-bottom: 4px;
   }
 }

@@ -32,11 +32,12 @@ const Router = () => {
                         <Route index element={<Feed />} />
                         <Route path=":idClient" element={<Profile />} />
                         <Route  path="search-views" element={<SearchView />}/>
+                        <Route path='restaurant/:idRestaurant/:idDish' element={<Food/>}/>
+                        <Route path="restaurant/:idRestaurant" element={<Restaurant />} />
                     </Route>
                     <Route path='addNewCard' element={<AddNewCard/>}/>
                     <Route path='editProfile' element={<EditProfile/>}/>
-                    <Route path='restaurant/:idRestaurant/:idDish' element={<Food/>}/>
-                    <Route path="restaurant/:idRestaurant" element={<Restaurant />} />
+                    
                     <Route path="payment-methods" element={<PaymentMethod />} />
                 </Route>
                 <Route element={<AdminRoutes userRole={userRole}/>}>

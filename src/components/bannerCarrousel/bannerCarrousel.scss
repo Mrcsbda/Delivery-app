@@ -42,9 +42,12 @@
     .slide-container {
         height: 120px;
         cursor: pointer;
-        img:hover {
+        img{
+            transition: 250ms ease;
+        &:hover {
+            
             transform: scale(1.05);
-        }
+        }}
     }
 }
 
