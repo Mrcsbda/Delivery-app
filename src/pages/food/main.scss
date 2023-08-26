@@ -8,6 +8,7 @@
     background-color: #fefdf9;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 80px;
     @include tablet{
         padding: 1vh 8vw;
     }
@@ -64,6 +65,7 @@
             }
         }
         &__back{
+            cursor: pointer;
             position: absolute;
             height: calc(24px + 1vw);
             left: 15px;
