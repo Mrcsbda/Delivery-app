@@ -1,5 +1,5 @@
 import { doc, getDoc } from "firebase/firestore";
-import { firebaseDB } from "../../../../firebase/firebaseConfig";
+import { firebaseDB } from "../../../firebase/firebaseConfig";
 import { login } from "./user";
 
 export const getUser = (key) => {

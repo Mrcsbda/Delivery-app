@@ -67,6 +67,12 @@
         text-decoration: underline;
         cursor: pointer;
     }
+
+    &__alert {
+        align-self: center;
+        font-size: 14px;
+        color: rgb(184, 11, 11);
+    }
 }
 
 @media screen and (min-width: 650px) {

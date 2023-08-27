@@ -1,23 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { loginWithEmailAndPassword } from '../../firebase/providers'
-import { setIsChecking } from '../../store/slides/user/user/user'
 import "./login.scss"
-import { getUser } from '../../store/slides/user/user/thunk'
+import { getUser } from '../../store/slides/user/thunk'
+import { setIsChecking } from '../../store/slides/user/user'
 
 const Login = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [error, setError] = useState(false)
 
   const onSubmit = async (data) => {
     dispatch(setIsChecking())
     const resp = await loginWithEmailAndPassword(data.email, data.password)
     if (resp.ok) {
-      dispatch(getUser(resp.uid))
+      await dispatch(getUser(resp.uid))
+      setError(false)
     } else {
       dispatch(setIsChecking())
+      setError(true)
     }
   }
 
@@ -41,7 +46,12 @@ const Login = () => {
             <p>Google</p>
           </button>
         </div>
-        <p className='login__create-account'>Create account</p>
+        {
+          error && (
+            <p className='login__alert' >¡Informacion incorrecta, prueba nuevamente!</p>
+          )
+        }
+        <NavLink to="/signUp" className='login__create-account'>Create account</NavLink>
       </form>
     </main>
   )
