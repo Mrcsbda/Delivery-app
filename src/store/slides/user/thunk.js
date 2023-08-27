@@ -33,9 +33,9 @@ export const startGoogleSignIn = () => {
                     role: "CLIENT",
                     updatedAt: new Date().getTime(),
                 }
-                dispatch(login({ key: resp.uid, userRole: userInfo.role, address: "" }))
-                const userData = await getUserById(resp.uid)
-                !userData && await setDoc(doc(firebaseDB, "users", resp.uid), userInfo)
+                const user = await getUserById(resp.uid)
+                dispatch(login({ key: resp.uid, userRole: userInfo.role, address: user?.address ? user.address : "" }))
+                await addNewUser(resp.uid, userInfo)
                 return true
             }
         } catch (error) {
@@ -57,8 +57,7 @@ export const signUpWithEmailAndPassword = (data) => {
                     role: "CLIENT",
                     updatedAt: new Date().getTime(),
                 }
-                const userData = await getUserById(resp.uid)
-                !userData && await setDoc(doc(firebaseDB, "users", resp.uid), userInfo)
+                await addNewUser(resp.uid, userInfo)
                 return true
             } else {
                 return false
@@ -74,4 +73,9 @@ const getUserById = async (id) => {
     const userRef = doc(firebaseDB, `users`, id);
     const userSnapshot = await getDoc(userRef);
     return userSnapshot.data();
+}
+
+const addNewUser = async (id, userInfo) => {
+    const userData = await getUserById(id)
+    !userData && await setDoc(doc(firebaseDB, "users", id), userInfo)
 }

@@ -2,19 +2,23 @@ import React from 'react'
 import "./header.scss";
 import AddressComponent from '../addressComponent/AddressComponent';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const Header = () => {
   const navigate = useNavigate()
-  const navigateHome = () =>{
+  const { orders } = useSelector(state => state.cart)
+  const navigateHome = () => {
     navigate(`/`)
   }
+
+
   return (
     <header className='header'>
       <figure className='header__logo-container'>
         <img className='header__logo' src="/logo.svg" alt="logo icon" />
       </figure>
-      <AddressComponent/>
+      <AddressComponent />
       <section className='header__nav-container'>
         <nav className='header__nav'>
           <ul className='header__nav-list'>
@@ -26,7 +30,11 @@ const Header = () => {
         </nav>
         <hr />
         <figure className='header__cart-container'>
-          <p className='header__orders'>2</p>
+          {
+            orders.length > 0 && (
+              <p className='header__orders'>{orders.length}</p>
+            )
+          }
           <img className='header__cart' src="/images/cart.svg" alt="cart icon" />
         </figure>
       </section>

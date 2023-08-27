@@ -5,14 +5,14 @@ import CategoriesCarrousel from '../../components/categoriesCarrousel/Categories
 import RestaurantCard from '../../components/restaurantCard/RestaurantCard'
 import AddressComponent from '../../components/addressComponent/AddressComponent'
 import { useGetRestaurantsQuery } from '../../store/api/firebaseApi'
+import { useSelector } from 'react-redux'
 
 
 
 const Feed = () => {
 
-   const { data: restaurants  , isLoading, isSuccess } = useGetRestaurantsQuery()
-
-
+  const { data: restaurants, isLoading, isSuccess } = useGetRestaurantsQuery()
+  const { orders } = useSelector(state => state.cart)
   const [desktopMenu, setDesktopMenu] = useState(false)
 
   useEffect(() => {
@@ -54,6 +54,15 @@ const Feed = () => {
           ))
         }
       </div>
+      {
+        !desktopMenu && orders.length > 0 && (
+          <button className='feed__cart-button'>
+            <p className='feed__cart-orders'>{orders.length}</p>
+            <p className='feed__cart-title'>View cart</p>
+            <p className='feed__card-total-to-pay'>10$</p>
+          </button>
+        )
+      }
     </article>
   )
 }
