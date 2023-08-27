@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/header/Header'
-import Feed from '../feed/Feed'
 import Footer from '../../components/footer/Footer'
 import "./layout.scss"
-import Profile from '../profile/Profile'
 import { Outlet } from 'react-router-dom'
+import HeaderDesktop from '../../components/headerDesktop/HeaderDesktop'
 
 const Layout = () => {
 
@@ -35,7 +33,7 @@ const Layout = () => {
     <main className='layout'>
       {
         desktopMenu && (
-          <Header />
+          <HeaderDesktop />
         )
       }
       <Outlet/>

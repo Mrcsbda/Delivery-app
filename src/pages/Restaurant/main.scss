@@ -9,13 +9,13 @@
   gap: 40px;
   padding-bottom: 80px;
   @include tablet {
-    padding: 50px;
+    padding: 0px 50px 50px;
   }
   &__header {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    
+
     @include tablet {
       gap: 40px;
     }
@@ -169,10 +169,10 @@
       cursor: pointer;
       max-width: 150px;
       @include tablet{
-        max-width: 250px;  
+        max-width: 250px;
       }
       @include desktop{
-        max-width: 300px;  
+        max-width: 300px;
       }
     }
     &__media {
@@ -183,14 +183,14 @@
 
       @include tablet{
       height: 200px;
-     // max-width: 300px;  
+     // max-width: 300px;
     }
       & img {
         width: 100%;
         object-fit: cover;
         height: 100%;
         border-radius: 10px;
-        transition: transform 0.3s ease; 
+        transition: transform 0.3s ease;
         &:hover{
           transform: scale(1.1);
       }
