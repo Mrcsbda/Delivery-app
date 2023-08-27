@@ -1,3 +1,5 @@
+@import "../../assets/styles/variables.scss";
+
 .footer {
     position: fixed;
     bottom: 0;
@@ -11,5 +13,21 @@
     &__icon {
         width: 2rem;
         height: 2rem;
+    }
+}
+
+.active {
+    filter: invert(83%) sepia(94%) saturate(3432%) hue-rotate(326deg) brightness(102%) contrast(105%);
+    display: flex;
+    justify-content: center;
+    position: relative;
+    gap: 0.5rem;
+    div {
+        width: 5px;
+        height: 5px;
+        background-color: black;
+        border-radius: 50%;
+        position: absolute;
+        bottom: -10px;
     }
 }

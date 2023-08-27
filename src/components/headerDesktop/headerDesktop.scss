@@ -36,10 +36,16 @@
 
         li {
             cursor: pointer;
-            color: $dark-color;
+
+            a {
+                color: $dark-color;
+                text-decoration: none;
+            }
 
             &:hover {
-                color: $main-color;
+                a {
+                    color: $main-color;
+                }
             }
         }
     }
@@ -67,3 +73,4 @@
     }
 
 }
+

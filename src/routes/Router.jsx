@@ -17,6 +17,11 @@ import ClientRoutes from './PrivateRoutes/ClientRoutes'
 import SuperAdminRoutes from './PrivateRoutes/SuperAdminRoutes'
 import PublicRoute from './PublicRoutes/PublicRoute'
 import { login } from '../store/slides/user/user'
+import AllOrders from '../pages/allOrders/main'
+import CurrentOrder from '../pages/currentOrder/main'
+import OrderSet from '../pages/orderSet/main'
+import NewOrder from '../pages/newOrder/main'
+import OrderAccepted from '../pages/orderAccepted/main'
 
 const Router = () => {
     const { userRole } = useSelector(state => state.user)
@@ -45,10 +50,15 @@ const Router = () => {
                         <Route path="search-views" element={<SearchView />} />
                         <Route path='restaurant/:idRestaurant/:idDish' element={<Food />} />
                         <Route path="restaurant/:idRestaurant" element={<Restaurant />} />
+                        <Route path="orders" element={<AllOrders />} />
                     </Route>
                     <Route path='addNewCard' element={<AddNewCard />} />
                     <Route path='editProfile' element={<EditProfile />} />
                     <Route path="payment-methods" element={<PaymentMethod />} />
+                    <Route path="order" element={<OrderSet/>}/>
+                    <Route path="current-order" element={<CurrentOrder/>}/>
+                    <Route path="new-order" element={<NewOrder/>}/>
+                    <Route path="order-accepted" element={<OrderAccepted/>}/>
                 </Route>
                 <Route element={<AdminRoutes userRole={userRole} />}>
 
