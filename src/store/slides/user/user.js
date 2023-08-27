@@ -16,6 +16,7 @@ export const userSlice = createSlice({
             state.isChecking = !state.isChecking
         },
         login: (state, { payload }) => {
+            localStorage.setItem("infoUser", JSON.stringify(payload))
             state.isChecking = !state.isChecking
             state.key = payload.key
             state.userRole = payload.userRole

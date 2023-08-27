@@ -4,17 +4,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { loginWithEmailAndPassword } from '../../firebase/providers'
 import "./login.scss"
-import { getUser } from '../../store/slides/user/thunk'
+import { getUser, startGoogleSignIn } from '../../store/slides/user/thunk'
 import { setIsChecking } from '../../store/slides/user/user'
 import Loader from '../../components/loader/Loader'
 
 const Login = () => {
-
   const { register, handleSubmit, formState: { errors } } = useForm()
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const [error, setError] = useState(false)
   const { isChecking } = useSelector(state => state.user)
+  const [checkingGoogle, setCheckingGoogle] = useState(false)
 
   const onSubmit = async (data) => {
     dispatch(setIsChecking())
@@ -28,10 +27,17 @@ const Login = () => {
     }
   }
 
+  const signInGoogle = async () => {
+    setCheckingGoogle(true)
+    await dispatch(startGoogleSignIn())
+    setCheckingGoogle(false)
+  }
+
+
   return (
     <main className='login'>
       {
-        isChecking &&(<Loader />)
+        isChecking || checkingGoogle &&(<Loader />)
       }
       <img src="/logo.svg" alt="" />
       <form className='login__form' onSubmit={handleSubmit(onSubmit)}>
@@ -46,7 +52,7 @@ const Login = () => {
           placeholder='Password' {...register("password", { required: true })} />
         <div className='login__btns-container'>
           <button type="submit" className='login__btn-login'>Login</button>
-          <button type="button" className='login__btn-google'>
+          <button type="button" className='login__btn-google' onClick={signInGoogle}>
             <img src="/images/google.svg" alt="google icon" />
             <p>Google</p>
           </button>
