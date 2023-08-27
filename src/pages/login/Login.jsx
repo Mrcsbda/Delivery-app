@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { loginWithEmailAndPassword } from '../../firebase/providers'
 import "./login.scss"
 import { getUser } from '../../store/slides/user/thunk'
 import { setIsChecking } from '../../store/slides/user/user'
+import Loader from '../../components/loader/Loader'
 
 const Login = () => {
 
@@ -13,6 +14,7 @@ const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [error, setError] = useState(false)
+  const { isChecking } = useSelector(state => state.user)
 
   const onSubmit = async (data) => {
     dispatch(setIsChecking())
@@ -28,6 +30,9 @@ const Login = () => {
 
   return (
     <main className='login'>
+      {
+        isChecking &&(<Loader />)
+      }
       <img src="/logo.svg" alt="" />
       <form className='login__form' onSubmit={handleSubmit(onSubmit)}>
         <h1 className='login__title'>Login</h1>
