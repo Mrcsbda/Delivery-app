@@ -3,6 +3,8 @@
 .feed {
     padding: 1rem 1.5rem;
     padding-bottom: 6rem;
+    display: flex;
+    flex-direction: column;
 
     &__location-container {
         width: 100%;
@@ -28,7 +30,8 @@
         cursor: pointer;
     }
 
-    &__address-text,  &__subtitle {
+    &__address-text,
+    &__subtitle {
         font-size: 14px;
         color: $dark-color;
     }
@@ -47,6 +50,30 @@
         flex-direction: column;
         gap: 1.3rem;
     }
+
+    &__cart-button {
+        position: fixed;
+        bottom: 80px;
+        width: 90%;
+        align-self: center;
+        background-color: $main-color;
+        border: none;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        color: $dark-color;
+        font-size: 14px;
+    }
+
+    &__cart-orders {
+        background-color: $dark-color;
+        padding: 3px 5px;
+        color: white;
+        border-radius: 4px;
+        font-size: 10px;
+    }
 }
 
 @media screen and (min-width: 768px) {
@@ -54,7 +81,7 @@
 
         &__restaurants-container {
             display: grid;
-            grid-template-columns: 1fr 1fr ;
+            grid-template-columns: 1fr 1fr;
         }
     }
 }
@@ -62,6 +89,7 @@
 @media screen and (min-width: 1160px) {
     .feed {
         padding: 0.5rem 2rem 2rem;
+
         &__restaurants-container {
             grid-template-columns: repeat(3, 350px);
             justify-content: center;
