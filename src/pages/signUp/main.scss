@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
- 
+
     @include tablet{
         padding: 100px 35vw;
         gap: 15px;
@@ -39,6 +39,7 @@
         color: $font-buttons-category-color;
         font-size: calc(12px + 0.5vw);
         margin-bottom: 10px;
+        outline: none;
     }
     &__submit{
         cursor: pointer;
@@ -56,6 +57,6 @@
             background-color: $font-buttons-category-color;
             color: $main-color;
         }
-        
+
     }
 }
