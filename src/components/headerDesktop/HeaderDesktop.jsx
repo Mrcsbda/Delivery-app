@@ -1,11 +1,10 @@
 import React from 'react'
-import "./header.scss";
+import "./headerDesktop.scss";
 import AddressComponent from '../addressComponent/AddressComponent';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-
-const Header = () => {
+const HeaderDesktop = () => {
   const navigate = useNavigate()
   const { orders } = useSelector(state => state.cart)
   const navigateHome = () => {
@@ -42,4 +41,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default HeaderDesktop
