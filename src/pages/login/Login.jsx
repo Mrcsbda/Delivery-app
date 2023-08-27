@@ -11,33 +11,39 @@ import Loader from '../../components/loader/Loader'
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const dispatch = useDispatch()
-  const [error, setError] = useState(false)
   const { isChecking } = useSelector(state => state.user)
+  const [errorLogin, setErrorLogin] = useState(false)
   const [checkingGoogle, setCheckingGoogle] = useState(false)
+  const [respGoogle, setRespGoogle] = useState(false)
 
   const onSubmit = async (data) => {
+    setRespGoogle(false)
     dispatch(setIsChecking())
     const resp = await loginWithEmailAndPassword(data.email, data.password)
     if (resp.ok) {
       await dispatch(getUser(resp.uid))
-      setError(false)
+      setErrorLogin(false)
     } else {
       dispatch(setIsChecking())
-      setError(true)
+      setErrorLogin(true)
     }
   }
 
   const signInGoogle = async () => {
+    setErrorLogin(false)
     setCheckingGoogle(true)
-    await dispatch(startGoogleSignIn())
+    const resp = await dispatch(startGoogleSignIn())
+    resp ? setRespGoogle(false) : setRespGoogle(true)
     setCheckingGoogle(false)
   }
-
 
   return (
     <main className='login'>
       {
-        isChecking || checkingGoogle &&(<Loader />)
+        isChecking &&(<Loader />)
+      }
+      {
+        checkingGoogle &&(<Loader />)
       }
       <img src="/logo.svg" alt="" />
       <form className='login__form' onSubmit={handleSubmit(onSubmit)}>
@@ -58,8 +64,13 @@ const Login = () => {
           </button>
         </div>
         {
-          error && (
+          errorLogin && (
             <p className='login__alert' >¡Informacion incorrecta, prueba nuevamente!</p>
+          )
+        }
+        {
+          respGoogle && (
+            <p className='login__alert' >¡Error al autenticarte con Google, vuelve a intentarlo!</p>
           )
         }
         <NavLink to="/signUp" className='login__create-account'>Create account</NavLink>
