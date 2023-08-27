@@ -13,12 +13,24 @@ import AddNewCard from '../pages/addNewCard/AddNewCard'
 import EditProfile from '../pages/editProfile/EditProfile'
 import Food from '../pages/food/Food'
 import PaymentMethod from '../pages/paymentMethod/PaymentMethod'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { SearchView } from '../pages/searchViews/searchView'
 import SignUp from '../pages/signUp/SignUp'
+import { useEffect } from 'react'
+import { login } from '../store/slides/user/user/user'
 
 const Router = () => {
     const {userRole} = useSelector(state => state.user)
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        validateUser()
+    },[])
+
+    const validateUser = () => {
+        const infoUser = JSON.parse(localStorage.getItem("infoUser"))
+        infoUser && dispatch(login(infoUser))
+    }
 
     return (
         <BrowserRouter>
@@ -37,7 +49,6 @@ const Router = () => {
                     </Route>
                     <Route path='addNewCard' element={<AddNewCard/>}/>
                     <Route path='editProfile' element={<EditProfile/>}/>
-                    
                     <Route path="payment-methods" element={<PaymentMethod />} />
                 </Route>
                 <Route element={<AdminRoutes userRole={userRole}/>}>

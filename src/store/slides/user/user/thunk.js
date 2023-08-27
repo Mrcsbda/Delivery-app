@@ -10,9 +10,10 @@ export const getUser = (key) => {
             const userData = userSnapshot.data();
             const infoUser = {
                 key,
-                useRole: userData.role,
+                userRole: userData.role,
                 address: userData.address
             }
+            localStorage.setItem("infoUser", JSON.stringify(infoUser))
             dispatch(login(infoUser))
         } catch (error) {
             return error

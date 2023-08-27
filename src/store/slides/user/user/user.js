@@ -18,7 +18,7 @@ export const userSlice = createSlice({
         login: (state, { payload }) => {
             state.isChecking = !state.isChecking
             state.key = payload.key
-            state.userRole = payload.useRole
+            state.userRole = payload.userRole
             state.address = payload.address
             state.errorLogin = null
         },
