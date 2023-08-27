@@ -36,9 +36,10 @@ export const startGoogleSignIn = () => {
                 dispatch(login({ key: resp.uid, userRole: userInfo.role, address: "" }))
                 const userData = await getUserById(resp.uid)
                 !userData && await setDoc(doc(firebaseDB, "users", resp.uid), userInfo)
+                return true
             }
         } catch (error) {
-            return error
+            return false
         }
     }
 }
