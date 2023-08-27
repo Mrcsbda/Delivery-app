@@ -10,13 +10,14 @@ import Loader from '../../components/loader/Loader'
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
-  const { isChecking } = useSelector(state => state.user)
   const dispatch = useDispatch()
+  const { isChecking } = useSelector(state => state.user)
   const [errorLogin, setErrorLogin] = useState(false)
   const [checkingGoogle, setCheckingGoogle] = useState(false)
   const [respGoogle, setRespGoogle] = useState(false)
 
   const onSubmit = async (data) => {
+    setRespGoogle(false)
     dispatch(setIsChecking())
     const resp = await loginWithEmailAndPassword(data.email, data.password)
     if (resp.ok) {
@@ -29,6 +30,7 @@ const Login = () => {
   }
 
   const signInGoogle = async () => {
+    setErrorLogin(false)
     setCheckingGoogle(true)
     const resp = await dispatch(startGoogleSignIn())
     resp ? setRespGoogle(false) : setRespGoogle(true)
@@ -38,7 +40,10 @@ const Login = () => {
   return (
     <main className='login'>
       {
-        isChecking || checkingGoogle &&(<Loader />)
+        isChecking &&(<Loader />)
+      }
+      {
+        checkingGoogle &&(<Loader />)
       }
       <img src="/logo.svg" alt="" />
       <form className='login__form' onSubmit={handleSubmit(onSubmit)}>

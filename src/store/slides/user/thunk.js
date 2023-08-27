@@ -1,7 +1,7 @@
 import { collection, doc, getDoc, addDoc, setDoc } from "firebase/firestore";
 import { firebaseDB } from "../../../firebase/firebaseConfig";
 import { login } from "./user";
-import { signInWithGoogle } from "../../../firebase/providers";
+import { registerUserWithEmailPassword, signInWithGoogle } from "../../../firebase/providers";
 
 export const getUser = (key) => {
     return async (dispatch) => {
@@ -23,7 +23,7 @@ export const startGoogleSignIn = () => {
     return async (dispatch) => {
         try {
             const resp = await signInWithGoogle()
-            if (resp) {
+            if (resp.ok) {
                 const userInfo = {
                     avatar: resp.photoURL,
                     createdAt: new Date().getTime(),
@@ -44,8 +44,34 @@ export const startGoogleSignIn = () => {
     }
 }
 
-const getUserById = async(id) => {
+export const signUpWithEmailAndPassword = (data) => {
+    return async (dispatch) => {
+        try {
+            const resp = await registerUserWithEmailPassword(data)
+            if (resp.ok) {
+                const userInfo = {
+                    createdAt: new Date().getTime(),
+                    email: resp.email,
+                    loginMethod: "EMAIL",
+                    name: resp.name,
+                    role: "CLIENT",
+                    updatedAt: new Date().getTime(),
+                }
+                const userData = await getUserById(resp.uid)
+                !userData && await setDoc(doc(firebaseDB, "users", resp.uid), userInfo)
+                return true
+            } else {
+                return false
+            }
+        } catch (error) {
+            return false
+        }
+    }
+}
+
+
+const getUserById = async (id) => {
     const userRef = doc(firebaseDB, `users`, id);
     const userSnapshot = await getDoc(userRef);
-    return  userSnapshot.data();
+    return userSnapshot.data();
 }
