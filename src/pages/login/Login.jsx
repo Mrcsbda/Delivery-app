@@ -33,7 +33,6 @@ const Login = () => {
     setCheckingGoogle(false)
   }
 
-
   return (
     <main className='login'>
       {

@@ -27,12 +27,19 @@ export const startGoogleSignIn = () => {
             const resp = await signInWithGoogle()
             if (resp) {
                 const userInfo = {
-                    key: resp.uid,
-                    userRole: "CLIENT",
-                    address: ""
+                    address: "",
+                    avatar: resp.photoURL,
+                    birthday: "",
+                    createdAt: new Date().getTime(),
+                    email: resp.email,
+                    loginMethod: "GOOGLE",
+                    name: resp.displayName,
+                    phone: "",
+                    role: "CLIENT",
+                    updatedAt: new Date().getTime(),
                 }
-                dispatch(login(userInfo))
-                console.log(resp)
+                dispatch(login({ key: resp.uid, userRole: userInfo.role, address: userInfo.address }))
+                console.log(userInfo)
             }
         } catch (error) {
             return error
