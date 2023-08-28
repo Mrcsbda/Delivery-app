@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import './categoriesCarrousel.scss';
 
-const CategoriesCarrousel = () => {
+const CategoriesCarrousel = ({ filterByCategory }) => {
     const [selected, setSelected] = useState("All")
     const categories = [
         {
@@ -32,6 +32,7 @@ const CategoriesCarrousel = () => {
 
     const selectCategories = (category) => {
         setSelected(category)
+        filterByCategory(category)
     }
 
     return (

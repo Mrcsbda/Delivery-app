@@ -10,12 +10,17 @@ import { useSelector } from 'react-redux'
 
 
 const Feed = () => {
-
   const { data: restaurants, isLoading, isSuccess } = useGetRestaurantsQuery()
-  const { orders } = useSelector(state => state.cart)
   const [desktopMenu, setDesktopMenu] = useState(false)
+  const { orders } = useSelector(state => state.cart)
+  const [resturantsInfo, setRestaurantsInfo] = useState(false)
 
   useEffect(() => {
+    restaurants && setRestaurantsInfo(restaurants)
+  }, [restaurants])
+
+  useEffect(() => {
+
     handleDesktopMenu()
 
     window.addEventListener('resize', handleDesktopMenu);
@@ -23,7 +28,6 @@ const Feed = () => {
     return () => {
       window.removeEventListener('resize', handleDesktopMenu);
     };
-
   }, [])
 
   const handleDesktopMenu = () => {
@@ -33,6 +37,15 @@ const Feed = () => {
       setDesktopMenu(true)
     } else {
       setDesktopMenu(false)
+    }
+  }
+
+  const filterByCategory = (category) => {
+    if(category !== "All") {
+      const filterByCategory = restaurants.filter(restaurant => restaurant.categories.includes(category.toLowerCase()))
+      setRestaurantsInfo(filterByCategory)
+    } else {
+      setRestaurantsInfo(restaurants)
     }
   }
 
@@ -46,12 +59,14 @@ const Feed = () => {
 
       <BannerCarrousel />
       <p className='feed__subtitle'>Restaurants and cafes</p>
-      <CategoriesCarrousel />
+      <CategoriesCarrousel filterByCategory={filterByCategory} />
       <div className='feed__restaurants-container'>
-        {isSuccess &&
-          restaurants.map((restaurant, index) => (
-            <RestaurantCard key={index} restaurant={restaurant} />
-          ))
+        {resturantsInfo &&
+          (
+            resturantsInfo.map((restaurant, index) => (
+              <RestaurantCard key={index} restaurant={restaurant} />
+            ))
+          )
         }
       </div>
       {

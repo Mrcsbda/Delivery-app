@@ -44,6 +44,21 @@ export const firebaseApi = createApi({
                 }
             }
         }),
+        getUserById: builder.query({
+            providesTags: ['user', 'defaultCache'],
+            async queryFn(id) {
+                try {
+                    const userRef = doc(firebaseDB, `users`, id);
+                    const userSnapshot = await getDoc(userRef);
+                    const user = userSnapshot.data();
+
+                    return { data: user }
+                } catch (error) {
+                    console.log(error);
+                    return error
+                }
+            }
+        }),
         addRestaurant: builder.mutation({
             async queryFn(data) {
                 try {
@@ -62,4 +77,4 @@ export const firebaseApi = createApi({
     })
 
 })
-export const { useGetRestaurantsQuery, useAddRestaurantMutation, useGetRestaurantDishesQuery} = firebaseApi
+export const { useGetRestaurantsQuery, useAddRestaurantMutation, useGetRestaurantDishesQuery, useGetUserByIdQuery} = firebaseApi

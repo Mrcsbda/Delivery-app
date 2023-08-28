@@ -5,7 +5,6 @@ const initialState = {
     key: null,
     userRole: null,
     address: null,
-    errorLogin: null
 }
 
 export const userSlice = createSlice({
@@ -21,12 +20,14 @@ export const userSlice = createSlice({
             state.key = payload.key
             state.userRole = payload.userRole
             state.address = payload.address
-            state.errorLogin = null
         },
-        loginLogout: (state) => {
+        logout: (state) => {
+            state.isChecking = false
+            state.key = null
             state.userRole = null
+            state.address = null
         }
     }
 })
 
-export const { setIsChecking, login, loginLogout } = userSlice.actions
+export const { setIsChecking, login, logout } = userSlice.actions
