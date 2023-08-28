@@ -61,7 +61,7 @@ const Feed = () => {
       <p className='feed__subtitle'>Restaurants and cafes</p>
       <CategoriesCarrousel filterByCategory={filterByCategory} />
       <div className='feed__restaurants-container'>
-        {isSuccess && resturantsInfo &&
+        {resturantsInfo &&
           (
             resturantsInfo.map((restaurant, index) => (
               <RestaurantCard key={index} restaurant={restaurant} />

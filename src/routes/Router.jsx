@@ -39,11 +39,11 @@ const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<PublicRoute userRole={userRole} />}>
-                    <Route path="login" element={<Login />} />
-                    <Route path="signUp" element={<SignUp />} />
+                <Route element={<PublicRoute userRole={userRole} />}>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signUp" element={<SignUp />} />
                 </Route>
-                <Route path='/' element={<ClientRoutes userRole={userRole} />}>
+                <Route  element={<ClientRoutes userRole={userRole} />}>
                     <Route path='/' element={<Layout />}>
                         <Route index element={<Feed />} />
                         <Route path=":idClient" element={<Profile />} />
