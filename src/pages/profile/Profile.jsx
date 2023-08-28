@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import "./profile.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetUserByIdQuery } from "../../store/api/firebaseApi";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/slides/user/user";
 
 const Profile = () => {
   const { idClient } = useParams()
@@ -40,6 +42,8 @@ const Profile = () => {
     },
   ];
   const { data: user, isSuccess } = useGetUserByIdQuery(idClient)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const typeOfSettings = (index) => {
     switch (index) {
@@ -51,6 +55,23 @@ const Profile = () => {
         return "arrow-next";
     }
   };
+
+  const settingsNavigate = (index) => {
+    switch (index) {
+      case 0:
+        navigate("/editProfile")
+        break;
+      case 2:
+        navigate("/payment-methods")
+        break;
+      case 7:
+        dispatch(logout())
+        localStorage.clear()
+        break;
+      default:
+        return;
+    }
+  }
 
   return (
     <article className="profile">
@@ -74,7 +95,7 @@ const Profile = () => {
         <ul className="profile__settings-list">
           {profileSettings.map((item, index) => {
             return (
-              <li key={index} className="profile__list-item">
+              <li key={index} className="profile__list-item" onClick={() => settingsNavigate(index)}>
                 <figure className="profile__settings-option-container">
                   <img src={item.image} alt="" className="profile__settings-option-icon" />
                   <figcaption className="profile__settings-option">{item.name}</figcaption>

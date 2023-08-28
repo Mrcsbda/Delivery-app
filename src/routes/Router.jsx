@@ -52,7 +52,7 @@ const Router = () => {
                         <Route path="restaurant/:idRestaurant" element={<Restaurant />} />
                         <Route path="orders" element={<AllOrders />} />
                     </Route>
-                    <Route path='addNewCard' element={<AddNewCard />} />
+                    <Route path='add-new-card' element={<AddNewCard />} />
                     <Route path='editProfile' element={<EditProfile />} />
                     <Route path="payment-methods" element={<PaymentMethod />} />
                     <Route path="order" element={<OrderSet/>}/>
