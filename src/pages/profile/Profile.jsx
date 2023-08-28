@@ -59,7 +59,7 @@ const Profile = () => {
   const settingsNavigate = (index) => {
     switch (index) {
       case 0:
-        navigate("/editProfile")
+        navigate("/edit-profile")
         break;
       case 2:
         navigate("/payment-methods")

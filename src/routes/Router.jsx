@@ -53,7 +53,7 @@ const Router = () => {
                         <Route path="orders" element={<AllOrders />} />
                     </Route>
                     <Route path='add-new-card' element={<AddNewCard />} />
-                    <Route path='editProfile' element={<EditProfile />} />
+                    <Route path='edit-profile' element={<EditProfile />} />
                     <Route path="payment-methods" element={<PaymentMethod />} />
                     <Route path="order" element={<OrderSet/>}/>
                     <Route path="current-order" element={<CurrentOrder/>}/>
