@@ -1,10 +1,9 @@
 import React from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import "./footer.scss"
 import { useSelector } from 'react-redux'
 
 const Footer = () => {
-  const navigate = useNavigate()
   const { key } = useSelector(state => state.user)
 
   return (

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import "./restaurantCard.scss"
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const RestaurantCard = ({restaurant}) => {
   const [rateStars, setRateStars] = useState([])
   const navigate = useNavigate()
- const navigateToRestaurant = ()=>{
-    navigate(`restaurant/${restaurant.id}`)
- }
+  const {userRole} = useSelector(state => state.user)
+  
   useEffect(()=> {
     createRating()
   },[])
@@ -24,6 +24,10 @@ const RestaurantCard = ({restaurant}) => {
     const time = new Date(date)
     return `${time.getHours()}:${time.getMinutes()}0`
   }
+
+  const navigateToRestaurant = ()=>{
+    userRole === "CLIENT" &&  navigate(`restaurant/${restaurant.id}`)
+ }
 
   return (
     <section className='restaurant-card' id={restaurant.id} onClick={navigateToRestaurant}>

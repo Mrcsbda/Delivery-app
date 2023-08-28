@@ -12,7 +12,7 @@ const HeaderDesktop = () => {
   return (
     <header className='header'>
       <figure className='header__logo-container'>
-        <img className='header__logo' src="/logo.svg" alt="logo icon" />
+        <Link to="/"><img className='header__logo' src="/logo.svg" alt="logo icon" /></Link>
       </figure>
       <AddressComponent />
       <section className='header__nav-container'>
