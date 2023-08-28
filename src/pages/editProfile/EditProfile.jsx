@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./editProfile.scss";
 import { useGetUserByIdQuery } from "../../store/api/firebaseApi";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const EditProfile = () => {
   const [name, setName] = useState(true);
@@ -9,7 +10,7 @@ const EditProfile = () => {
   const [number, setNumber] = useState(true);
   const [birthday, setBirthday] = useState(true);
   const [image, setImage] = useState(false);
-  const { key } = JSON.parse(localStorage.getItem("infoUser"))
+  const { key } = useSelector(state => state.user)
   const { data: user, isSuccess } = useGetUserByIdQuery(key)
 
   const editInfo = (type) => {
