@@ -3,15 +3,18 @@ import "./editProfile.scss";
 import { useGetUserByIdQuery } from "../../store/api/firebaseApi";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
 const EditProfile = () => {
   const [name, setName] = useState(true);
   const [email, setEmail] = useState(true);
   const [number, setNumber] = useState(true);
   const [birthday, setBirthday] = useState(true);
+  const [address, setAddress] = useState(true);
   const [image, setImage] = useState(false);
   const { key } = useSelector(state => state.user)
   const { data: user, isSuccess } = useGetUserByIdQuery(key)
+  const { register, handleSubmit, formState: { errors } } = useForm()
 
   const editInfo = (type) => {
     switch (type) {
@@ -25,8 +28,14 @@ const EditProfile = () => {
         break;
       case "image": setImage(!image);
         break;
+      case "address": setAddress(!address);
+        break;
       default: return ""
     }
+  }
+
+  const saveInfo = (data) => {
+    console.log(data)
   }
 
   return (
@@ -69,13 +78,14 @@ const EditProfile = () => {
               <input type="file" />
               <button type="submit" className="edit-profile__btn-change"> Change </button>
             </form>
-            <form className="edit-profile__form">
+            <form className="edit-profile__form" onSubmit={handleSubmit(saveInfo)}>
               <section className="edit-profile__form-container">
                 <div className={`edit-profile__input-container ${name ? "" : "edit-profile__edit"}`}>
                   <input
                     type="text"
                     disabled={name ? "disabled" : ""}
-                    value="Alejandra Sanchez"
+                    defaultValue={user.name}
+                    {...register("name")}
                   />
                   <img src="/images/edit.svg" alt="edit icon" onClick={() => editInfo("name")} />
                 </div>
@@ -83,7 +93,8 @@ const EditProfile = () => {
                   <input
                     type="email"
                     disabled={email ? "disabled" : ""}
-                    value="alejandra@example.com"
+                    defaultValue={user.email}
+                    {...register("email")}
                   />
                   <img src="/images/edit.svg" alt="edit icon" onClick={() => editInfo("email")} />
                 </div>
@@ -91,7 +102,9 @@ const EditProfile = () => {
                   <input
                     type="text"
                     disabled={number ? "disabled" : ""}
-                    value="30135536644"
+                    defaultValue={user?.number ? user.number :""}
+                    placeholder={!user?.number && "Please enter a number"}
+                    {...register("number")}
                   />
                   <img src="/images/edit.svg" alt="edit icon" onClick={() => editInfo("number")} />
                 </div>
@@ -99,9 +112,21 @@ const EditProfile = () => {
                   <input
                     type="text"
                     disabled={birthday ? "disabled" : ""}
-                    value="03.05.1995"
+                    defaultValue={user?.birthday ? user.birthday :""}
+                    placeholder={!user?.birthday && "Please enter your birth date"}
+                    {...register("birthday")}
                   />
                   <img src="/images/edit.svg" alt="edit icon" onClick={() => editInfo("birthday")} />
+                </div>
+                <div className={`edit-profile__input-container ${address ? "" : "edit-profile__edit"}`}>
+                  <input
+                    type="text"
+                    disabled={address ? "disabled" : ""}
+                    defaultValue={user?.address ? user.address :""}
+                    placeholder={!user?.address && "Please enter your address"}
+                    {...register("address")}
+                  />
+                  <img src="/images/edit.svg" alt="edit icon" onClick={() => editInfo("address")} />
                 </div>
               </section>
               <button type="submit" className="edit-profile__btn-save">Save</button>

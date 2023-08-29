@@ -12,9 +12,7 @@ import PaymentMethod from '../pages/paymentMethod/PaymentMethod'
 import Profile from '../pages/profile/Profile'
 import { SearchView } from '../pages/searchViews/searchView'
 import SignUp from '../pages/signUp/SignUp'
-import AdminRoutes from './PrivateRoutes/AdminRoutes'
 import ClientRoutes from './PrivateRoutes/ClientRoutes'
-import SuperAdminRoutes from './PrivateRoutes/SuperAdminRoutes'
 import PublicRoute from './PublicRoutes/PublicRoute'
 import { login } from '../store/slides/user/user'
 import AllOrders from '../pages/allOrders/main'
@@ -59,12 +57,6 @@ const Router = () => {
                     <Route path="current-order" element={<CurrentOrder/>}/>
                     <Route path="new-order" element={<NewOrder/>}/>
                     <Route path="order-accepted" element={<OrderAccepted/>}/>
-                </Route>
-                <Route element={<AdminRoutes userRole={userRole} />}>
-
-                </Route>
-                <Route element={<SuperAdminRoutes userRole={userRole} />}>
-
                 </Route>
             </Routes>
         </BrowserRouter>
