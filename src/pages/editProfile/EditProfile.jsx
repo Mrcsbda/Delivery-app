@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { updateInfo } from "../../store/slides/user/user";
+import uploadFile from "../../services/updaloadFile";
 
 const EditProfile = () => {
   const [name, setName] = useState(true);
@@ -13,11 +14,13 @@ const EditProfile = () => {
   const [birthday, setBirthday] = useState(true);
   const [address, setAddress] = useState(true);
   const [image, setImage] = useState(false);
+  const [saveIsSuccess, setSaveIsSuccess] = useState(false)
   const { key } = useSelector(state => state.user)
   const { data: user, isSuccess } = useGetUserByIdQuery(key)
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [editInfoUser] = useEditInfoUserMutation()
   const dispatch = useDispatch()
+
 
   const editInfo = (type) => {
     switch (type) {
@@ -57,7 +60,9 @@ const EditProfile = () => {
       localStorage.setItem("infoUser", JSON.stringify(local))
     }
 
-    await editInfoUser({ formData, key })
+    if (formData?.name || formData?.email || formData?.phone || formData?.birthday || formData?.address) {
+      await editInfoUser({ formData, key })
+    }
 
     setName(true)
     setEmail(true)
@@ -67,16 +72,22 @@ const EditProfile = () => {
   }
 
   const saveImage = async (data) => {
-
+    if (data.avatar.length > 0) {
+      const avatar = await uploadFile(data.avatar[0])
+      const formData = { avatar }
+      await editInfoUser({ formData, key })
+      reset()
+      setImage(false)
+    }
   }
 
   const getTime = (userBirthday) => {
     const date = new Date(userBirthday);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()+1).padStart(2, "0");
+    const day = String(date.getDate() + 1).padStart(2, "0");
 
-    return `${ year }-${ month }-${ day }`;
+    return `${year}-${month}-${day}`;
   }
 
   return (
@@ -115,8 +126,11 @@ const EditProfile = () => {
                 onClick={() => editInfo("image")}
               />
             </figure>
-            <form className={`edit-profile__change-image ${image ? "" : "edit-profile__hidden"}`}>
-              <input type="file" />
+            <form
+              className={`edit-profile__change-image ${image ? "" : "edit-profile__hidden"}`}
+              onSubmit={handleSubmit(saveImage)}
+            >
+              <input type="file" {...register("avatar")} />
               <button type="submit" className="edit-profile__btn-change"> Change </button>
             </form>
             <form className="edit-profile__form" onSubmit={handleSubmit(saveInfo)}>
@@ -173,6 +187,7 @@ const EditProfile = () => {
               </section>
               <button type="submit" className="edit-profile__btn-save">Save</button>
             </form>
+            {/* <p className="edit-profile__form">information saved with success</p> */}
           </>
         )
       }
