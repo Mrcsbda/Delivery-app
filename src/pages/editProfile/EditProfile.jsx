@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { updateInfo } from "../../store/slides/user/user";
 import uploadFile from "../../services/updaloadFile";
 import ChangeImageForm from "../../components/changeImageForm/ChangeImageForm";
+import Swal from "sweetalert2";
 
 const EditProfile = () => {
   const [name, setName] = useState(true);
@@ -62,12 +63,17 @@ const EditProfile = () => {
 
     await editInfoUser({ formData, key })
 
-
     setName(true)
     setEmail(true)
     setPhone(true)
     setBirthday(true)
     setAddress(true)
+    
+    Swal.fire(
+      'Excelente!',
+      'Información actualizada con existo!',
+      'success'
+    )
   }
 
   const getTime = (userBirthday) => {
@@ -170,7 +176,6 @@ const EditProfile = () => {
               </section>
               <button type="submit" className="edit-profile__btn-save">Save</button>
             </form>
-            {/* <p className="edit-profile__form">information saved with success</p> */}
           </>
         )
       }

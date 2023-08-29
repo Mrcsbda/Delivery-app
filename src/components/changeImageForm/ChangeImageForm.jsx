@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import uploadFile from '../../services/updaloadFile'
 import { useEditInfoUserMutation } from '../../store/api/firebaseApi'
+import Swal from 'sweetalert2'
 
 const ChangeImageForm = ({ id: key, setImage, image }) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
@@ -14,6 +15,11 @@ const ChangeImageForm = ({ id: key, setImage, image }) => {
             await editInfoUser({ formData, key })
             reset()
             setImage(false)
+            Swal.fire(
+                'Excelente!',
+                'Fotografia actualizada con existo!',
+                'success'
+            )
         }
     }
     return (
