@@ -39,9 +39,8 @@ const EditProfile = () => {
   }
 
   const saveInfo = async (data) => {
-    console.log(data)
     const formData = data;
-    console.log(formData.birthday)
+
     if (formData.birthday) {
       formData.birthday = new Date(formData.birthday).getTime()
     }
@@ -51,9 +50,11 @@ const EditProfile = () => {
     !formData.phone && delete formData.phone;
     !formData.birthday && delete formData.birthday;
     !formData.address && delete formData.address;
-    console.log(formData);
     if (formData.address) {
       dispatch(updateInfo(formData.address))
+      const local = JSON.parse(localStorage.getItem("infoUser"))
+      local.address = formData.address
+      localStorage.setItem("infoUser", JSON.stringify(local))
     }
 
     await editInfoUser({ formData, key })
@@ -64,7 +65,7 @@ const EditProfile = () => {
     setBirthday(true)
     setAddress(true)
   }
-  console.log(user.birthday)
+
   const saveImage = async (data) => {
 
   }

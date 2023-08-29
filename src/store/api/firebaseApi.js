@@ -77,11 +77,8 @@ export const firebaseApi = createApi({
         editInfoUser: builder.mutation({
             async queryFn({formData, key}) {
                 try {
-                    console.log(key)
                     const userRef = doc(firebaseDB, `users`, key);
-                    console.log(userRef)
                     const resp = await updateDoc(userRef, formData)
-                    console.log(resp)
                     return true
                 } catch (error) {
                     console.log(error);
