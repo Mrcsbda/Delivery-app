@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./editProfile.scss";
-import { useGetUserByIdQuery } from "../../store/api/firebaseApi";
+import { useEditInfoUserMutation, useGetUserByIdQuery } from "../../store/api/firebaseApi";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -8,21 +8,24 @@ import { useForm } from "react-hook-form";
 const EditProfile = () => {
   const [name, setName] = useState(true);
   const [email, setEmail] = useState(true);
-  const [number, setNumber] = useState(true);
+  const [phone, setPhone] = useState(true);
   const [birthday, setBirthday] = useState(true);
   const [address, setAddress] = useState(true);
   const [image, setImage] = useState(false);
   const { key } = useSelector(state => state.user)
   const { data: user, isSuccess } = useGetUserByIdQuery(key)
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const [editInfoUser] = useEditInfoUserMutation()
+
 
   const editInfo = (type) => {
     switch (type) {
       case "name": setName(!name);
         break;
-      case "email": setEmail(!email);
+      case "email":
+        user.loginMethod === "EMAIL" && setEmail(!email);
         break;
-      case "number": setNumber(!number);
+      case "phone": setPhone(!phone);
         break;
       case "birthday": setBirthday(!birthday);
         break;
@@ -34,8 +37,26 @@ const EditProfile = () => {
     }
   }
 
-  const saveInfo = (data) => {
+  const saveInfo = async (data) => {
     console.log(data)
+    const formData = data;
+
+    !formData.name && delete formData.name;
+    !formData.email && delete formData.email;
+    !formData.phone && delete formData.phone;
+    !formData.birthday && delete formData.birthday;
+    !formData.address && delete formData.address;
+
+    await editInfoUser({formData, key})
+    setName(true)
+    setEmail(true)
+    setPhone(true)
+    setBirthday(true)
+    setAddress(true)
+  }
+
+  const saveImage = async (data) => {
+
   }
 
   return (
@@ -93,26 +114,27 @@ const EditProfile = () => {
                   <input
                     type="email"
                     disabled={email ? "disabled" : ""}
+                    className={user.loginMethod === "GOOGLE" ? "edit-profile__google" : ""}
                     defaultValue={user.email}
                     {...register("email")}
                   />
                   <img src="/images/edit.svg" alt="edit icon" onClick={() => editInfo("email")} />
                 </div>
-                <div className={`edit-profile__input-container ${number ? "" : "edit-profile__edit"}`}>
+                <div className={`edit-profile__input-container ${phone ? "" : "edit-profile__edit"}`}>
                   <input
                     type="text"
-                    disabled={number ? "disabled" : ""}
-                    defaultValue={user?.number ? user.number :""}
-                    placeholder={!user?.number && "Please enter a number"}
-                    {...register("number")}
+                    disabled={phone ? "disabled" : ""}
+                    defaultValue={user?.phone ? user.phone : ""}
+                    placeholder={!user?.phone && "Please enter a number"}
+                    {...register("phone")}
                   />
-                  <img src="/images/edit.svg" alt="edit icon" onClick={() => editInfo("number")} />
+                  <img src="/images/edit.svg" alt="edit icon" onClick={() => editInfo("phone")} />
                 </div>
                 <div className={`edit-profile__input-container ${birthday ? "" : "edit-profile__edit"}`}>
                   <input
-                    type="text"
+                    type="date"
                     disabled={birthday ? "disabled" : ""}
-                    defaultValue={user?.birthday ? user.birthday :""}
+                    defaultValue={user?.birthday ? user.birthday : ""}
                     placeholder={!user?.birthday && "Please enter your birth date"}
                     {...register("birthday")}
                   />
@@ -122,7 +144,7 @@ const EditProfile = () => {
                   <input
                     type="text"
                     disabled={address ? "disabled" : ""}
-                    defaultValue={user?.address ? user.address :""}
+                    defaultValue={user?.address ? user.address : ""}
                     placeholder={!user?.address && "Please enter your address"}
                     {...register("address")}
                   />
