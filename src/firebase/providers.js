@@ -35,7 +35,6 @@ export const loginWithEmailAndPassword = async (email, password) => {
 
 export const registerUserWithEmailPassword = async ({ name, email, password }) => {
     try {
-        console.log(email, password)
         const resp = await createUserWithEmailAndPassword(firebaseAuth, email, password)
         const { uid } = resp.user;
         const infoUser = {

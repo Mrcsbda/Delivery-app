@@ -1,5 +1,7 @@
 import React from 'react'
 import "./paymentMethod.scss"
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const PaymentMethod = () => {
 
@@ -17,13 +19,17 @@ const PaymentMethod = () => {
             type: "amex"
         }
     ]
+    const { key } = useSelector(state => state.user)
+
     return (
         <article className="payment-method">
-            <img
-                src="/images/arrow-prev.svg"
-                alt="return icon"
-                className="payment-method__return"
-            />
+            <Link to={`/${key}`} className="payment-method__return">
+                <img
+                    src="/images/arrow-prev.svg"
+                    alt="return icon"
+                    className="payment-method__return--image"
+                />
+            </Link>
             <section className="payment-method__info-container">
                 <h1 className="payment-method__title">Payment method</h1>
                 <div className="payment-method__methods">
@@ -43,7 +49,11 @@ const PaymentMethod = () => {
                     }
                 </div>
             </section>
-            <button className="payment-method__add-new-card">Add new card</button>
+            <button className="payment-method__add-new-card">
+                <Link to="/add-new-card">
+                    Add new card
+                </Link>
+            </button>
         </article>
     )
 
