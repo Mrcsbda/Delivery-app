@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { updateInfo } from "../../store/slides/user/user";
 import uploadFile from "../../services/updaloadFile";
+import ChangeImageForm from "../../components/changeImageForm/ChangeImageForm";
 
 const EditProfile = () => {
   const [name, setName] = useState(true);
@@ -20,7 +21,6 @@ const EditProfile = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [editInfoUser] = useEditInfoUserMutation()
   const dispatch = useDispatch()
-
 
   const editInfo = (type) => {
     switch (type) {
@@ -60,25 +60,14 @@ const EditProfile = () => {
       localStorage.setItem("infoUser", JSON.stringify(local))
     }
 
-    if (formData?.name || formData?.email || formData?.phone || formData?.birthday || formData?.address) {
-      await editInfoUser({ formData, key })
-    }
+    await editInfoUser({ formData, key })
+
 
     setName(true)
     setEmail(true)
     setPhone(true)
     setBirthday(true)
     setAddress(true)
-  }
-
-  const saveImage = async (data) => {
-    if (data.avatar.length > 0) {
-      const avatar = await uploadFile(data.avatar[0])
-      const formData = { avatar }
-      await editInfoUser({ formData, key })
-      reset()
-      setImage(false)
-    }
   }
 
   const getTime = (userBirthday) => {
@@ -126,13 +115,7 @@ const EditProfile = () => {
                 onClick={() => editInfo("image")}
               />
             </figure>
-            <form
-              className={`edit-profile__change-image ${image ? "" : "edit-profile__hidden"}`}
-              onSubmit={handleSubmit(saveImage)}
-            >
-              <input type="file" {...register("avatar")} />
-              <button type="submit" className="edit-profile__btn-change"> Change </button>
-            </form>
+            <ChangeImageForm id={key} setImage={setImage} image={image}/>
             <form className="edit-profile__form" onSubmit={handleSubmit(saveInfo)}>
               <section className="edit-profile__form-container">
                 <div className={`edit-profile__input-container ${name ? "" : "edit-profile__edit"}`}>
