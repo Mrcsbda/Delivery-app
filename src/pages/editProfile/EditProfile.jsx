@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./editProfile.scss";
 import { useEditInfoUserMutation, useGetUserByIdQuery } from "../../store/api/firebaseApi";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { updateInfo } from "../../store/slides/user/user";
 
 const EditProfile = () => {
   const [name, setName] = useState(true);
@@ -16,7 +17,7 @@ const EditProfile = () => {
   const { data: user, isSuccess } = useGetUserByIdQuery(key)
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [editInfoUser] = useEditInfoUserMutation()
-
+  const dispatch = useDispatch()
 
   const editInfo = (type) => {
     switch (type) {
@@ -40,23 +41,41 @@ const EditProfile = () => {
   const saveInfo = async (data) => {
     console.log(data)
     const formData = data;
+    console.log(formData.birthday)
+    if (formData.birthday) {
+      formData.birthday = new Date(formData.birthday).getTime()
+    }
 
     !formData.name && delete formData.name;
     !formData.email && delete formData.email;
     !formData.phone && delete formData.phone;
     !formData.birthday && delete formData.birthday;
     !formData.address && delete formData.address;
+    console.log(formData);
+    if (formData.address) {
+      dispatch(updateInfo(formData.address))
+    }
 
-    await editInfoUser({formData, key})
+    await editInfoUser({ formData, key })
+
     setName(true)
     setEmail(true)
     setPhone(true)
     setBirthday(true)
     setAddress(true)
   }
-
+  console.log(user.birthday)
   const saveImage = async (data) => {
 
+  }
+
+  const getTime = (userBirthday) => {
+    const date = new Date(userBirthday);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()+1).padStart(2, "0");
+
+    return `${ year }-${ month }-${ day }`;
   }
 
   return (
@@ -125,7 +144,7 @@ const EditProfile = () => {
                     type="text"
                     disabled={phone ? "disabled" : ""}
                     defaultValue={user?.phone ? user.phone : ""}
-                    placeholder={!user?.phone && "Please enter a number"}
+                    placeholder="Please enter a number"
                     {...register("phone")}
                   />
                   <img src="/images/edit.svg" alt="edit icon" onClick={() => editInfo("phone")} />
@@ -134,8 +153,8 @@ const EditProfile = () => {
                   <input
                     type="date"
                     disabled={birthday ? "disabled" : ""}
-                    defaultValue={user?.birthday ? user.birthday : ""}
-                    placeholder={!user?.birthday && "Please enter your birth date"}
+                    defaultValue={user?.birthday ? getTime(user.birthday) : ""}
+                    placeholder="Please enter your birth date"
                     {...register("birthday")}
                   />
                   <img src="/images/edit.svg" alt="edit icon" onClick={() => editInfo("birthday")} />
@@ -145,7 +164,7 @@ const EditProfile = () => {
                     type="text"
                     disabled={address ? "disabled" : ""}
                     defaultValue={user?.address ? user.address : ""}
-                    placeholder={!user?.address && "Please enter your address"}
+                    placeholder="Please enter your address"
                     {...register("address")}
                   />
                   <img src="/images/edit.svg" alt="edit icon" onClick={() => editInfo("address")} />

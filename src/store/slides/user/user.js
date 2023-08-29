@@ -26,8 +26,11 @@ export const userSlice = createSlice({
             state.key = null
             state.userRole = null
             state.address = null
+        },
+        updateInfo: (state, { payload }) => {
+            state.address = payload;
         }
     }
 })
 
-export const { setIsChecking, login, logout } = userSlice.actions
+export const { setIsChecking, login, logout, updateInfo } = userSlice.actions
