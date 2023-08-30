@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './main.scss'
 import backArrow from '../../assets/images/BackArrowIcon.svg'
 import nextArrow from '../../assets/images/NextArrowIcon.svg'
 import defaultRestaurant from '../../assets/images/restaurant-logo.jpg'
 import DefaultHeader from '../../components/header/main'
+import { useGetUserOrderByIdQuery } from '../../store/api/firebaseApi'
 
 const AllOrders = () => {
+  const userInfo = useGetUserOrderByIdQuery("ZubBGQTXp6S9hQ6By9Y7PO3nGmk2")
+  useEffect(() => {
+    userInfo.isSuccess == true && console.log(userInfo)
+  }, [userInfo])
+
   return (
     <>
       <DefaultHeader text={"All orders"} />
