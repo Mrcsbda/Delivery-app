@@ -80,7 +80,6 @@ export const firebaseApi = createApi({
                 try {
                     const userRef = doc(firebaseDB, `users`, key);
                     const resp = await updateDoc(userRef, formData)
-                    console.log(formData.email)
                     if (formData?.email) {
                         const auth = getAuth();
                         const user = auth.currentUser;

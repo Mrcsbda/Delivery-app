@@ -84,6 +84,17 @@ export const getPaymentMethods = (key) => {
     }
 }
 
+export const addPaymentMethods = (key) => {
+    return async (dispatch) => {
+        try {
+            const deliveryRef = collection(firebaseDB, `users/${key}/paymentMethods`);
+            
+        } catch (error) {
+            return false
+        }
+    }
+}
+
 const getUserById = async (id) => {
     const userRef = doc(firebaseDB, `users`, id);
     const userSnapshot = await getDoc(userRef);
