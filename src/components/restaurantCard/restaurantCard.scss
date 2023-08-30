@@ -88,8 +88,9 @@
 }
 
 @media screen and (min-width: 1100px) {
-    .restaurant:hover .restaurant__image {
+    .restaurant-card:hover .restaurant-card__image {
         transform: scale(1.2);
         opacity: 0.9;
+        transition: 300ms all ease;
     }
 }

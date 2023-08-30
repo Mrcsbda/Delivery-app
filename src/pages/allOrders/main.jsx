@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './main.scss'
 import backArrow from '../../assets/images/BackArrowIcon.svg'
 import nextArrow from '../../assets/images/NextArrowIcon.svg'
 import defaultRestaurant from '../../assets/images/restaurant-logo.jpg'
 import DefaultHeader from '../../components/header/main'
+import { useGetRestaurantDishesAllMutation, useGetUserOrderByIdQuery } from '../../store/api/firebaseApi'
+
+
 
 const AllOrders = () => {
+  const [getRestaurantDishesAll, { isSuccess, isLoading }] = useGetRestaurantDishesAllMutation()
+  //const userInfo = useGetUserOrderByIdQuery("ZubBGQTXp6S9hQ6By9Y7PO3nGmk2")
+  //const userInfo = useGetRestaurantDishesAllMutation("ZubBGQTXp6S9hQ6By9Y7PO3nGmk2")
+  useEffect(() => {
+    isSuccess && probar()
+  }, [isSuccess])
+
+
+
+  const probar = async () => {
+    const info = await getRestaurantDishesAll("ZubBGQTXp6S9hQ6By9Y7PO3nGmk2")
+    console.log(info)
+  }
+
   return (
     <>
       <DefaultHeader text={"All orders"} />
