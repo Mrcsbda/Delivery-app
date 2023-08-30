@@ -60,7 +60,7 @@ export const SearchView = () => {
   //segunda opcion y larga
   useEffect(() => {
     if ((rest00.status == 'fulfilled')) {
-      console.log(rest00.data)
+      console.log(rest00)
       console.log("condicio cumplida rest00")
 
       let notify = showContainer01;
