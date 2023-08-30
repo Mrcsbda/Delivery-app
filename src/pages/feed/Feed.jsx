@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 const Feed = () => {
   const { data: restaurants, isLoading, isSuccess } = useGetRestaurantsQuery()
   const [desktopMenu, setDesktopMenu] = useState(false)
-  const { orders } = useSelector(state => state.cart)
+  const { orders, totalPrice } = useSelector(state => state.cart)
   const [resturantsInfo, setRestaurantsInfo] = useState(false)
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const Feed = () => {
           <button className='feed__cart-button'>
             <p className='feed__cart-orders'>{orders.length}</p>
             <p className='feed__cart-title'>View cart</p>
-            <p className='feed__card-total-to-pay'>10$</p>
+            <p className='feed__card-total-to-pay'>{Math.round(totalPrice)}$</p>
           </button>
         )
       }

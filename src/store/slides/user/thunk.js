@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, addDoc, setDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { firebaseDB } from "../../../firebase/firebaseConfig";
 import { login } from "./user";
 import { registerUserWithEmailPassword, signInWithGoogle } from "../../../firebase/providers";
@@ -68,6 +68,44 @@ export const signUpWithEmailAndPassword = (data) => {
     }
 }
 
+export const getPaymentMethods = (key) => {
+    return async (dispatch) => {
+        try {
+            const deliveryRef = collection(firebaseDB, `users/${key}/paymentMethods`);
+            const querySnapshot = await getDocs(deliveryRef);
+            const paymentMethods = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            return { data: paymentMethods }
+        } catch (error) {
+            return false
+        }
+    }
+}
+
+export const addPaymentMethods = (key, cardInfo) => {
+    return async (dispatch) => {
+        try {
+            const deliveryRef = collection(firebaseDB, `users/${key}/paymentMethods`);
+            await addDoc(deliveryRef, cardInfo);
+
+        } catch (error) {
+            return false
+        }
+    }
+}
+
+export const deletePaymentMethods = (id, key) => {
+    return async (dispatch) => {
+        try {
+            await deleteDoc(doc(firebaseDB, `users/${key}/paymentMethods/${id}`));
+        } catch (error) {
+            console.log(error)
+            return false
+        }
+    }
+}
 
 const getUserById = async (id) => {
     const userRef = doc(firebaseDB, `users`, id);

@@ -63,17 +63,19 @@ const EditProfile = () => {
 
     await editInfoUser({ formData, key })
 
-    setName(true)
-    setEmail(true)
-    setPhone(true)
-    setBirthday(true)
-    setAddress(true)
-    
-    Swal.fire(
-      'Excelente!',
-      'Información actualizada con existo!',
-      'success'
-    )
+    if (!!Object.keys(formData).length) {
+      setName(true)
+      setEmail(true)
+      setPhone(true)
+      setBirthday(true)
+      setAddress(true)
+
+      Swal.fire(
+        'Excelent!',
+        'Information updated successfully!',
+        'success'
+      )
+    }
   }
 
   const getTime = (userBirthday) => {
@@ -121,7 +123,7 @@ const EditProfile = () => {
                 onClick={() => editInfo("image")}
               />
             </figure>
-            <ChangeImageForm id={key} setImage={setImage} image={image}/>
+            <ChangeImageForm id={key} setImage={setImage} image={image} />
             <form className="edit-profile__form" onSubmit={handleSubmit(saveInfo)}>
               <section className="edit-profile__form-container">
                 <div className={`edit-profile__input-container ${name ? "" : "edit-profile__edit"}`}>
