@@ -4,13 +4,24 @@ import backArrow from '../../assets/images/BackArrowIcon.svg'
 import nextArrow from '../../assets/images/NextArrowIcon.svg'
 import defaultRestaurant from '../../assets/images/restaurant-logo.jpg'
 import DefaultHeader from '../../components/header/main'
-import { useGetUserOrderByIdQuery } from '../../store/api/firebaseApi'
+import { useGetRestaurantDishesAllMutation, useGetUserOrderByIdQuery } from '../../store/api/firebaseApi'
+
+
 
 const AllOrders = () => {
-  const userInfo = useGetUserOrderByIdQuery("ZubBGQTXp6S9hQ6By9Y7PO3nGmk2")
+  const [getRestaurantDishesAll, { isSuccess, isLoading }] = useGetRestaurantDishesAllMutation()
+  //const userInfo = useGetUserOrderByIdQuery("ZubBGQTXp6S9hQ6By9Y7PO3nGmk2")
+  //const userInfo = useGetRestaurantDishesAllMutation("ZubBGQTXp6S9hQ6By9Y7PO3nGmk2")
   useEffect(() => {
-    userInfo.isSuccess == true && console.log(userInfo)
-  }, [userInfo])
+    isSuccess && probar()
+  }, [isSuccess])
+
+
+
+  const probar = async () => {
+    const info = await getRestaurantDishesAll("ZubBGQTXp6S9hQ6By9Y7PO3nGmk2")
+    console.log(info)
+  }
 
   return (
     <>
