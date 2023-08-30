@@ -29,8 +29,8 @@ const AddNewCard = () => {
 
             dispatch(addPaymentMethods(key, cardInfo))
             Swal.fire(
-                'Excelente!',
-                'Información guardada con existo!',
+                'Excelent!',
+                'Information saved successfully!',
                 'success'
             ).then(
                 () => {

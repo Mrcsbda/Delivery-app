@@ -71,8 +71,8 @@ const EditProfile = () => {
       setAddress(true)
 
       Swal.fire(
-        'Excelente!',
-        'Información actualizada con existo!',
+        'Excelent!',
+        'Information updated successfully!',
         'success'
       )
     }

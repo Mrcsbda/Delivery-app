@@ -41,7 +41,7 @@ const PaymentMethod = () => {
                 setChange(!change)
                 Swal.fire(
                     'Deleted!',
-                    'Your file has been deleted.',
+                    'Your card has been deleted.',
                     'success'
                 )
             }

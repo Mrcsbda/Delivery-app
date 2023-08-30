@@ -16,8 +16,8 @@ const ChangeImageForm = ({ id: key, setImage, image }) => {
             reset()
             setImage(false)
             Swal.fire(
-                'Excelente!',
-                'Fotografia actualizada con existo!',
+                'Excelent!',
+                'Photo updated successfully!',
                 'success'
             )
         }
