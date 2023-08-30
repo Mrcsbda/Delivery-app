@@ -33,7 +33,7 @@
         font-weight: 400;
         margin-bottom: 2rem;
     }
-    
+
     &__alert {
         font-size: 14px;
         color: $dark-color;
@@ -135,4 +135,8 @@
             }
         }
     }
+}
+
+.swal2-cancel {
+    background-color: rgb(110, 2, 2) !important;
 }

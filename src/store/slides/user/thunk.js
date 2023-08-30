@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { firebaseDB } from "../../../firebase/firebaseConfig";
 import { login } from "./user";
 import { registerUserWithEmailPassword, signInWithGoogle } from "../../../firebase/providers";
@@ -91,6 +91,17 @@ export const addPaymentMethods = (key, cardInfo) => {
             await addDoc(deliveryRef, cardInfo);
 
         } catch (error) {
+            return false
+        }
+    }
+}
+
+export const deletePaymentMethods = (id, key) => {
+    return async (dispatch) => {
+        try {
+            await deleteDoc(doc(firebaseDB, `users/${key}/paymentMethods/${id}`));
+        } catch (error) {
+            console.log(error)
             return false
         }
     }
