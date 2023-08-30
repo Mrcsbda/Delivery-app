@@ -165,8 +165,9 @@ export const SearchView = () => {
   //control del form
 
 
-  const toNagivate = (restId, itemId) => {
-    navigate(`/restaurant/${restId}/${itemId}`)
+  const toNagivate = (restId, itemId, food) => {
+    const state = { food };
+    navigate(`/restaurant/${restId}/${itemId}`, { state })
   }
 
   const resetForm = () => {
@@ -205,7 +206,7 @@ export const SearchView = () => {
           showFilter ? (
             filteredArray.length ? ((
               filteredArray.map((item, index) => (
-                <article key={index} className="search__item" onClick={() => { toNagivate(item.restaurantId, item.id) }}>
+                <article key={index} className="search__item" onClick={() => { toNagivate(item.restaurantId, item.id, item) }}>
                   <figure className="search__item__media"><img src={item.image} alt="food" /></figure>
                   <div className="search__item__text">
                     <span className="search__item__text__title">{item.name}</span>
@@ -218,7 +219,7 @@ export const SearchView = () => {
               </figure>)
           ) : (showContainer02 &&
             dishesArray.map((item, index) => (
-              <article key={index} className="search__item" onClick={() => { toNagivate(item.restaurantId, item.id) }}>
+              <article key={index} className="search__item" onClick={() => { toNagivate(item.restaurantId, item.id, item) }}>
                 <figure className="search__item__media"><img src={item.image} alt="food" /></figure>
                 <div className="search__item__text">
                   <span className="search__item__text__title">{item.name}</span>

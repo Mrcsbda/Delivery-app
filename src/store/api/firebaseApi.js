@@ -90,18 +90,27 @@ export const firebaseApi = createApi({
     getUserOrderById: builder.query({
       providesTags: ['orders', 'defaultCache'],
       async queryFn(id) {
-        const deliveryRef = collection(firebaseDB, "orders");
-        try {
-          const queryOrders = await getDocs(deliveryRef);
-          let ordersList = [];
 
-          queryOrders?.forEach((doc) => (doc.clientKey == id) &&
-            (ordersList.push({
-              id: doc.id,
-              ...doc.data()
-            }))
-          )
-          return { data: ordersList }
+        try {
+          const queryRef = doc(firebaseDB, 'orders');
+          const queryOrders = await getDocs(queryRef);
+          const allOrders = queryOrders.data();
+          //let ordersList = queryOrders.filter((doc) => doc.clientKey == id)
+          return { data: allOrders }
+        } catch (error) {
+          console.log(error);
+          return error
+        }
+      }
+    }),
+    getRestaurantDishesAll: builder.mutation({
+      providesTags: ['orders', 'defaultCache'],
+      async queryFn(idUser) {
+        try {
+          const allOrders = await getDoc(collection(firebaseDB, `orders`));
+          console.log(allOrders);
+          const userOrders = (allOrders.data).filter(element => element.clientKey == idUser);
+          return { userOrders }
         } catch (error) {
           console.log(error);
           return error
@@ -112,4 +121,4 @@ export const firebaseApi = createApi({
   })
 
 })
-export const { useGetRestaurantsQuery, useAddRestaurantMutation, useGetRestaurantDishesQuery, useGetUserByIdQuery, useEditInfoUserMutation, useGetUserOrderByIdQuery } = firebaseApi
+export const { useGetRestaurantsQuery, useAddRestaurantMutation, useGetRestaurantDishesQuery, useGetUserByIdQuery, useEditInfoUserMutation, useGetUserOrderByIdQuery, useGetRestaurantDishesAllMutation } = firebaseApi
