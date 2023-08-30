@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, addDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { firebaseDB } from "../../../firebase/firebaseConfig";
 import { login } from "./user";
 import { registerUserWithEmailPassword, signInWithGoogle } from "../../../firebase/providers";

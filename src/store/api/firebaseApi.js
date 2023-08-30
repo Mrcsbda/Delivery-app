@@ -1,6 +1,7 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getDocs, getDoc, addDoc, doc, collection, serverTimestamp, updateDoc } from "firebase/firestore"
 import { firebaseDB } from '../../firebase/firebaseConfig';
+import { getAuth, updateEmail } from "firebase/auth";
 
 export const firebaseApi = createApi({
     reducerPath: 'firebaseAPI',
@@ -75,10 +76,17 @@ export const firebaseApi = createApi({
             invalidatesTags: ['restaurants']
         }),
         editInfoUser: builder.mutation({
-            async queryFn({formData, key}) {
+            async queryFn({ formData, key }) {
                 try {
                     const userRef = doc(firebaseDB, `users`, key);
                     const resp = await updateDoc(userRef, formData)
+                    console.log(formData.email)
+                    if (formData?.email) {
+                        const auth = getAuth();
+                        const user = auth.currentUser;
+                        const newEmail = formData.email;
+                        await updateEmail(user, newEmail)
+                    }
                     return true
                 } catch (error) {
                     console.log(error);
@@ -90,4 +98,4 @@ export const firebaseApi = createApi({
     })
 
 })
-export const { useGetRestaurantsQuery, useAddRestaurantMutation, useGetRestaurantDishesQuery, useGetUserByIdQuery, useEditInfoUserMutation} = firebaseApi
+export const { useGetRestaurantsQuery, useAddRestaurantMutation, useGetRestaurantDishesQuery, useGetUserByIdQuery, useEditInfoUserMutation } = firebaseApi
