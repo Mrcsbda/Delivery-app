@@ -60,15 +60,15 @@
           }
         }
 
-        &__delivered {
+        &__DELIVERED {
           color: $green-color;
         }
 
-        &__cancelled {
+        &__CANCELLED {
           color: $red-color
         }
 
-        &__ongoing {
+        &__ONGOING {
           color: $main-color
         }
       }

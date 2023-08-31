@@ -9,6 +9,10 @@ const HeaderDesktop = () => {
   const { orders } = useSelector(state => state.cart)
   const { key } = useSelector(state => state.user)
 
+  const toNewOrder = () => {
+    navigate("/new-order")
+  }
+
   return (
     <header className='header'>
       <figure className='header__logo-container'>
@@ -33,7 +37,7 @@ const HeaderDesktop = () => {
           </ul>
         </nav>
         <hr />
-        <figure className='header__cart-container'>
+        <figure className='header__cart-container' onClick={toNewOrder}>
           {
             orders.length > 0 && (
               <p className='header__orders'>{orders.length}</p>
