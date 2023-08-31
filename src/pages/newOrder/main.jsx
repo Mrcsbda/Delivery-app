@@ -7,9 +7,12 @@ import mastercard from '../../assets/images/mastercard.svg'
 import visa from '../../assets/images/visa-classic.svg'
 import foodExample from '../../assets/images/foodExample.jpg'
 import DefaultHeader from '../../components/header/main'
+import { useSelector } from 'react-redux'
 
 
 const NewOrder = () => {
+  const { orders } = useSelector(state => state.cart)
+  console.log(orders)
   return (
     <>
       <DefaultHeader text={"New order"} />
@@ -47,7 +50,7 @@ const NewOrder = () => {
         </article>
 
         <article className='NewOrder__order'>
-          <div className='NewOrder__order__ind'>
+          {/* <div className='NewOrder__order__ind'>
             <figure className='NewOrder__order__image'>
               <img src={foodExample} alt="comida" />
             </figure>
@@ -58,31 +61,24 @@ const NewOrder = () => {
             </div>
             <p className='NewOrder__order__name'>Vegetarian pizza</p>
             <p className='NewOrder__order__cost'>$ 32.00</p>
-          </div>
-          <div className='NewOrder__order__ind'>
-            <figure className='NewOrder__order__image'>
-              <img src={foodExample} alt="comida" />
-            </figure>
-            <div className='NewOrder__order__console'>
-              <span className='NewOrder__order__minus'>-</span>
-              <span className='NewOrder__order__number'>1</span>
-              <span className='NewOrder__order__plus'>+</span>
-            </div>
-            <p className='NewOrder__order__name'>Vegetarian pizza</p>
-            <p className='NewOrder__order__cost'>$ 32.00</p>
-          </div>
-          <div className='NewOrder__order__ind'>
-            <figure className='NewOrder__order__image'>
-              <img src={foodExample} alt="comida" />
-            </figure>
-            <div className='NewOrder__order__console'>
-              <span className='NewOrder__order__minus'>-</span>
-              <span className='NewOrder__order__number'>1</span>
-              <span className='NewOrder__order__plus'>+</span>
-            </div>
-            <p className='NewOrder__order__name'>Vegetarian pizza</p>
-            <p className='NewOrder__order__cost'>$ 32.00</p>
-          </div>
+          </div> */}
+          {
+            orders && orders.map((element, index) => element &&
+              <div className='NewOrder__order__ind' key={index}>
+                <figure className='NewOrder__order__image'>
+                  <img src={foodExample} alt="comida" />
+                </figure>
+                <div className='NewOrder__order__console'>
+                  <span className='NewOrder__order__minus'>-</span>
+                  <span className='NewOrder__order__number'>{element.quantity}</span>
+                  <span className='NewOrder__order__plus'>+</span>
+                </div>
+                <p className='NewOrder__order__name'>{element.dish}</p>
+                <p className='NewOrder__order__cost'>$ {element.price}</p>
+              </div>
+            )
+          }
+
         </article>
 
         <article className='NewOrder__extraInfo'>

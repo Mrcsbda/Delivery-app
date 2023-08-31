@@ -58,93 +58,22 @@ export const SearchView = () => {
   // }
 
   //segunda opcion y larga
-  useEffect(() => {
-    if ((rest00.status == 'fulfilled')) {
-      console.log(rest00)
-      console.log("condicio cumplida rest00")
+  // useEffect(() => {
+  //   if ((rest00.status == 'fulfilled')) {
+  //     console.log(rest00.data)
+  //     console.log("condicio cumplida rest00")
 
-      let notify = showContainer01;
-      notify[0] = true;
-      setShowContainer01(notify)
-    }
-    // console.log("resolvio")
-  }, [rest00])
+  //     let notify = showContainer01;
+  //     notify[0] = true;
+  //     setShowContainer01(notify)
+  //   }
+  //   // console.log("resolvio")
+  // }, [rest00])
 
-  useEffect(() => {
-    if ((rest01.status == 'fulfilled')) {
-      console.log(rest01.data)
-      console.log("condicio cumplida rest01")
-
-      let notify = showContainer01;
-      notify[1] = true;
-      setShowContainer01(notify)
-    }
-
-  }, [rest01])
-
-  useEffect(() => {
-    if ((rest02.status == 'fulfilled')) {
-      console.log(rest02.data)
-      console.log("condicio cumplida rest02")
-
-      let notify = showContainer01;
-      notify[2] = true;
-      setShowContainer01(notify)
-    }
-
-  }, [rest02])
-
-  useEffect(() => {
-    if ((rest03.status == 'fulfilled')) {
-      console.log(rest03.data)
-      console.log("condicio cumplida rest03")
-
-      let notify = showContainer01;
-      notify[3] = true;
-      setShowContainer01(notify)
-    }
-
-  }, [rest03])
-
-  useEffect(() => {
-    if ((rest04.status == 'fulfilled')) {
-      console.log(rest04.data)
-      console.log("condicio cumplida rest04")
-
-      let notify = showContainer01;
-      notify[4] = true;
-      setShowContainer01(notify)
-    }
-
-  }, [rest04])
-
-  useEffect(() => {
-    if ((rest05.status == 'fulfilled')) {
-      console.log(rest05.data)
-      console.log("condicio cumplida rest05")
-
-      let notify = showContainer01;
-      notify[5] = true;
-      setShowContainer01(notify)
-    }
-
-  }, [rest05])
-
-  useEffect(() => {
-    if ((rest06.status == 'fulfilled')) {
-      console.log(rest06.data)
-      console.log("condicio cumplida rest06")
-
-      let notify = showContainer01;
-      notify[6] = true;
-      setShowContainer01(notify)
-    }
-
-  }, [rest06])
-
+  //tercera opcion - mejorada de la segunda
   useEffect(() => {
     console.log("se intenta")
-    if ((showContainer01[0] == true) && (showContainer01[1] == true) && (showContainer01[2] == true) && (showContainer01[3] == true) && (showContainer01[4] == true) && (showContainer01[5] == true) && (showContainer01[6] == true)) {
+    if (((rest00.status == 'fulfilled')) && ((rest01.status == 'fulfilled')) && ((rest02.status == 'fulfilled')) && ((rest03.status == 'fulfilled')) && ((rest04.status == 'fulfilled')) && ((rest05.status == 'fulfilled')) && ((rest06.status == 'fulfilled'))) {
       let defaultArray = [];
       let combinedArray00 = defaultArray.concat(rest00.data);
       let combinedArray01 = combinedArray00.concat(rest01.data);
@@ -160,7 +89,7 @@ export const SearchView = () => {
       console.log(dishesArray)
     }
 
-  }, [showContainer01])
+  }, [rest00, rest01, rest02, rest03, rest04, rest05, rest06])
 
   //control del form
 
