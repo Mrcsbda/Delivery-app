@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import backArrow from '../../assets/images/BackArrowIcon.svg'
 import './main.scss'
 import nextArrow from '../../assets/images/NextArrowIcon.svg'
@@ -7,12 +7,45 @@ import mastercard from '../../assets/images/mastercard.svg'
 import visa from '../../assets/images/visa-classic.svg'
 import foodExample from '../../assets/images/foodExample.jpg'
 import DefaultHeader from '../../components/header/main'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeOrder, updateOrder } from '../../store/slides/cart'
 
 
 const NewOrder = () => {
   const { orders } = useSelector(state => state.cart)
+  const dispatch = useDispatch()
   console.log(orders)
+
+  const toChangeAmountPlus = (element) => {
+    console.log(element)
+    console.log(orders.indexOf(element))
+    let newNum = element.quantity + 1;
+
+    let objSend = {
+      id: orders.indexOf(element),
+      obj: newNum
+    }
+    dispatch(updateOrder(objSend))
+  }
+
+  const toChangeAmountMinus = (element) => {
+    if (element.quantity > 1) {
+      console.log(element)
+      console.log(orders.indexOf(element))
+      let newNum = element.quantity - 1;
+
+      let objSend = {
+        id: orders.indexOf(element),
+        obj: newNum
+      }
+      dispatch(updateOrder(objSend))
+    } else {
+      dispatch(removeOrder(element))
+    }
+
+
+  }
+
   return (
     <>
       <DefaultHeader text={"New order"} />
@@ -63,22 +96,22 @@ const NewOrder = () => {
             <p className='NewOrder__order__cost'>$ 32.00</p>
           </div> */}
           {
-            orders && orders.map((element, index) => element &&
-              <div className='NewOrder__order__ind' key={index}>
-                <figure className='NewOrder__order__image'>
-                  <img src={foodExample} alt="comida" />
-                </figure>
-                <div className='NewOrder__order__console'>
-                  <span className='NewOrder__order__minus'>-</span>
-                  <span className='NewOrder__order__number'>{element.quantity}</span>
-                  <span className='NewOrder__order__plus'>+</span>
+            orders ?
+              (orders.map((element, index) => element &&
+                <div className='NewOrder__order__ind' key={index}>
+                  <figure className='NewOrder__order__image'>
+                    <img src={element.imageDish} alt="comida" />
+                  </figure>
+                  <div className='NewOrder__order__console'>
+                    <span className='NewOrder__order__minus' onClick={() => toChangeAmountMinus(element)}>-</span>
+                    <span className='NewOrder__order__number'>{element.quantity}</span>
+                    <span className='NewOrder__order__plus' onClick={() => toChangeAmountPlus(element)}>+</span>
+                  </div>
+                  <p className='NewOrder__order__name'>{element.dish}</p>
+                  <p className='NewOrder__order__cost'>$ {(element.quantity) * (element.basePrice)}</p>
                 </div>
-                <p className='NewOrder__order__name'>{element.dish}</p>
-                <p className='NewOrder__order__cost'>$ {element.price}</p>
-              </div>
-            )
+              )) : (<p>no hay ordenes</p>)
           }
-
         </article>
 
         <article className='NewOrder__extraInfo'>

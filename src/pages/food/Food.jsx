@@ -44,7 +44,7 @@ const Food = () => {
     if (!ingredientOrder.length || numberState == 0) {
       setOrderPrice(numberState * food.price)
     }
-    else { setOrderPrice((numberState * food.price) + (ingredientOrder.length * 2)) }
+    else { setOrderPrice((numberState * food.price) + ((ingredientOrder.length * 2) * numberState)) }
   }, [numberState, ingredientOrder])
 
 
@@ -72,7 +72,8 @@ const Food = () => {
         price: orderPrice,
         quantity: numberState,
         idRestaurant,
-        imageDish: food.image
+        imageDish: food.image,
+        basePrice: orderPrice / numberState
         // timestamp: new Date().getTime()
       }
       dispatch(addOrder(order))

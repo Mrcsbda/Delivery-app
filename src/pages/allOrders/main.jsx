@@ -35,7 +35,7 @@ const AllOrders = () => {
     if (orders && userInfo) {
       const newArray = orders.filter((element) => element.clientKey == userInfo) || []
       console.log("filtrado", newArray)
-      console.log("sin filtrar", orders)
+      //console.log("sin filtrar", orders)
       setOrdersArray(newArray)
     }
   }, [orders])
@@ -64,7 +64,9 @@ const AllOrders = () => {
             restName: indRest.name,
             restImage: indRest.image,
             orderStatus: indOrder.orderStatus,
-            orderPRice: indOrder.totalPaid
+            orderPrice: indOrder.totalPaid,
+            productionCost: indOrder.productionCost,
+            deliveryCost: indOrder.costOfDelivery
           })
         })
       })
@@ -74,8 +76,8 @@ const AllOrders = () => {
     }
   }, [restaurantsInfo, ordersArray])
 
-  const toInfoOrder = (idToSend) => {
-    navigate(`${idToSend}`,)
+  const toInfoOrder = (orderInfo) => {
+    navigate(`${orderInfo.id}`, { state: orderInfo })
   }
 
   return (
@@ -104,14 +106,14 @@ const AllOrders = () => {
           </div> */}
           {
             showContainer01 && showContainer01.map((element, index) => element && (
-              <div className='AllOrders__orders__ind' key={index} onClick={() => { toInfoOrder(element.id) }}>
+              <div className='AllOrders__orders__ind' key={index} onClick={() => { toInfoOrder(element) }}>
                 <div className='orders__info'>
                   <figure>
                     <img src={element.restImage} alt={element.restName} />
                   </figure>
                   <div>
                     <p>{element.restName}</p>
-                    <span>$ {element.orderPRice}</span>
+                    <span>$ {element.orderPrice}</span>
                   </div>
                 </div>
                 <div className='orders__status'>
