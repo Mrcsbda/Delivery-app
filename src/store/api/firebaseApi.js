@@ -127,6 +127,20 @@ export const firebaseApi = createApi({
         }
       }
     }),
+    patchOrder: builder.mutation({
+      providesTags: ['defaultCache'],
+      async queryFn(objState, orderId) {
+        try {
+          const orderRef = doc(firebaseDB, `orders`, orderId);
+          await updateDoc(orderRef, objState)
+          return "hola"
+        } catch (error) {
+          console.log(error);
+          return error
+        }
+      },
+      invalidatesTags: ['orders']
+    }),
   })
 
 })
@@ -138,7 +152,8 @@ export const {
   useGetUserByIdQuery,
   useEditInfoUserMutation,
   useGetAllOrdersQuery,
-  useGetOrdersByUserIdMutation } =
+  useGetOrdersByUserIdMutation, 
+  usePatchOrderMutation} =
   firebaseApi
 
   //el getAllOrders ya funciona para recibir todas las ordenes
