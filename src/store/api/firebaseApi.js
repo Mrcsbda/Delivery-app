@@ -141,6 +141,23 @@ export const firebaseApi = createApi({
       },
       invalidatesTags: ['orders']
     }),
+    getOrderById: builder.query({
+      providesTags: ['orderDishes', 'defaultCache'],
+      async queryFn(orderId) {
+        const orderRef = collection(firebaseDB, `orders/${orderId}/order`);
+        try {
+          const querySnapshot = await getDocs(orderRef);
+          const dishes = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          return { data: dishes }
+        } catch (error) {
+          console.log(error);
+          return error
+        }
+      }
+    }),
   })
 
 })
@@ -152,8 +169,9 @@ export const {
   useGetUserByIdQuery,
   useEditInfoUserMutation,
   useGetAllOrdersQuery,
-  useGetOrdersByUserIdMutation, 
-  usePatchOrderMutation} =
+  useGetOrdersByUserIdMutation,
+  usePatchOrderMutation,
+  useGetOrderByIdQuery } =
   firebaseApi
 
   //el getAllOrders ya funciona para recibir todas las ordenes

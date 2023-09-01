@@ -1,131 +1,159 @@
 @import "../../assets/styles/variables.scss";
 
-.search{
-    min-width: 100vw;
-    font-family: $font-roboto;
-    padding: 50px 20px;
-    background-color: #fefdf9;
+.search {
+  min-width: 100vw;
+  font-family: $font-roboto;
+  padding: 50px 20px;
+  background-color: #fefdf9;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 100vh;
+
+  @include tablet {
+    padding: 50px 60px;
+    gap: 40px;
+  }
+
+  @include desktop {
+    padding: 50px calc(300px + 1vw);
+    gap: 50px;
+    //align-items: center;
+  }
+
+  &__bar {
+    display: flex;
+    width: 100%;
+    position: relative;
+    align-items: center;
+
+    &>input {
+      width: 100%;
+      padding: 10px 40px;
+      border-radius: 8px;
+      background-color: $background_inputs;
+      border: 1px $background_inputs solid;
+      color: $font-buttons-category-color;
+      font-size: calc(12px + 0.5vw);
+
+      @include tablet {
+        padding: 20px 65px;
+      }
+    }
+
+    &__glass {
+      position: absolute;
+      left: 10px;
+      cursor: pointer;
+
+      & img {
+        height: 4vh;
+      }
+
+      @include tablet {
+        left: 20px;
+      }
+    }
+
+    &__trashcan {
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+
+      & img {
+        height: 4vh;
+      }
+
+      @include tablet {
+        right: 20px;
+      }
+    }
+  }
+
+  &__items {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    min-height: 100vh;
-    @include tablet{
-        padding: 50px 60px;
-        gap: 40px;
+    gap: 15px;
+
+    @include tablet {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      justify-content: center;
     }
-    @include desktop{
-        padding: 50px calc(300px + 1vw);
-        gap: 50px;
-        //align-items: center;
+
+    &__notFound {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      flex-direction: column;
+
+      &>span {
+        color: $font-buttons-category-color;
+        font-size: calc(12px + 0.8vw);
+      }
+
+      &>img {
+        height: 100%;
+        width: 50vw;
+
+        @include desktop {
+          width: 35vw;
+        }
+      }
     }
-    &__bar{
-        display: flex;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    @include desktop {
+      gap: 30px;
+      //  padding: 0px 100px;
+
+    }
+
+    &__media {
+      width: calc(50px + 0.5vw);
+      height: calc(50px + 0.5vw);
+      filter: contrast(90%) grayscale(10%);
+      cursor: pointer;
+
+      @include tablet {
+        width: calc(100px + 0.5vw);
+        height: calc(100px + 0.5vw);
+      }
+
+      @include desktop {
+        width: calc(150px + 0.5vw);
+        height: calc(150px + 0.5vw);
+      }
+
+      &>img {
+        height: 100%;
         width: 100%;
-        position: relative;
-        align-items: center;
-        & > input {
-            width: 100%;
-            padding: 10px 30px;
-            border-radius: 8px;
-            background-color: $background_inputs;
-            border: 1px $background_inputs solid;
-            color: $font-buttons-category-color;
-            font-size: calc(12px + 0.5vw);
-            @include tablet{
-                padding: 20px 45px;
-            }
+        object-fit: cover;
+        border-radius: 10px;
+
+        &:hover {
+          transform: scale(1.1);
         }
-       
-        &__glass{
-            position: absolute;
-            left: 10px;
-            cursor: pointer;
-           
-            @include tablet{
-                left: 20px;
-            }
-        }
-        &__trashcan{
-            position: absolute;
-            right: 10px;
-            cursor: pointer;
-            @include tablet{
-                right:  20px;
-            }
-        }
+      }
     }
-    &__items{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        
-        @include tablet{
-            display: grid;
-           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            justify-content: center;
-        }
-        &__notFound{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            flex-direction: column;
-           
-            &> span{
-                color: $font-buttons-category-color;
-                font-size: calc(12px + 0.8vw);
-            }
-            &> img{
-                height: 100%;
-                width: 50vw;
-                @include desktop{
-                    width: 35vw;
-                }
-            }
-        }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: $font-buttons-category-color;
+      font-size: calc(14px + 0.5vw);
+
+      &__title {
+        color: #000;
+      }
     }
-    &__item{
-        display: flex;
-        align-items:center;
-        gap: 15px;
-        @include desktop{
-            gap: 30px;
-          //  padding: 0px 100px;
-           
-        }
-        &__media{
-            width: calc(50px + 0.5vw);
-            height: calc(50px + 0.5vw);
-            filter:   contrast(90%) grayscale(10%);
-            cursor: pointer;
-            @include tablet{
-                width: calc(100px + 0.5vw);
-                height: calc(100px + 0.5vw); 
-            }
-            @include desktop{
-                width: calc(150px + 0.5vw);
-                height: calc(150px + 0.5vw);
-            }
-            &> img{
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-                border-radius: 10px;
-                &:hover{
-                    transform: scale(1.1);
-                }
-            }
-        }
-        &__text{
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            color: $font-buttons-category-color;
-            font-size: calc(14px + 0.5vw);
-            &__title{
-                color: #000;
-            }
-        }
-    }
+  }
 }

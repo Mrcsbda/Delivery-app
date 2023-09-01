@@ -49,6 +49,7 @@
         align-items: center;
         gap: 20px;
         cursor: pointer;
+        color: $main-color;
 
         & figure {
           display: flex;
@@ -66,10 +67,6 @@
 
         &__CANCELLED {
           color: $red-color
-        }
-
-        &__ONGOING {
-          color: $main-color
         }
       }
     }
