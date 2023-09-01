@@ -51,6 +51,9 @@
             };
          }
         &__title{
+            @include tablet{
+                font-size: calc(12px + 0.6vw);
+            }
             display: flex;
             justify-content: space-between;
         }
@@ -125,7 +128,7 @@
             justify-content: space-between;
             & h3{
                color: $dark-color;
-               font-size: calc(18px + 0.5vw);
+               font-size: calc(15px + 0.5vw);
             }
             &__timer{
                 display: flex;
@@ -137,6 +140,17 @@
         &__description{
             font-size: calc(13px + 0.6vw);
             color: $dark-color;
+            overflow: hidden;
+            &>p{
+                overflow-y: auto;
+            }
+            @include tablet{
+              //  max-height: 250px;
+                &>p{
+                   height: 200px;
+                    overflow-y: auto;
+                }
+            }
         }
         &__additional{
             font-size: calc(13px + 0.6vw);

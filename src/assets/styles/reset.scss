@@ -45,3 +45,43 @@ input[type="checkbox"] {
         }
     }
   }
+
+
+  
+/* Scroll styles */
+// .style-4::-webkit-scrollbar-track {
+//     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+//     height: 20px;
+//     background-color: var();
+//   }
+
+//   .style-4::-webkit-scrollbar {
+//     width: 5px;
+//     background-color: transparent;
+//   }
+
+//   .style-4::-webkit-scrollbar-thumb {
+//     background-color: #2a3941;
+//   }
+
+/* Estilos de scroll personalizado para navegadores WebKit */
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #A7A7A7;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+}
+
+/* Estilos de scroll personalizado para navegadores que no sean de WebKit */
+body {
+    scrollbar-width: thin;
+    scrollbar-color: #A7A7A7 transparent;
+}

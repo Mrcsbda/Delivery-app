@@ -3,6 +3,7 @@ import backArrow from '../../assets/images/BackArrowIcon.svg'
 import './main.scss'
 
 const DefaultHeader = ({ text = "texto por defecto" }) => {
+  
   return (
     <header className='DefaultHeader__container'>
       <figure className='DefaultHeader__container__figure'>

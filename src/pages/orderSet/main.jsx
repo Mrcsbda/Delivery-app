@@ -5,7 +5,7 @@ import DefaultHeader from '../../components/header/main'
 
 const OrderSet = () => {
   return (
-    <>
+    <section className='OrderSet'>
       <DefaultHeader text={"26.11.2023"} />
       <section className='OrderSet__container'>
         <article className='OrderSet__orders'>
@@ -46,7 +46,7 @@ const OrderSet = () => {
           </div>
         </article>
       </section>
-    </>
+    </section>
   )
 }
 

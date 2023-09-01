@@ -9,7 +9,6 @@ const AddressComponent = () => {
     const navigateToEditProfile = () => {
         !address && navigate("/edit-profile")
     }
-    
     return (
         <section className='feed__location-container'>
             <img src="/images/location.svg" alt="location icon" className='feed__location-icon' />

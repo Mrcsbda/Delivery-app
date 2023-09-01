@@ -2,21 +2,29 @@
 @import "../../assets/styles/variables.scss";
 
 .DefaultHeader__container {
+  width: 100%;
   display: flex;
-  align-items: center;
-  padding: 5vh 2vw;
+  padding: 5vh 0vw;
   font-family: $font-roboto;
   color: $dark-color;
   align-items: center;
-
+  position: relative;
+  @include tablet{
+    width: 700px;
+  }
+  @include desktop{
+    width: 1000px;
+  }
   &__figure {
     width: 10vw;
     display: flex;
-
+    left: 20px;
+    position: absolute;
     & img {
       object-fit: cover;
       height: 100%;
       align-self: center;
+      cursor: pointer;
     }
   }
 
@@ -25,6 +33,8 @@
     justify-self: center;
     width: 100%;
     text-align: center;
+    margin-right: auto;
+    margin-left: auto;
   }
 
 }
