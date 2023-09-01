@@ -44,7 +44,7 @@ const Food = () => {
     if (!ingredientOrder.length || numberState == 0) {
       setOrderPrice(numberState * food.price)
     }
-    else { setOrderPrice((numberState * food.price) + (ingredientOrder.length * 2)) }
+    else { setOrderPrice((numberState * food.price) + ((ingredientOrder.length * 2) * numberState)) }
   }, [numberState, ingredientOrder])
 
 
