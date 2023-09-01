@@ -34,8 +34,8 @@
       background-color: $background_inputs;
       border: 1px $background_inputs solid;
       color: $font-buttons-category-color;
-      font-size: calc(12px + 0.5vw);
-
+      font-size: calc(10px + 0.5vw);
+      text-transform: capitalize;
       @include tablet {
         padding: 20px 65px;
       }
@@ -48,6 +48,7 @@
 
       & img {
         height: 4vh;
+        max-height: 24px;
       }
 
       @include tablet {
@@ -62,6 +63,7 @@
 
       & img {
         height: 4vh;
+        max-height: 24px;
       }
 
       @include tablet {
@@ -149,9 +151,10 @@
       flex-direction: column;
       gap: 10px;
       color: $font-buttons-category-color;
-      font-size: calc(14px + 0.5vw);
+      font-size: calc(10px + 0.5vw);
 
       &__title {
+        max-width: 120px;
         color: #000;
       }
     }
