@@ -113,5 +113,10 @@
     background-color: $main-color;
     border-radius: 10px;
     font-weight: bold;
+    cursor: pointer;
+    &:hover{
+      color: $main-color;
+      background-color: $dark-color;
+    }
   }
 }
