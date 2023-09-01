@@ -1,14 +1,30 @@
 @import "../../assets/styles/reset.scss";
 @import "../../assets/styles/variables.scss";
 
-.AllOrders__container {
+.AllOrders{
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.AllOrders__container {
+ 
+  @include tablet{
+    width: 700px;
+  }
+  @include desktop{
+    width: 1000px;
+  }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
   padding: 0px 5vh 2vw;
   gap: 20px;
   font-family: $font-roboto;
   color: $dark-color;
-
   & .AllOrders__orders {
     display: flex;
     flex-direction: column;
@@ -18,18 +34,30 @@
       display: flex;
       justify-content: space-between;
       height: 10vh;
-
+    
       & .orders__info {
         display: flex;
         gap: 20px;
         cursor: pointer;
-
+        &:hover{
+          & img {
+            transform: scale(.9);
+          }
+        }
         & figure {
           height: 100%;
-
+          overflow: hidden;
           & img {
+            transition: 300ms ease all;
             height: 100%;
             border-radius: 100%;
+            max-height: 50px;
+            @include tablet{
+              max-height: 120px;
+            }
+            @include desktop{
+              max-height: 90px;
+            }
           }
         }
 
@@ -49,8 +77,9 @@
         align-items: center;
         gap: 20px;
         cursor: pointer;
-        color: $main-color;
-
+        &:hover{
+          text-decoration: underline;
+        }
         & figure {
           display: flex;
 

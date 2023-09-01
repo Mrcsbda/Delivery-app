@@ -47,7 +47,7 @@ const NewOrder = () => {
   }
 
   return (
-    <>
+    <section className='NewOrder'>
       <DefaultHeader text={"New order"} />
       <section className='NewOrder__container'>
         <article className='NewOrder__deliver'>
@@ -116,7 +116,7 @@ const NewOrder = () => {
 
         <article className='NewOrder__extraInfo'>
           <p>Note</p>
-          <textarea placeholder='write something'></textarea>
+          <textarea placeholder='Write something'></textarea>
         </article>
 
         <article className='NewOrder__summary'>
@@ -137,7 +137,7 @@ const NewOrder = () => {
 
         <p className='NewOrder__final'>order</p>
       </section>
-    </>
+    </section>
   )
 }
 

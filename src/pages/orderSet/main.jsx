@@ -36,11 +36,11 @@ const OrderSet = () => {
   }, [dishes])
 
   return (
-    <>
+    <section className='OrderSet'>
 
       {currentOrder ? (
         showDishes.length ? (
-          <>
+          <section className='OrderSet'>
             <DefaultHeader text={"Current order"} />
             <section className='Current__container'>
 
@@ -98,7 +98,7 @@ const OrderSet = () => {
 
               <p className='Current__container__next'>Support</p>
             </section>
-          </>
+          </section>
         ) : (
           <p>Cargando...</p>
         )
@@ -144,10 +144,8 @@ const OrderSet = () => {
           <p>Cargando...</p>
         )
       )
-
-
       }
-    </>
+    </section>
   )
 }
 

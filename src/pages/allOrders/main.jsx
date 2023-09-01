@@ -81,7 +81,7 @@ const AllOrders = () => {
   }
 
   return (
-    <>
+    <section className='AllOrders'>
       <DefaultHeader text={"All orders"} />
       <section className='AllOrders__container'>
         <article className='AllOrders__orders'>
@@ -130,7 +130,7 @@ const AllOrders = () => {
 
         </article>
       </section>
-    </>
+      </section>
   )
 }
 
