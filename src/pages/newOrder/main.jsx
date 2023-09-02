@@ -40,7 +40,9 @@ const NewOrder = () => {
       }
       dispatch(updateOrder(objSend))
     } else {
-      dispatch(removeOrder(element))
+      //console.log("borrar ", orders.indexOf(element))
+      console.log("dato a enviar: ", element.timestamp)
+      dispatch(removeOrder({ id: element.timestamp }))
     }
 
 

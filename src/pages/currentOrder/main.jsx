@@ -11,28 +11,30 @@ const CurrentOrder = () => {
       <section className='Current__container'>
 
         <article className='Current__container__timer'>
+
           <figure>
             <img src={doneTime} alt="icono de tiempo" />
           </figure>
           <p className='timer__left'>15-20 min left</p>
           <div className='timer__status'>
             <div className='timer__status__box'>
-              <div className='circle completed'></div>
+              <div className='circle circle1'></div>
               <p>Confirmed</p>
             </div>
-            <div className='timer__status__box ongoing'>
-              <div className='circle ongoing'></div>
+            <div className='timer__status__box'>
+              <div className='circle circle2'></div>
               <p>Cooking</p>
             </div>
             <div className='timer__status__box'>
-              <div className='circle waiting'></div>
+              <div className='circle circle3'></div>
               <p>On the way</p>
             </div>
             <div className='timer__status__box'>
-              <div className='circle waiting'></div>
+              <div className='circle circle4'></div>
               <p>Delivered</p>
             </div>
           </div>
+
         </article>
 
         <article className='Current__container__order'>

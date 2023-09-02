@@ -73,8 +73,8 @@ const Food = () => {
         quantity: numberState,
         idRestaurant,
         imageDish: food.image,
-        basePrice: orderPrice / numberState
-        // timestamp: new Date().getTime()
+        basePrice: (orderPrice / numberState),
+        timestamp: new Date().getTime()
       }
       dispatch(addOrder(order))
       navigate(-1)

@@ -39,21 +39,67 @@
           width: 2vh;
           height: 2vh;
           border-radius: 100%;
-        }
-
-        & .completed {
-          background-color: $green-color;
-        }
-
-        & .ongoing {
-          background-color: $main-color;
-        }
-
-        & .waiting {
           background-color: $gray-color
         }
+
       }
     }
+
+    & .NONE {
+      & .circle1 {
+        background-color: $main-color;
+      }
+    }
+
+    & .CONFIRMED {
+      & .circle1 {
+        background-color: $green-color;
+      }
+
+      & .circle2 {
+        background-color: $main-color;
+      }
+    }
+
+    & .COOKING {
+      & .circle1 {
+        background-color: $green-color;
+      }
+
+      & .circle2 {
+        background-color: $green-color;
+      }
+
+      & .circle3 {
+        background-color: $main-color;
+      }
+    }
+
+    & .ONTHEWAY {
+      & .circle1 {
+        background-color: $green-color;
+      }
+
+      & .circle2 {
+        background-color: $green-color;
+      }
+
+      & .circle3 {
+        background-color: $green-color;
+      }
+
+      & .circle4 {
+        background-color: $main-color;
+      }
+    }
+
+    & .DELIVERED {
+      & .circle {
+        background-color: $green-color;
+      }
+    }
+
+
   }
 
   & .Current__order {
@@ -114,7 +160,8 @@
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
-    &:hover{
+
+    &:hover {
       color: $main-color;
       background-color: $dark-color;
     }

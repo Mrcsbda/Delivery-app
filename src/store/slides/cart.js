@@ -14,7 +14,8 @@ export const cartSlice = createSlice({
         state.totalPrice += payload.price
     },
     removeOrder: (state, { payload }) => {
-      state.orders = state.orders.filter((order) => order != payload)
+      state.orders = state.orders.filter((order) => order.timestamp != payload.id)
+      //state.orders = state.orders.splice(payload.pos, 1);
     },
     updateOrder: (state, { payload }) => {
       state.orders[payload.id] = {
