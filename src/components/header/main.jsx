@@ -10,7 +10,7 @@ const DefaultHeader = ({ text = "texto por defecto" }) => {
   }
   return (
     <header className='DefaultHeader__container'>
-      <figure className='DefaultHeader__container__figure'>
+      <figure className='DefaultHeader__container__figure' onClick={toBack}>
         <img src={backArrow} alt="boton de atras" />
       </figure>
       <p className='DefaultHeader__container__text'>{text}</p>

@@ -129,10 +129,12 @@ export const firebaseApi = createApi({
     }),
     patchOrder: builder.mutation({
       providesTags: ['defaultCache'],
-      async queryFn(objState, orderId) {
+      async queryFn({ objState, orderId }) {
+        console.log("objeto enviado: ", objState)
+        console.log("id enviado: ", orderId)
         try {
           const orderRef = doc(firebaseDB, `orders`, orderId);
-          await updateDoc(orderRef, objState)
+          await updateDoc(orderRef, { orderStatus: objState })
           return "hola"
         } catch (error) {
           console.log(error);

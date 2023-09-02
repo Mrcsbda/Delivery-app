@@ -3,7 +3,7 @@ import backArrow from '../../assets/images/BackArrowIcon.svg'
 import './main.scss'
 import DefaultHeader from '../../components/header/main'
 import { useLocation, useParams } from 'react-router-dom'
-import { useGetOrderByIdQuery } from '../../store/api/firebaseApi'
+import { useGetOrderByIdQuery, usePatchOrderMutation } from '../../store/api/firebaseApi'
 import foodExample from '../../assets/images/foodExample.jpg'
 import doneTime from '../../assets/images/TimeTimeOrder.png'
 
@@ -13,27 +13,95 @@ const OrderSet = () => {
   const { state: orderInfo } = useLocation()
   const [currentOrder, setCurrentOrder] = useState(false)
   const [showDishes, setShowDishes] = useState([])
+  const [patchOrder] = usePatchOrderMutation()
+  const [orderInfoState, setOrderInfoState] = useState(orderInfo)
+  const [repeatProcess, setRepeatProcess] = useState(true)
+  const [repeatProcess2, setRepeatProcess2] = useState(true)
 
   //validacion de recibidos
   useEffect(() => {
-    console.log(dishes)
-    console.log(orderInfo)
+    console.log("platos: ", dishes)
+    console.log("info de ola orden: ", orderInfoState)
   }, [dishes])
 
   //validacion de tipo de pantalla
   useEffect(() => {
-    if (orderInfo.orderStatus === "CANCELLED" || orderInfo.orderStatus === "DELIVERED") {
+    if (orderInfoState.orderStatus === "CANCELLED" || orderInfoState.orderStatus === "DELIVERED") {
       setCurrentOrder(false)
     } else {
       setCurrentOrder(true)
     }
-  }, [dishes])
+  }, [dishes, repeatProcess2])
 
   //captura de platos
   useEffect(() => {
     dishes && setShowDishes(dishes)
-    console.log(showDishes)
+    console.log("platos a mostrar", showDishes)
   }, [dishes])
+
+  //modificacion de orden
+  // useEffect(() => {
+  //   if (showDishes.length > 0) {
+  //     orderInfo.orderStatus == "NONE" && modifyOrder("CONFIRMED")
+  //     orderInfo.orderStatus == "CONFIRMED" && modifyOrder("COOKING")
+  //     orderInfo.orderStatus == "COOKING" && modifyOrder("ONTHEWAY")
+  //     orderInfo.orderStatus == "ONTHEWAY" && modifyOrder("DELIVERED")
+  //   }
+  // }, [showDishes])
+
+  useEffect(() => {
+    if (showDishes.length > 0) {
+      if (orderInfoState.orderStatus == "NONE") {
+        modifyOrder("CONFIRMED")
+        setOrderInfoState({ ...orderInfoState, orderStatus: "CONFIRMED" })
+        setInterval(() => {
+          setRepeatProcess(!repeatProcess)
+        }, 5000);
+
+      }
+      if (orderInfoState.orderStatus == "CONFIRMED") {
+        modifyOrder("COOKING")
+        setOrderInfoState({ ...orderInfoState, orderStatus: "COOKING" })
+        setInterval(() => {
+          setRepeatProcess(!repeatProcess)
+        }, 5000);
+      }
+      if (orderInfoState.orderStatus == "COOKING") {
+        modifyOrder("ONTHEWAY")
+        setOrderInfoState({ ...orderInfoState, orderStatus: "ONTHEWAY" })
+        setInterval(() => {
+          setRepeatProcess(!repeatProcess)
+        }, 5000);
+      }
+      if (orderInfoState.orderStatus == "ONTHEWAY") {
+        modifyOrder("DELIVERED")
+        setOrderInfoState({ ...orderInfoState, orderStatus: "DELIVERED" })
+        setInterval(() => {
+          setRepeatProcess(!repeatProcess)
+        }, 5000);
+        setInterval(() => {
+          setRepeatProcess2(!repeatProcess2)
+        }, 2000);
+      }
+    }
+  }, [showDishes, repeatProcess])
+
+  const modifyOrder = async (newStatus) => {
+
+    let infoToSend = {
+      objState: newStatus,
+      orderId: orderInfoState.id
+    }
+    console.log("objeto enviado: ", infoToSend)
+    let response = await patchOrder(infoToSend)
+    console.log("respuesta al patch del order: ", response)
+  }
+
+  const cancelOrder = async () => {
+    let response = await patchOrder("CANCELLED", orderInfoState.id)
+    console.log(response)
+  }
+
 
   return (
     <section className='OrderSet'>
@@ -49,54 +117,57 @@ const OrderSet = () => {
                   <img src={doneTime} alt="icono de tiempo" />
                 </figure>
                 <p className='timer__left'>15-20 min left</p>
-                <div className='timer__status'>
+                <div className={`timer__status ${orderInfoState.orderStatus}`}>
                   <div className='timer__status__box'>
-                    <div className='circle completed'></div>
+                    <div className='circle circle1'></div>
                     <p>Confirmed</p>
                   </div>
-                  <div className='timer__status__box ongoing'>
-                    <div className='circle ongoing'></div>
+                  <div className='timer__status__box'>
+                    <div className='circle circle2'></div>
                     <p>Cooking</p>
                   </div>
                   <div className='timer__status__box'>
-                    <div className='circle waiting'></div>
+                    <div className='circle circle3'></div>
                     <p>On the way</p>
                   </div>
                   <div className='timer__status__box'>
-                    <div className='circle waiting'></div>
+                    <div className='circle circle4'></div>
                     <p>Delivered</p>
                   </div>
                 </div>
               </article>
 
               <article className='Current__container__order'>
-                <div className='Current__order__ind'>
-                  <figure className='Current__order__image'>
-                    <img src={foodExample} alt="comida" />
-                  </figure>
-                  <span className='Current__order__number'>x1</span>
-                  <p className='Current__order__name'>Vegetarian pizza</p>
-                  <p className='Current__order__cost'>$ 32.00</p>
-                </div>
+                {showDishes.map((element) => (
+                  <div className='Current__order__ind' key={element.id}>
+                    <figure className='Current__order__image'>
+                      <img src={element.image || foodExample} alt="comida" />
+                    </figure>
+                    <span className='Current__order__number'>x{element.amount || "#"}</span>
+                    <p className='Current__order__name'>{element.dish}</p>
+                    <p className='Current__order__cost'>$ {element.price}</p>
+                  </div>
+                ))
+                }
               </article>
 
               <article className='Current__container__summary'>
                 <div className='summary__ind'>
                   <p>Products</p>
-                  <p>60.45$</p>
+                  <p>$ {orderInfoState.productionCost}</p>
                 </div>
                 <div className='summary__ind'>
                   <p>Delivery</p>
-                  <p>4.5$</p>
+                  <p>$ {orderInfoState.deliveryCost}</p>
                 </div>
                 <hr />
                 <div className='summary__ind'>
                   <p className='total'>Total</p>
-                  <p className='total'>64.95$</p>
+                  <p className='total'>$ {orderInfoState.orderPrice}</p>
                 </div>
               </article>
 
-              <p className='Current__container__next'>Support</p>
+              <p className='Current__container__next' onClick={cancelOrder}>CANCELAR</p>
             </section>
           </section>
         ) : (
