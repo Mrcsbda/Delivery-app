@@ -99,9 +99,9 @@ const OrderSet = () => {
         }
       }
     } else {
-      modifyOrder("CANCELLED")
-      setOrderInfoState({ ...orderInfoState, orderStatus: "DELIVERED" })
-      setCurrentOrder(false)
+      // modifyOrder("CANCELLED")
+      // setOrderInfoState({ ...orderInfoState, orderStatus: "DELIVERED" })
+      // setCurrentOrder(false)
     }
 
   }, [showDishes, repeatProcess, readCancel])
@@ -124,6 +124,10 @@ const OrderSet = () => {
     // }
     // let response = await patchOrder(infoToSend)
     // console.log(response)
+
+    modifyOrder("CANCELLED")
+    setOrderInfoState({ ...orderInfoState, orderStatus: "DELIVERED" })
+    setCurrentOrder(false)
     setReadCancel(true)
     //setCurrentOrder(false)
     //navigate(-1)
@@ -170,7 +174,7 @@ const OrderSet = () => {
                     <figure className='Current__order__image'>
                       <img src={element.imageDish || foodExample} alt="comida" />
                     </figure>
-                    <span className='Current__order__number'>x{element.amount || "#"}</span>
+                    <span className='Current__order__number'>x{element.quantity || "#"}</span>
                     <p className='Current__order__name'>{element.dish}</p>
                     <p className='Current__order__cost'>$ {element.price}</p>
                   </div>
@@ -208,9 +212,9 @@ const OrderSet = () => {
               <article className='OrderSet__orders'>
                 {
                   showDishes.map((item) => item &&
-                    <div className='OrderSet__orders__ind' key={item.id}>
+                    <div className='OrderSet__orders__ind' key={item.timestamp}>
                       <div className='orders__info'>
-                        <span>1x</span>
+                        <span>x{item.quantity || "#"}</span>
                         <p>{item.dish}</p>
                       </div>
                       <div className='orders__cost'>

@@ -23,6 +23,10 @@ export const cartSlice = createSlice({
         quantity: payload.obj,
       }
     },
+    resetOrders: (state) => {
+      state.orders = [];
+      state.totalPrice = 0;
+    },
   }
 });
-export const { addOrder, removeOrder, updateOrder } = cartSlice.actions;
+export const { addOrder, removeOrder, updateOrder, resetOrders } = cartSlice.actions;
