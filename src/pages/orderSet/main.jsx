@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import backArrow from '../../assets/images/BackArrowIcon.svg'
 import './main.scss'
 import DefaultHeader from '../../components/header/main'
-import { useLocation, useParams } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useGetOrderByIdQuery, usePatchOrderMutation } from '../../store/api/firebaseApi'
 import foodExample from '../../assets/images/foodExample.jpg'
 import doneTime from '../../assets/images/TimeTimeOrder.png'
 
 const OrderSet = () => {
   const { idOrder } = useParams()
-  const { data: dishes } = useGetOrderByIdQuery("5iF4qRYJHrBru715jlIL")
+  const { data: dishes, isSuccess } = useGetOrderByIdQuery(idOrder)
   const { state: orderInfo } = useLocation()
   const [currentOrder, setCurrentOrder] = useState(false)
   const [showDishes, setShowDishes] = useState([])
@@ -17,6 +17,8 @@ const OrderSet = () => {
   const [orderInfoState, setOrderInfoState] = useState(orderInfo)
   const [repeatProcess, setRepeatProcess] = useState(true)
   const [repeatProcess2, setRepeatProcess2] = useState(true)
+  const navigate = useNavigate()
+  const [readCancel, setReadCancel] = useState(false)
 
   //validacion de recibidos
   useEffect(() => {
@@ -31,13 +33,24 @@ const OrderSet = () => {
     } else {
       setCurrentOrder(true)
     }
-  }, [dishes, repeatProcess2])
+  }, [dishes, repeatProcess2, readCancel])
 
   //captura de platos
   useEffect(() => {
-    dishes && setShowDishes(dishes)
-    console.log("platos a mostrar", showDishes)
-  }, [dishes])
+    if (isSuccess) {
+      let newObj = dishes[0]
+      let newArray = []
+      for (const key in newObj) {
+        if (typeof newObj[key] === 'object') {
+          newArray.push(newObj[key]);
+        }
+      }
+      console.log(newObj)
+      console.log(newArray)
+      setShowDishes(newArray)
+      console.log("platos a mostrar", showDishes)
+    }
+  }, [isSuccess])
 
   //modificacion de orden
   // useEffect(() => {
@@ -50,41 +63,48 @@ const OrderSet = () => {
   // }, [showDishes])
 
   useEffect(() => {
-    if (showDishes.length > 0) {
-      if (orderInfoState.orderStatus == "NONE") {
-        modifyOrder("CONFIRMED")
-        setOrderInfoState({ ...orderInfoState, orderStatus: "CONFIRMED" })
-        setInterval(() => {
-          setRepeatProcess(!repeatProcess)
-        }, 5000);
+    if (!readCancel) {
+      if (showDishes.length > 0) {
+        if (orderInfoState.orderStatus == "NONE") {
+          modifyOrder("CONFIRMED")
+          setOrderInfoState({ ...orderInfoState, orderStatus: "CONFIRMED" })
+          setInterval(() => {
+            setRepeatProcess(!repeatProcess)
+          }, 5000);
 
+        }
+        if (orderInfoState.orderStatus == "CONFIRMED") {
+          modifyOrder("COOKING")
+          setOrderInfoState({ ...orderInfoState, orderStatus: "COOKING" })
+          setInterval(() => {
+            setRepeatProcess(!repeatProcess)
+          }, 5000);
+        }
+        if (orderInfoState.orderStatus == "COOKING") {
+          modifyOrder("ONTHEWAY")
+          setOrderInfoState({ ...orderInfoState, orderStatus: "ONTHEWAY" })
+          setInterval(() => {
+            setRepeatProcess(!repeatProcess)
+          }, 5000);
+        }
+        if (orderInfoState.orderStatus == "ONTHEWAY") {
+          modifyOrder("DELIVERED")
+          setOrderInfoState({ ...orderInfoState, orderStatus: "DELIVERED" })
+          setInterval(() => {
+            setRepeatProcess(!repeatProcess)
+          }, 5000);
+          setInterval(() => {
+            setRepeatProcess2(!repeatProcess2)
+          }, 2000);
+        }
       }
-      if (orderInfoState.orderStatus == "CONFIRMED") {
-        modifyOrder("COOKING")
-        setOrderInfoState({ ...orderInfoState, orderStatus: "COOKING" })
-        setInterval(() => {
-          setRepeatProcess(!repeatProcess)
-        }, 5000);
-      }
-      if (orderInfoState.orderStatus == "COOKING") {
-        modifyOrder("ONTHEWAY")
-        setOrderInfoState({ ...orderInfoState, orderStatus: "ONTHEWAY" })
-        setInterval(() => {
-          setRepeatProcess(!repeatProcess)
-        }, 5000);
-      }
-      if (orderInfoState.orderStatus == "ONTHEWAY") {
-        modifyOrder("DELIVERED")
-        setOrderInfoState({ ...orderInfoState, orderStatus: "DELIVERED" })
-        setInterval(() => {
-          setRepeatProcess(!repeatProcess)
-        }, 5000);
-        setInterval(() => {
-          setRepeatProcess2(!repeatProcess2)
-        }, 2000);
-      }
+    } else {
+      // modifyOrder("CANCELLED")
+      // setOrderInfoState({ ...orderInfoState, orderStatus: "DELIVERED" })
+      // setCurrentOrder(false)
     }
-  }, [showDishes, repeatProcess])
+
+  }, [showDishes, repeatProcess, readCancel])
 
   const modifyOrder = async (newStatus) => {
 
@@ -98,8 +118,19 @@ const OrderSet = () => {
   }
 
   const cancelOrder = async () => {
-    let response = await patchOrder("CANCELLED", orderInfoState.id)
-    console.log(response)
+    // let infoToSend = {
+    //   objState: "CANCELLED",
+    //   orderId: orderInfoState.id
+    // }
+    // let response = await patchOrder(infoToSend)
+    // console.log(response)
+
+    modifyOrder("CANCELLED")
+    setOrderInfoState({ ...orderInfoState, orderStatus: "DELIVERED" })
+    setCurrentOrder(false)
+    setReadCancel(true)
+    //setCurrentOrder(false)
+    //navigate(-1)
   }
 
 
@@ -139,11 +170,11 @@ const OrderSet = () => {
 
               <article className='Current__container__order'>
                 {showDishes.map((element) => (
-                  <div className='Current__order__ind' key={element.id}>
+                  <div className='Current__order__ind' key={element.timestamp}>
                     <figure className='Current__order__image'>
-                      <img src={element.image || foodExample} alt="comida" />
+                      <img src={element.imageDish || foodExample} alt="comida" />
                     </figure>
-                    <span className='Current__order__number'>x{element.amount || "#"}</span>
+                    <span className='Current__order__number'>x{element.quantity || "#"}</span>
                     <p className='Current__order__name'>{element.dish}</p>
                     <p className='Current__order__cost'>$ {element.price}</p>
                   </div>
@@ -171,7 +202,7 @@ const OrderSet = () => {
             </section>
           </section>
         ) : (
-          <p>Cargando...</p>
+          <p>Cargando... current</p>
         )
       ) : (
         showDishes.length ? (
@@ -181,9 +212,9 @@ const OrderSet = () => {
               <article className='OrderSet__orders'>
                 {
                   showDishes.map((item) => item &&
-                    <div className='OrderSet__orders__ind' key={item.id}>
+                    <div className='OrderSet__orders__ind' key={item.timestamp}>
                       <div className='orders__info'>
-                        <span>1x</span>
+                        <span>x{item.quantity || "#"}</span>
                         <p>{item.dish}</p>
                       </div>
                       <div className='orders__cost'>
@@ -212,7 +243,7 @@ const OrderSet = () => {
             </section>
           </>
         ) : (
-          <p>Cargando...</p>
+          <p>Cargando... finished</p>
         )
       )
       }

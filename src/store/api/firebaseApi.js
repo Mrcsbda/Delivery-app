@@ -160,6 +160,36 @@ export const firebaseApi = createApi({
         }
       }
     }),
+    addOrders: builder.mutation({
+      async queryFn(data) {
+        try {
+          const docRef = await addDoc(collection(firebaseDB, `orders`), {
+            ...data,
+          });
+          const docId = docRef.id;
+          return { data: docId };
+        } catch (error) {
+          console.log(error);
+          return error
+        }
+      },
+      invalidatesTags: ['orders']
+    }),
+    addOrder: builder.mutation({
+      async queryFn({ ordersId, orderObj }) {
+        try {
+          const orderCollectionRef = collection(firebaseDB, 'orders', ordersId, 'order');
+          await addDoc(orderCollectionRef, {
+            ...orderObj,
+          });
+          return { data: "ok" };
+        } catch (error) {
+          console.log(error);
+          return error
+        }
+      },
+      invalidatesTags: ['orders']
+    }),
   })
 
 })
@@ -173,8 +203,11 @@ export const {
   useGetAllOrdersQuery,
   useGetOrdersByUserIdMutation,
   usePatchOrderMutation,
-  useGetOrderByIdQuery } =
+  useGetOrderByIdQuery,
+  useAddOrdersMutation,
+  useAddOrderMutation } =
   firebaseApi
 
-  //el getAllOrders ya funciona para recibir todas las ordenes
-  //el de recibir las ordenes por id no sirve
+  //el (getAllOrders) ya funciona para recibir todas las ordenes
+  //el de recibir las ordenes por id, la mutacion (getOrdersByUserId) no sirve
+// asi que hice la query (getOrderById) que si sirve B)

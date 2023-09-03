@@ -42,7 +42,7 @@ export const SearchView = () => {
   //peticion de los restaurantes
   useEffect(() => {
     restaurants && setRestaurantsInfo(restaurants)
-    console.log(restaurants)
+    console.log("info restaurantes: ", restaurants)
   }, [restaurants])
 
   //peticion de los platos de restaurantes
@@ -74,7 +74,7 @@ export const SearchView = () => {
 
   //tercera opcion - mejorada de la segunda
   useEffect(() => {
-    console.log("se intenta")
+    //console.log("se intenta")
     if (((rest00.status == 'fulfilled')) && ((rest01.status == 'fulfilled')) && ((rest02.status == 'fulfilled')) && ((rest03.status == 'fulfilled')) && ((rest04.status == 'fulfilled')) && ((rest05.status == 'fulfilled')) && ((rest06.status == 'fulfilled'))) {
       let defaultArray = [];
       let combinedArray00 = defaultArray.concat(rest00.data);
@@ -85,10 +85,8 @@ export const SearchView = () => {
       let combinedArray05 = combinedArray04.concat(rest05.data);
       let combinedArray06 = combinedArray05.concat(rest06.data);
       setDishesArray(combinedArray06)
-
       setShowContainer02(true)
-      console.log("entra")
-      console.log(dishesArray)
+      console.log("lista de todos los platos: ", dishesArray)
     }
 
   }, [rest00, rest01, rest02, rest03, rest04, rest05, rest06])
@@ -125,7 +123,7 @@ export const SearchView = () => {
   }
 
   return (
-    <body className="search">
+    <main className="search">
 
       <form className="search__bar" onSubmit={handleSubmit(onSubmit)}>
         <figure onClick={searchForm} className="search__bar__glass">
@@ -177,7 +175,7 @@ export const SearchView = () => {
         }
       </section>
 
-    </body>
+    </main>
 
   )
 }
