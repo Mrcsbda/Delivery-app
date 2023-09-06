@@ -1,0 +1,214 @@
+@import "../../assets/styles/variables.scss";
+
+.restaurant {
+  background-color: #fefdf9;
+  font-family: $font-roboto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-bottom: 80px;
+  @include tablet {
+    padding: 0px 50px 50px;
+  }
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include tablet {
+      gap: 40px;
+    }
+    @include desktop {
+      gap: 70px;
+    }
+    &__nav {
+      padding: 20px 20px 0 20px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    &__back {
+      width: calc(16px + 1vw);
+      cursor: pointer;
+      & img {
+        width: 100%;
+        height: 100%;
+      }
+      @include desktop{
+        display: none;
+      }
+    }
+    &__logo {
+      margin: 0;
+      margin-left: auto;
+      margin-right: auto;
+      height: 10vh;
+      max-height: 150px;
+      & > img {
+        object-fit: contain;
+        max-width: 90vw;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    &__middle {
+      display: flex;
+      gap: 20px;
+      height: calc(100px + 1vw);
+      max-height: 200px;
+      @include tablet {
+        height: auto;
+        padding: 0 7vw;
+      }
+      @include desktop {
+        padding: 0 15vw;
+       gap: 100px;
+      }
+    }
+    &__location {
+      max-height: 300px;
+      width: 40%;
+      max-width: 160px;
+      @include tablet{
+        width: 32%;
+        max-width: none;
+      }
+      @include desktop{
+        width: 30%;
+      }
+      & img {
+        height: 100%;
+        width: 100%;
+        clip-path: polygon(20% 0%, 80% 0%, 100% 0, 100% 10%, 62% 100%, 0 100%, 0% 80%, 0 0);
+        border-radius: 20px;
+        position: relative;
+        object-fit: cover;
+      }
+    }
+    &__textBox {
+      padding-left: 15px;
+      width: 60%;
+      display: flex;
+      overflow: auto;
+      flex-direction: column;
+      gap: 5px;
+      & > h3 {
+        font-weight: 500;
+        font-size: calc(16px + 0.5vw);
+      }
+      & > p {
+        font-size: calc(11px + 0.5vw);
+      }
+    }
+    &__stats {
+      display: flex;
+      justify-content: space-between;
+      & > h3 {
+        font-size: calc(16px + 0.5vw);
+        font-weight: 500;
+      }
+      & > span {
+        background-color: #f2f2f2;
+        color: $font-buttons-category-color;
+        border-radius: 5px;
+        padding: 2px;
+        font-size: calc(11px + 0.5vw);
+      }
+    }
+    &__bottom {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      overflow: auto;
+      @include tablet {
+        justify-content: center;
+      }
+    }
+    &__categories {
+      background-color: #f2f2f2;
+      padding: 10px 40px;
+      cursor: pointer;
+      border-radius: 5px;
+      color: $font-buttons-category-color;
+      font-size: calc(10px + 0.5vw);
+      text-transform: capitalize;
+      display: flex;
+      align-items: center;
+      @include desktop{
+         padding: 15px 60px;
+         &:hover {
+          background-color: $gray-color;
+          color: #fff;
+      }}
+      &__active {
+        background-color: $main-color;
+      }
+    }
+  }
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    @include tablet {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      padding: 0 5vw;;
+    }
+    @include desktop {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      padding: 0 7.2vw;
+    }
+    &__food {
+      padding: 5px;
+      border: 1px #fafafa solid;
+      border-radius: 5px;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      max-width: 150px;
+      @include tablet{
+        max-width: 250px;
+      }
+      @include desktop{
+        max-width: 300px;
+      }
+    }
+    &__media {
+      overflow: hidden;
+      border-radius: 10px;
+      height: 150px;
+     // max-width: 150px;
+
+      @include tablet{
+      height: 200px;
+     // max-width: 300px;
+    }
+      & img {
+        width: 100%;
+        object-fit: cover;
+        height: 100%;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        &:hover{
+          transform: scale(1.1);
+      }
+      }
+    }
+    &__title {
+      font-size: calc(14px + 0.5vw);
+    }
+    &__price {
+      color: $font-buttons-category-color;
+      font-size: calc(13px + 0.5vw);
+    }
+  }
+  &__schedule{
+    font-weight: 300;
+        font-size: calc(10px + 0.3vw);
+        letter-spacing: -0.3px;
+        color: $dark-color;
+        margin-bottom: 4px;
+  }
+}

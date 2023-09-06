@@ -2,7 +2,25 @@
 
 $main-color: #FFE031;
 $dark-color: #414141; //textos
-$gray-color: #A7A7A7;
+$gray-color: #A7A7A7; //span
+$green-color: #77DF52;
+$light-gray: #F2F2F2;
+$red-color: #DF5252;
+$skin-color: #FFEE8D;
 $complementary-color: #CCCCCC;
 $font-buttons-category-color: #6C6C6C;
+$background_inputs: #e0e0e0;
 $font-roboto: 'Roboto', sans-serif;
+$complementary-color-light: #F2F2F2; //botones seleccionables
+
+@mixin tablet {
+  @media (min-width: 600px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}

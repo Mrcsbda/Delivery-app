@@ -1,0 +1,77 @@
+@import "../../assets/styles/variables.scss";
+
+.signin{
+    font-family: $font-roboto;
+    padding: 50px 20px;
+    background-color: #fefdf9;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    @include tablet{
+        padding: 100px 35vw;
+        gap: 15px;
+    }
+    @include desktop{
+        padding: 100px 35vw;
+    }
+    &__title{
+        padding-bottom: 50px;
+        color: $font-buttons-category-color;
+        font-size: calc(24px + 0.5vw);
+        @include tablet{
+            text-align: center;
+        }
+    }
+    &__label{
+        color: $complementary-color;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: calc(10px + 0.5vw);
+    }
+    &__input{
+        background-color: #fefdf9;
+        border: 0px;
+        border-bottom: 1px $complementary-color solid;
+        padding: 10px 5px;
+        color: $font-buttons-category-color;
+        font-size: calc(12px + 0.5vw);
+        margin-bottom: 10px;
+        outline: none;
+    }
+
+    &__submit{
+        cursor: pointer;
+        position: relative;
+        margin-top: auto;
+        background-color: $main-color;
+        border: 0;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: calc(13px + 0.5vw);
+        color: $font-buttons-category-color;
+
+        padding: 15px;
+        &:hover{
+            background-color: $font-buttons-category-color;
+            color: $main-color;
+        }
+
+    }
+}
+
+#swal2-title {
+    font-family: $font-roboto;
+    line-height: 2rem;
+}
+
+.swal2-confirm {
+    font-family: $font-roboto;
+    background-color: $main-color!important;
+    box-shadow: none !important;
+    &:hover {
+     transform: scale(1.02);
+    }
+}

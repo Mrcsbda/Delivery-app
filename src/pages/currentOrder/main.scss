@@ -1,0 +1,169 @@
+@import "../../assets/styles/reset.scss";
+@import "../../assets/styles/variables.scss";
+
+.Current__container {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 5vh 2vw;
+  gap: 20px;
+  font-family: $font-roboto;
+  color: $dark-color;
+  align-items: space-between;
+
+  &__timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $skin-color;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+
+    & .timer__status {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      &__box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+
+        & p {
+          color: $gray-color;
+          font-size: 12px;
+        }
+
+        & .circle {
+          width: 2vh;
+          height: 2vh;
+          border-radius: 100%;
+          background-color: $gray-color
+        }
+
+      }
+    }
+
+    & .NONE {
+      & .circle1 {
+        background-color: $main-color;
+      }
+    }
+
+    & .CONFIRMED {
+      & .circle1 {
+        background-color: $green-color;
+      }
+
+      & .circle2 {
+        background-color: $main-color;
+      }
+    }
+
+    & .COOKING {
+      & .circle1 {
+        background-color: $green-color;
+      }
+
+      & .circle2 {
+        background-color: $green-color;
+      }
+
+      & .circle3 {
+        background-color: $main-color;
+      }
+    }
+
+    & .ONTHEWAY {
+      & .circle1 {
+        background-color: $green-color;
+      }
+
+      & .circle2 {
+        background-color: $green-color;
+      }
+
+      & .circle3 {
+        background-color: $green-color;
+      }
+
+      & .circle4 {
+        background-color: $main-color;
+      }
+    }
+
+    & .DELIVERED {
+      & .circle {
+        background-color: $green-color;
+      }
+    }
+
+
+  }
+
+  & .Current__order {
+    display: flex;
+    flex-direction: column;
+    width: 96vw;
+
+    &__ind {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & figure {
+        width: 10%;
+
+        & img {
+          width: 100%;
+          border-radius: 10px;
+        }
+      }
+
+      & .Current__order__number {
+        color: $gray-color;
+      }
+
+      & .Current__order__name {
+        width: 50%;
+
+      }
+
+      & .Current__order__cost {
+        width: 20%;
+        text-align: end;
+        color: $gray-color;
+      }
+    }
+  }
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    & .summary__ind {
+      display: flex;
+      justify-content: space-between;
+
+      & .total {
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__next {
+    padding: 10px;
+    text-align: center;
+    background-color: $main-color;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      color: $main-color;
+      background-color: $dark-color;
+    }
+  }
+}

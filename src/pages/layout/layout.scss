@@ -1,0 +1,15 @@
+@import "../../assets/styles/variables.scss";
+@import "../../assets/styles/reset.scss";
+
+* {
+    font-family: $font-roboto;
+}
+
+.layout {
+    position: relative;
+    min-height: 100vh;
+    max-height: 100%;
+    width: 100%;
+    background-color: rgb(252, 252, 252);
+    overflow-y: hidden;
+}

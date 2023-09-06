@@ -1,0 +1,76 @@
+@import "../../assets/styles/variables.scss";
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem 0rem 2rem;
+    gap: 1rem;
+
+    &__logo-container {
+        display: flex;
+    }
+
+    &__logo {
+        width: 2.5rem;
+        cursor: pointer;
+    }
+
+    &__nav-container {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+
+        hr {
+            height: 100%;
+            width: 0;
+            border: 1px solid rgb(184, 184, 184);
+            border-right: none;
+        }
+    }
+
+    &__nav-list {
+        display: flex;
+        list-style: none;
+        font-weight: 300;
+        gap: 0.7rem;
+
+        li {
+            cursor: pointer;
+
+            a {
+                color: $dark-color;
+                text-decoration: none;
+            }
+
+            &:hover {
+                a {
+                    color: $main-color;
+                }
+            }
+        }
+    }
+
+    &__cart-container {
+        display: flex;
+        position: relative;
+    }
+
+    &__cart {
+        width: 2rem;
+        cursor: pointer;
+        filter: invert(21%) sepia(14%) saturate(10%) hue-rotate(3deg) brightness(96%) contrast(83%);
+    }
+
+    &__orders {
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        font-size: 10px;
+        background-color: $main-color;
+        padding: 1px 4px;
+        z-index: 10;
+        border-radius: 50%;
+    }
+
+}
+

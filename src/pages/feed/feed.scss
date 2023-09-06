@@ -1,0 +1,108 @@
+@import "../../assets/styles/variables.scss";
+
+.feed {
+    padding: 1rem 1.5rem;
+    padding-bottom: 6rem;
+    display: flex;
+    flex-direction: column;
+
+    &__location-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    &__location-icon {
+        width: 2rem;
+        height: 2rem;
+        filter: invert(85%) sepia(93%) saturate(2510%) hue-rotate(327deg) brightness(103%) contrast(103%);
+    }
+
+    &__address-title {
+        font-size: 11px;
+        color: $main-color;
+        margin-bottom: 2px;
+    }
+
+    &__address {
+        display: flex;
+        cursor: pointer;
+    }
+
+    &__address-text,
+    &__subtitle {
+        font-size: 14px;
+        color: $dark-color;
+    }
+
+    &__arrow-icon {
+        width: 1rem;
+        filter: invert(26%) sepia(20%) saturate(13%) hue-rotate(47deg) brightness(87%) contrast(91%);
+    }
+
+    &__subtitle {
+        font-weight: 300;
+    }
+
+    &__restaurants-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.3rem;
+    }
+
+    &__cart-button {
+        position: fixed;
+        bottom: 80px;
+        width: 90%;
+        align-self: center;
+        background-color: $main-color;
+        border: none;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        color: $dark-color;
+        font-size: 14px;
+    }
+
+    &__cart-orders {
+        background-color: $dark-color;
+        padding: 3px 5px;
+        color: white;
+        border-radius: 4px;
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .feed {
+
+        &__restaurants-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}
+
+@media screen and (min-width: 1160px) {
+    .feed {
+        padding: 0.5rem 2rem 2rem;
+
+        &__restaurants-container {
+            grid-template-columns: repeat(3, 350px);
+            justify-content: center;
+            gap: 1.4rem;
+        }
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .feed {
+
+        &__restaurants-container {
+            grid-template-columns: repeat(4, 350px);
+        }
+    }
+}
