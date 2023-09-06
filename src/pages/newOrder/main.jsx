@@ -1,5 +1,5 @@
 import React from 'react'
-import backArrow from '../../assets/images/BackArrowIcon.svg'
+//import backArrow from '../../assets/images/BackArrowIcon.svg'
 import './main.scss'
 import nextArrow from '../../assets/images/NextArrowIcon.svg'
 import LocationYellow from '../../assets/images/LocationYellowIcon.svg'
@@ -45,9 +45,6 @@ const NewOrder = () => {
   useEffect(() => {
     if (isSuccess) {
       setRestaurantsInfo(restaurants)
-      console.log("info del array original: ", restaurants)
-      console.log("restaurantsInfo: ", restaurantsInfo)
-      console.log("info del usuario: ", userInfo)
       restaurantsInfo === false && setRepeatRestaurants(!repeatRestaurants)
     }
   }, [isSuccess])
@@ -55,30 +52,23 @@ const NewOrder = () => {
   //informacion cambiante de ordenes
   useEffect(() => {
     setOrdersInfo(orders)
-    console.log("ordenes capturadas: ", orders)
-    console.log("ordersInfo: ", ordersInfo)
     ordersInfo === false && setRepeatOrders(!repeatOrders)
   }, [orders])
 
   //cambio del precio
   useEffect(() => {
-    console.log("total antes del for: ", totalOrdersCost)
     if (ordersInfo.length) {
       let preSum = 0
       for (let i = 0; i < ordersInfo.length; i++) {
         let newSum = (ordersInfo[i].quantity * ordersInfo[i].basePrice).toFixed(2)
         preSum += parseFloat(newSum);
-        console.log(preSum)
       }
       setTotalOrdersCost(Number(preSum.toFixed(2)))
     }
-    console.log("total despues del for: ", totalOrdersCost)
   }, [ordersInfo])
 
   //control del form
-  useEffect(() => {
-    console.log(watchFields)
-  }, [watchFields])
+
 
   const orderNow = async () => {
     setArrayBoss([]) //para limpiar
@@ -107,43 +97,7 @@ const NewOrder = () => {
         setArrayBoss(newArray)
       }
     });
-    console.log("array a enviar: ", arrayBoss)
-    console.log(arrayBoss.length)
 
-    //opcion de for
-    // for (let i = 0; i < restaurantsInfo.length; i++) {
-    //   let box = [];
-    //   let ordCost = 0;
-    //   for (let j = 0; j < ordersInfo.length; j++) {
-    //     if (restaurantsInfo[i].id == ordersInfo[j].idRestaurant) {
-    //       console.log(ordersInfo[j])
-    //       box.push(ordersInfo[j]);
-    //       ordCost += ordersInfo[j].price
-    //     }
-    //   }
-    //   if (box.length > 0) {
-    //     console.log(`nombre: ${restaurantsInfo[i].name} `, box)
-    //     let newItem = {
-    //       dishesX: box,
-    //       clientKeyX: userInfo.key,
-    //       costOfDeliveryX: 5,
-    //       orderStatusX: "NONE",
-    //       productionCostX: ordCost,
-    //       restaurantKeyX: rest.restaurantKey,
-    //       totalPaidX: (ordCost + 5)
-    //     }
-    //     setArrayBoss(...arrayBoss, newItem)
-    //   }
-    // }
-    //objeto de prueba
-    // const objTest = {
-    //   clientKey: userInfo.key,
-    //   costOfDelivery: 5,
-    //   orderStatusX: "NONE",
-    //   productionCostX: 20,
-    //   restaurantKey: "wakaWaka",
-    //   totalPaid: 25
-    // }
     for (let k = 0; k < arrayBoss.length; k++) {
       const objTest = {
         clientKey: arrayBoss[k].clientKeyX,
@@ -155,18 +109,18 @@ const NewOrder = () => {
         paymentMethod: paymentMeth,
         clientNote: watchFields
       }
-      console.log("objeto a enviar: ", objTest)
+
       let response = await addOrders(objTest);
-      console.log("respuesta del post: ", response)
+
       const objTest2 = {
         ordersId: response.data,
         orderObj: arrayBoss[k].dishesX
       }
-      console.log("objeto a enviar: ", objTest2)
+
       let response2 = await addOrder(objTest2)
-      console.log("respuesta del post: ", response2)
+
     }
-    console.log("fin de ejecucion")
+
     dispatch(resetOrders())
     reset({
       orderNote: ""
@@ -175,8 +129,7 @@ const NewOrder = () => {
   }
 
   const toChangeAmountPlus = (element) => {
-    // console.log(element)
-    // console.log(orders.indexOf(element))
+
     let newNum = element.quantity + 1;
 
     let objSend = {
@@ -188,8 +141,7 @@ const NewOrder = () => {
 
   const toChangeAmountMinus = (element) => {
     if (element.quantity > 1) {
-      // console.log(element)
-      // console.log(orders.indexOf(element))
+
       let newNum = element.quantity - 1;
 
       let objSend = {
@@ -198,8 +150,7 @@ const NewOrder = () => {
       }
       dispatch(updateOrder(objSend))
     } else {
-      //console.log("borrar ", orders.indexOf(element))
-      // console.log("dato a enviar: ", element.timestamp)
+
       dispatch(removeOrder({ id: element.timestamp }))
     }
   }
@@ -209,7 +160,7 @@ const NewOrder = () => {
   }
   const changePayment = (newText) => {
     setPayomentMeth(newText)
-    console.log("metodo de pago actual: ", newText)
+    return paymentMeth
   }
 
   return (
@@ -218,7 +169,7 @@ const NewOrder = () => {
       <section className='NewOrder__container'>
         <article className='NewOrder__deliver'>
           <p className='NewOrder__deliver__text mini-title'>Deliver to</p>
-          <div className='NewOrder__deliver__box' onClick={toEditLocation} >
+          <div className='NewOrder__deliver__box' onClick={toEditLocation} role='editLocation'>
             <figure className='NewOrder__deliver__location'>
               <img src={LocationYellow} alt="icono de ubicacion" />
             </figure>
@@ -232,14 +183,14 @@ const NewOrder = () => {
         <article className='NewOrder__payment'>
           <p className='NewOrder__payment__text'>Payment</p>
           <div className='NewOrder__payment__box'>
-            <div className={paymentMeth == "cash" ? "NewOrder__payment__cash selected" : "NewOrder__payment__cash"} onClick={() => changePayment("cash")}>Cash</div>
-            <div className={paymentMeth == "master" ? "NewOrder__payment__card selected" : "NewOrder__payment__card"} onClick={() => changePayment("master")}>
+            <div role='cash' className={paymentMeth == "cash" ? "NewOrder__payment__cash selected" : "NewOrder__payment__cash"} onClick={() => changePayment("cash")}>Cash</div>
+            <div role='master' className={paymentMeth == "master" ? "NewOrder__payment__card selected" : "NewOrder__payment__card"} onClick={() => changePayment("master")}>
               <figure>
                 <img src={mastercard} alt="targeta mastercard" />
               </figure>
               <p>Master Card</p>
             </div>
-            <div className={paymentMeth == "visa" ? "NewOrder__payment__card selected" : "NewOrder__payment__card"} onClick={() => changePayment("visa")}>
+            <div role='visa' className={paymentMeth == "visa" ? "NewOrder__payment__card selected" : "NewOrder__payment__card"} onClick={() => changePayment("visa")}>
               <figure>
                 <img src={visa} alt="targeta visa" />
               </figure>
@@ -249,18 +200,6 @@ const NewOrder = () => {
         </article>
 
         <article className='NewOrder__order'>
-          {/* <div className='NewOrder__order__ind'>
-            <figure className='NewOrder__order__image'>
-              <img src={foodExample} alt="comida" />
-            </figure>
-            <div className='NewOrder__order__console'>
-              <span className='NewOrder__order__minus'>-</span>
-              <span className='NewOrder__order__number'>1</span>
-              <span className='NewOrder__order__plus'>+</span>
-            </div>
-            <p className='NewOrder__order__name'>Vegetarian pizza</p>
-            <p className='NewOrder__order__cost'>$ 32.00</p>
-          </div> */}
           {
             orders ?
               (orders.map((element, index) => element &&
@@ -269,9 +208,9 @@ const NewOrder = () => {
                     <img src={element.imageDish} alt="comida" />
                   </figure>
                   <div className='NewOrder__order__console'>
-                    <span className='NewOrder__order__minus' onClick={() => toChangeAmountMinus(element)}>-</span>
-                    <span className='NewOrder__order__number'>{element.quantity}</span>
-                    <span className='NewOrder__order__plus' onClick={() => toChangeAmountPlus(element)}>+</span>
+                    <span  role="decrease" className='NewOrder__order__minus' onClick={() => toChangeAmountMinus(element)} >-</span>
+                    <span  role='value_quantity' className='NewOrder__order__number'>{element.quantity}</span>
+                    <span role="increaseBtn" className='NewOrder__order__plus' onClick={() => toChangeAmountPlus(element)} >+</span>
                   </div>
                   <p className='NewOrder__order__name'>{element.dish}</p>
                   <p className='NewOrder__order__cost'>$ {(element.quantity) * (element.basePrice)}</p>

@@ -47,7 +47,7 @@ const Login = () => {
       }
       <img src="/logo.svg" alt="" />
       <form className='login__form' onSubmit={handleSubmit(onSubmit)}>
-        <h1 className='login__title'>Login</h1>
+        <h1 className='login__title' role='Login'>Login</h1>
         <input
           className='login__input'
           type="email"
